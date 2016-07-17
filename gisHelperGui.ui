@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>GIS Helper</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabContainer">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>0</y>
+      <width>781</width>
+      <height>551</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>1</number>
+    </property>
+    <widget class="QWidget" name="gisCalc">
+     <attribute name="title">
+      <string>Gis Calculator</string>
+     </attribute>
+     <widget class="QGroupBox" name="centroidGroup">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>20</y>
+        <width>361</width>
+        <height>501</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QLabel" name="centroidCalcLabel">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>10</y>
+         <width>321</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Calculate Origin</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="westX_3">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>50</y>
+         <width>104</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>North Y</string>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="westX_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>90</y>
+         <width>104</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>East X</string>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="westX_4">
+       <property name="geometry">
+        <rect>
+         <x>130</x>
+         <y>130</y>
+         <width>104</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>South Y</string>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="westX">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>90</y>
+         <width>104</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>West X</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="originClearButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>470</y>
+         <width>113</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="originCalculateButton">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>470</y>
+         <width>113</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Calculate</string>
+       </property>
+      </widget>
+      <widget class="QTextBrowser" name="originResults">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>380</y>
+         <width>321</width>
+         <height>31</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string/>
+       </property>
+      </widget>
+      <widget class="QLabel" name="originResultsLabel">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>350</y>
+         <width>321</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Origin</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="ddButtonCalcOrigin_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>230</y>
+         <width>131</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Decimal Degrees</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="llButtonCalcOrigin_4">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>260</y>
+         <width>131</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Lat/Lon</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>200</y>
+         <width>141</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Coordinate System</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="originGroup">
+      <property name="geometry">
+       <rect>
+        <x>410</x>
+        <y>20</y>
+        <width>361</width>
+        <height>501</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string/>
+      </property>
+      <widget class="QLabel" name="centroidCalcLabel_2">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>10</y>
+         <width>321</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+         <weight>75</weight>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Convert Coordinates</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="westX_5">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>90</y>
+         <width>131</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>X</string>
+       </property>
+      </widget>
+      <widget class="QTextEdit" name="westX_7">
+       <property name="geometry">
+        <rect>
+         <x>193</x>
+         <y>90</y>
+         <width>131</width>
+         <height>27</height>
+        </rect>
+       </property>
+       <property name="placeholderText">
+        <string>Y</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="convCoordClear">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>470</y>
+         <width>113</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Clear</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="convCoordCalc">
+       <property name="geometry">
+        <rect>
+         <x>240</x>
+         <y>470</y>
+         <width>113</width>
+         <height>32</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Calculate</string>
+       </property>
+      </widget>
+      <widget class="QComboBox" name="conversionCombo">
+       <property name="geometry">
+        <rect>
+         <x>40</x>
+         <y>160</y>
+         <width>291</width>
+         <height>26</height>
+        </rect>
+       </property>
+       <item>
+        <property name="text">
+         <string>Lat/Lon to Decimal Degrees</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Decimal Degrees to Lat/Lon</string>
+        </property>
+       </item>
+      </widget>
+     </widget>
+     <widget class="QLabel" name="coordinatesResultsLabel">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>370</y>
+        <width>321</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Converted Coordinates</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="coordConvertResults">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>400</y>
+        <width>321</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string/>
+      </property>
+     </widget>
+     <zorder>originGroup</zorder>
+     <zorder>centroidGroup</zorder>
+     <zorder>coordinatesResultsLabel</zorder>
+     <zorder>coordConvertResults</zorder>
+    </widget>
+    <widget class="QWidget" name="catalogTiff">
+     <attribute name="title">
+      <string>Catalog Tiffs</string>
+     </attribute>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>30</y>
+        <width>121</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Geotiff Directory: </string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>30</y>
+        <width>461</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="overwriteMode">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="catalogTiffBrowseButton">
+      <property name="geometry">
+       <rect>
+        <x>622</x>
+        <y>26</y>
+        <width>113</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Browse</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="tiffCatalogOutputLabel">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>78</y>
+        <width>105</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Output Shapefile: </string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="textEdit_2">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>76</y>
+        <width>461</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="overwriteMode">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="catalogTiffBrowseButton_2">
+      <property name="geometry">
+       <rect>
+        <x>622</x>
+        <y>72</y>
+        <width>113</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Browse</string>
+      </property>
+     </widget>
+     <widget class="QTextEdit" name="catalogTiffOutputWindow">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>160</y>
+        <width>755</width>
+        <height>357</height>
+       </rect>
+      </property>
+      <property name="readOnly">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="copyTiffs">
+     <attribute name="title">
+      <string>Copy Tiffs</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="qkShp">
+     <attribute name="title">
+      <string>Shapefile QuickView</string>
+     </attribute>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
