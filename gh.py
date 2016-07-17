@@ -3,6 +3,8 @@ Tools to help with various GIS tasks
 Robert Ross Wardrup
 """
 
+# TODO: database SHP scanner - scan subdirectories and catalog all shapedata.
+
 import sys
 
 from PyQt5 import uic, QtWidgets
@@ -19,6 +21,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
+        self.setFixedSize(self.size())
 
         self.originCalculateButton.clicked.connect(self.calculateOrigin)
 
@@ -42,6 +45,7 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in coordinates:
             if len(i) == 1:
                 blank_entry = True
+                output = "Invalid input."
 
         if not blank_entry:
             north_y = float(coordinates[0])
