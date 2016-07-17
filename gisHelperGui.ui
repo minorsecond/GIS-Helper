@@ -207,13 +207,13 @@
         </rect>
        </property>
        <property name="inputMask">
-        <string>999.9999</string>
+        <string/>
        </property>
        <property name="text">
-        <string>.</string>
+        <string/>
        </property>
        <property name="maxLength">
-        <number>8</number>
+        <number>32767</number>
        </property>
        <property name="placeholderText">
         <string>East X</string>
@@ -232,10 +232,10 @@
         </rect>
        </property>
        <property name="inputMask">
-        <string>999.9999</string>
+        <string/>
        </property>
        <property name="maxLength">
-        <number>8</number>
+        <number>32767</number>
        </property>
        <property name="placeholderText">
         <string>West X</string>
@@ -248,7 +248,7 @@
        <property name="geometry">
         <rect>
          <x>128</x>
-         <y>68</y>
+         <y>60</y>
          <width>103</width>
          <height>29</height>
         </rect>
@@ -260,13 +260,13 @@
         <bool>false</bool>
        </property>
        <property name="inputMask">
-        <string>999.9999</string>
+        <string/>
        </property>
        <property name="text">
-        <string>.</string>
+        <string/>
        </property>
        <property name="maxLength">
-        <number>8</number>
+        <number>32767</number>
        </property>
        <property name="cursorPosition">
         <number>0</number>
@@ -282,16 +282,16 @@
        <property name="geometry">
         <rect>
          <x>128</x>
-         <y>148</y>
+         <y>160</y>
          <width>103</width>
          <height>29</height>
         </rect>
        </property>
        <property name="inputMask">
-        <string>999.9999</string>
+        <string/>
        </property>
        <property name="maxLength">
-        <number>8</number>
+        <number>32767</number>
        </property>
        <property name="placeholderText">
         <string>South Y</string>
@@ -330,7 +330,7 @@
        <property name="geometry">
         <rect>
          <x>128</x>
-         <y>48</y>
+         <y>40</y>
          <width>59</width>
          <height>16</height>
         </rect>
@@ -343,7 +343,7 @@
        <property name="geometry">
         <rect>
          <x>128</x>
-         <y>128</y>
+         <y>140</y>
          <width>59</width>
          <height>16</height>
         </rect>
@@ -453,10 +453,10 @@
         </rect>
        </property>
        <property name="inputMask">
-        <string>999.9999</string>
+        <string/>
        </property>
        <property name="maxLength">
-        <number>8</number>
+        <number>32767</number>
        </property>
        <property name="placeholderText">
         <string>West X</string>
@@ -475,13 +475,13 @@
         </rect>
        </property>
        <property name="inputMask">
-        <string>999.9999</string>
+        <string/>
        </property>
        <property name="text">
-        <string>.</string>
+        <string/>
        </property>
        <property name="maxLength">
-        <number>8</number>
+        <number>32767</number>
        </property>
        <property name="placeholderText">
         <string>East X</string>

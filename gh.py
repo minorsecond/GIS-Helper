@@ -14,9 +14,7 @@ qtCreatorFile = "gisHelperGui.ui"  # Enter file here.
 Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
 
 
-class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
-    entries_valid = False
-
+class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
@@ -24,6 +22,16 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setFixedSize(self.size())
 
         self.originCalculateButton.clicked.connect(self.calculateOrigin)
+
+    def error_popup(self, title, message, info):
+        error_popup = QtWidgets.QMessageBox()
+        error_popup.setIcon(error_popup.Critical)
+        error_popup.setText(message)
+        error_popup.setWindowTitle(title)
+        error_popup.setInformativeText(info)
+        error_popup.setStandardButtons(error_popup.Ok)
+
+        error_popup.exec()
 
     def calculateOrigin(self):
         """
@@ -43,11 +51,15 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
         coordinates = (north_y, south_y, east_x, west_x)
 
         for i in coordinates:
-            if len(i) == 1:
+            if len(i) == 0:
                 blank_entry = True
-                output = "Invalid input."
 
-        if not blank_entry:
+        if blank_entry:
+            title = "Error"
+            text = "Missing coordinate(s) input."
+            info = "Check that all coordinate fields contain valid values."
+            self.error_popup(title, text, info)
+        else:
             north_y = float(coordinates[0])
             south_y = float(coordinates[1])
             east_x = float(coordinates[2])
@@ -55,6 +67,6 @@ class MyApp(QtWidgets.QMainWindow, Ui_MainWindow):
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    window = MyApp()
+    window = gishelper()
     window.show()
     sys.exit(app.exec_())
