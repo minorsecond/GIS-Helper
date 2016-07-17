@@ -43,8 +43,11 @@
       <family>Arial</family>
      </font>
     </property>
+    <property name="acceptDrops">
+     <bool>false</bool>
+    </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="gisCalc">
      <attribute name="title">
@@ -53,7 +56,7 @@
      <widget class="QGroupBox" name="centroidGroup">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>4</x>
         <y>20</y>
         <width>361</width>
         <height>501</height>
@@ -909,7 +912,7 @@
      <widget class="QPushButton" name="pushButton">
       <property name="geometry">
        <rect>
-        <x>652</x>
+        <x>642</x>
         <y>28</y>
         <width>113</width>
         <height>32</height>
@@ -922,7 +925,7 @@
      <widget class="QPushButton" name="pushButton_2">
       <property name="geometry">
        <rect>
-        <x>652</x>
+        <x>642</x>
         <y>60</y>
         <width>113</width>
         <height>32</height>
@@ -935,7 +938,7 @@
      <widget class="QPushButton" name="pushButton_3">
       <property name="geometry">
        <rect>
-        <x>652</x>
+        <x>642</x>
         <y>92</y>
         <width>113</width>
         <height>32</height>
@@ -994,6 +997,86 @@
      <attribute name="title">
       <string>Shapefile QuickView</string>
      </attribute>
+     <widget class="QGraphicsView" name="shapeViewWindow">
+      <property name="geometry">
+       <rect>
+        <x>6</x>
+        <y>54</y>
+        <width>763</width>
+        <height>433</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_13">
+      <property name="geometry">
+       <rect>
+        <x>22</x>
+        <y>20</y>
+        <width>73</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Arial</family>
+       </font>
+      </property>
+      <property name="text">
+       <string>Shapefile: </string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="shapefileViewPath">
+      <property name="geometry">
+       <rect>
+        <x>188</x>
+        <y>18</y>
+        <width>433</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="shapefileViewBrowseButton">
+      <property name="geometry">
+       <rect>
+        <x>642</x>
+        <y>14</y>
+        <width>113</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Browse</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="shapefileViewClear">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>490</y>
+        <width>113</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Clear</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="shapefileViewGo">
+      <property name="geometry">
+       <rect>
+        <x>640</x>
+        <y>490</y>
+        <width>113</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Open Shape</string>
+      </property>
+     </widget>
     </widget>
    </widget>
   </widget>

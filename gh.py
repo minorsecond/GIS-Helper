@@ -7,6 +7,8 @@ Robert Ross Wardrup
 
 import sys
 
+import matplotlib.pyplot as plt
+import shapefile
 from PyQt5 import uic, QtWidgets
 
 qtCreatorFile = "gisHelperGui.ui"  # Enter file here.
@@ -23,6 +25,20 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.originCalculateButton.clicked.connect(self.calculateOrigin)
         self.originClearButton.clicked.connect(self.clear_origin_fields)
+
+        self.shapefileViewBrowseButton.clicked.connect(self.browseFileSystem)
+        self.shapefileViewGo.clicked.connect(self.display_shapefile)
+
+        plt.rcParams['toolbar'] = 'None'
+
+    def browseFileSystem(self):
+        """
+        Browse file system for files
+        :return:
+        """
+
+        openfile = QtWidgets.QFileDialog.getOpenFileName(self)
+        self.shapefileViewPath.setText(openfile[0])
 
     def error_popup(self, title, message, info):
         error_popup = QtWidgets.QMessageBox()
@@ -61,8 +77,8 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
             text = "Missing coordinate(s) input."
             info = "Check that all coordinate fields contain valid values."
             self.error_popup(title, text, info)
-        else:
 
+        else:
             try:
                 coordinates[0] = float(coordinates[0])
                 coordinates[1] = float(coordinates[1])
@@ -107,21 +123,26 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         dd = degrees + (minutes / 60) + (seconds / 3600)
 
-    def calculate_origin(self):
+    def display_shapefile(self):
         """
-        Calculate the origin, given bounding coordinates using a simple average of points
-        :return: the origin (double)
+        Display shape data on screen
+        :return:
         """
 
-        coordinates = self.coordinates
+        shpFilePath = self.shapefileViewPath.text()
 
-        x = [coordinates[2], coordinates[3]]
-        y = [coordinates[0], coordinates[1]]
+        if len(shpFilePath) > 0:
+            try:
+                shp = shapefile.Reader(shpFilePath)
+                for shape in shp.shapeRecords():
+                    x = [i[0] for i in shape.shape.points[:]]
+                    y = [i[1] for i in shape.shape.points[:]]
+                    plt.plot(x, y)
 
-        centroid = (sum(x) / len(coordinates), sum(y) / len(coordinates))
+                plt.show()
 
-        print(centroid)
-
+            except shapefile.ShapefileException:
+                self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
