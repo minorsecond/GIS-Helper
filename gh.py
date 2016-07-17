@@ -22,6 +22,7 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setFixedSize(self.size())
 
         self.originCalculateButton.clicked.connect(self.calculateOrigin)
+        self.originClearButton.clicked.connect(self.clear_origin_fields)
 
     def error_popup(self, title, message, info):
         error_popup = QtWidgets.QMessageBox()
@@ -40,6 +41,7 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
         """
 
         blank_entry = False
+        outputText = self.originOutputBox
 
         # Grab values from text entry boxes and convert to floats
         # TODO: Data validation
@@ -48,7 +50,7 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
         east_x = self.eastXEntry.text()
         west_x = self.westXEntry.text()
 
-        coordinates = (north_y, south_y, east_x, west_x)
+        coordinates = [north_y, south_y, east_x, west_x]
 
         for i in coordinates:
             if len(i) == 0:
@@ -60,10 +62,59 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
             info = "Check that all coordinate fields contain valid values."
             self.error_popup(title, text, info)
         else:
-            north_y = float(coordinates[0])
-            south_y = float(coordinates[1])
-            east_x = float(coordinates[2])
-            west_x = float(coordinates[3])
+            coordinates[0] = float(coordinates[0])
+            coordinates[1] = float(coordinates[1])
+            coordinates[2] = float(coordinates[2])
+            coordinates[3] = float(coordinates[3])
+
+            x = [coordinates[2], coordinates[3]]
+            y = [coordinates[0], coordinates[1]]
+
+            centroid = (sum(x) / len(coordinates), sum(y) / len(coordinates))
+            centroid = "{0}, {1}".format(centroid[0], centroid[1])
+
+            outputText.setText(centroid)
+
+    def clear_origin_fields(self):
+        self.northYEntry.clear()
+        self.southYEntry.clear()
+        self.eastXEntry.clear()
+        self.westXEntry.clear()
+        self.originOutputBox.clear()
+
+    def dd_to_dms(self):
+        """
+        Convert decimal degrees to lat/lon
+        :return: lat/lon value
+        """
+
+    def dms_to_dd(self):
+        """
+        Convert dms to decimal degrees
+        :return: dd
+        """
+
+        degrees = 0
+        minutes = 0
+        seconds = 0
+
+        dd = degrees + (minutes / 60) + (seconds / 3600)
+
+    def calculate_origin(self):
+        """
+        Calculate the origin, given bounding coordinates using a simple average of points
+        :return: the origin (double)
+        """
+
+        coordinates = self.coordinates
+
+        x = [coordinates[2], coordinates[3]]
+        y = [coordinates[0], coordinates[1]]
+
+        centroid = (sum(x) / len(coordinates), sum(y) / len(coordinates))
+
+        print(centroid)
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
