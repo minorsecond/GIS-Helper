@@ -47,11 +47,11 @@
      <bool>false</bool>
     </property>
     <property name="currentIndex">
-     <number>3</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="gisCalc">
      <attribute name="title">
-      <string>Gis Calculator</string>
+      <string>GIS Calculator</string>
      </attribute>
      <widget class="QGroupBox" name="centroidGroup">
       <property name="geometry">
@@ -425,23 +425,6 @@
         <bool>true</bool>
        </property>
       </widget>
-      <zorder>centroidCalcLabel</zorder>
-      <zorder>originClearButton</zorder>
-      <zorder>originCalculateButton</zorder>
-      <zorder>originResultsLabel</zorder>
-      <zorder>ddButtonCalcOrigin_2</zorder>
-      <zorder>llButtonCalcOrigin_4</zorder>
-      <zorder>label</zorder>
-      <zorder>westXEntry</zorder>
-      <zorder>eastXEntry</zorder>
-      <zorder>northYEntry</zorder>
-      <zorder>southYEntry</zorder>
-      <zorder>label_3</zorder>
-      <zorder>label_4</zorder>
-      <zorder>label_5</zorder>
-      <zorder>label_6</zorder>
-      <zorder>originOutputBox</zorder>
-      <zorder>coordinatesResultsLabel</zorder>
      </widget>
      <widget class="QGroupBox" name="originGroup">
       <property name="geometry">
