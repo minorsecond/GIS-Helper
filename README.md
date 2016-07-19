@@ -1,29 +1,13 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
-
-### What is this repository for? ###
-
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+A tool to facilitate Content Engineer GIS tasks.
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
+* Requires Python 3.5.
+* Clone repository and run 'pip3 install -r requirements.txt'.
+* In Windows, run the build.bat file. Pyinstaller must be present.
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Robert Ross Wardrup (minorsecond@gmail.com)
