@@ -9,11 +9,8 @@ import sys
 
 import matplotlib.pyplot as plt
 import shapefile
-from PyQt5 import uic, QtWidgets
-
-qtCreatorFile = "gisHelperGui.ui"  # Enter file here.
-
-Ui_MainWindow, QtBaseClass = uic.loadUiType(qtCreatorFile)
+# from PyQt5 import uic, QtWidgets
+from gui import *
 
 
 class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
