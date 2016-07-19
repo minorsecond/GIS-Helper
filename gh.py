@@ -9,7 +9,8 @@ import sys
 
 import matplotlib.pyplot as plt
 import shapefile
-# from PyQt5 import uic, QtWidgets
+from descartes import PolygonPatch
+
 from gui import *
 
 
@@ -85,7 +86,7 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
                 x = [coordinates[2], coordinates[3]]
                 y = [coordinates[0], coordinates[1]]
 
-                centroid = (sum(x) / len(coordinates), sum(y) / len(coordinates))
+                centroid = (sum(x) / 2, sum(y) / 2)
                 centroid = "{0}, {1}".format(centroid[0], centroid[1])
 
                 outputText.setText(centroid)
@@ -120,6 +121,37 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         dd = degrees + (minutes / 60) + (seconds / 3600)
 
+    def bounding_box(self, shapefile):
+        """
+        Get bounding box of shapefile
+        :return:
+        """
+
+        ll_lat = 9999999999.9
+        ll_lon = 9999999999.9
+        ur_lat = 0.0
+        ur_lon = 0.0
+
+        shapefile = shapefile.shapes()
+        bounding_box = [ll_lon, ll_lat, ur_lon, ur_lat]
+
+        for i in shapefile:
+            bbox = i.bbox
+            if bbox[0] < bounding_box[0]:
+                bounding_box[0] = bbox[0]
+
+            if bbox[1] < bounding_box[1]:
+                bounding_box[1] = bbox[1]
+
+            if bbox[2] > bounding_box[2]:
+                bounding_box[2] = bbox[2]
+
+            if bbox[3] > bounding_box[3]:
+                bounding_box[3] = bbox[3]
+
+        return bounding_box
+
+
     def display_shapefile(self):
         """
         Display shape data on screen
@@ -131,12 +163,30 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
         if len(shpFilePath) > 0:
             try:
                 shp = shapefile.Reader(shpFilePath)
-                for shape in shp.shapeRecords():
-                    x = [i[0] for i in shape.shape.points[:]]
-                    y = [i[1] for i in shape.shape.points[:]]
-                    plt.plot(x, y)
+                poly = shp.iterShapes().__next__().__geo_interface__
+                bounds = self.bounding_box(shp)
+                w, h = bounds[3] - bounds[1], bounds[2] - bounds[0]
+                blue = '#6699cc'
 
-                plt.show()
+                fig = plt.figure()
+                ax = fig.gca()
+                try:
+                    ax.add_patch(PolygonPatch(poly, fc=blue, ec=blue, alpha=0.5, zorder=2))
+                    ax.axis('scaled')
+                    ax.relim()
+                    ax.autoscale()
+                    plt.show(1)
+                except AssertionError:
+                    self.error_popup('Error', 'Shapefile is not polygon.', 'Check feature type and try again.')
+                    try:
+                        for shape in shp.shapeRecords():
+                            x = [i[0] for i in shape.shape.points[:]]
+                            y = [i[1] for i in shape.shape.points[:]]
+                            plt.plot(x, y)
+                        plt.show(1)
+                    except AssertionError:
+                        self.error_popup('Error', 'Shapefile does not contain points.',
+                                         'Check feature type and try again')
 
             except shapefile.ShapefileException:
                 self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
