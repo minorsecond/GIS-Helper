@@ -9,7 +9,6 @@ import sys
 
 import matplotlib.pyplot as plt
 import shapefile
-from descartes import PolygonPatch
 
 from gui import *
 
@@ -163,30 +162,17 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
         if len(shpFilePath) > 0:
             try:
                 shp = shapefile.Reader(shpFilePath)
-                poly = shp.iterShapes().__next__().__geo_interface__
-                bounds = self.bounding_box(shp)
-                w, h = bounds[3] - bounds[1], bounds[2] - bounds[0]
-                blue = '#6699cc'
-
-                fig = plt.figure()
-                ax = fig.gca()
+                plt.figure()
                 try:
-                    ax.add_patch(PolygonPatch(poly, fc=blue, ec=blue, alpha=0.5, zorder=2))
-                    ax.axis('scaled')
-                    ax.relim()
-                    ax.autoscale()
+                    for shape in shp.shapeRecords():
+                        x = [i[0] for i in shape.shape.points[:]]
+                        y = [i[1] for i in shape.shape.points[:]]
+                        plt.plot(x, y)
                     plt.show(1)
                 except AssertionError:
-                    self.error_popup('Error', 'Shapefile is not polygon.', 'Check feature type and try again.')
-                    try:
-                        for shape in shp.shapeRecords():
-                            x = [i[0] for i in shape.shape.points[:]]
-                            y = [i[1] for i in shape.shape.points[:]]
-                            plt.plot(x, y)
-                        plt.show(1)
-                    except AssertionError:
-                        self.error_popup('Error', 'Shapefile does not contain points.',
-                                         'Check feature type and try again')
+                    self.error_popup('Error', 'Shapefile does not contain points.',
+                                     'Check feature type and try again')
+
 
             except shapefile.ShapefileException:
                 self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
