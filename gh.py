@@ -204,8 +204,8 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
                 plt.figure()
                 try:
                     for shape in shp.shapeRecords():
-                        x = [i[0] for i in shape.shape.points[:]]
-                        y = [i[1] for i in shape.shape.points[:]]
+                        xy = [i for i in shape.shape.points[:]]
+                        x, y = zip(*[(j[0], j[1]) for j in xy])
                         plt.plot(x, y)
                     plt.show(1)
                 except AssertionError:
