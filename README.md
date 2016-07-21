@@ -1,6 +1,6 @@
 # README #
 
-A tool to facilitate Content Engineer GIS tasks.
+A tool to facilitate GIS tasks.
 
 ### How do I get set up? ###
 
