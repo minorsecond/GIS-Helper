@@ -6,6 +6,7 @@ Robert Ross Wardrup
 # TODO: database SHP scanner - scan subdirectories and catalog all shapedata.
 
 import sys
+from math import modf
 
 import matplotlib.pyplot as plt
 import shapefile
@@ -22,6 +23,9 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.originCalculateButton.clicked.connect(self.calculateOrigin)
         self.originClearButton.clicked.connect(self.clear_origin_fields)
+
+        self.convCoordCalc.clicked.connect(self.dd_to_dms)
+        self.convCoordClear.clicked.connect(self.clear_convert_fields)
 
         self.shapefileViewBrowseButton.clicked.connect(self.browseFileSystem)
         self.shapefileViewGo.clicked.connect(self.display_shapefile)
@@ -92,7 +96,7 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
             except ValueError:
                 self.error_popup('Error', 'Error converting coordinates to decimal numbers.', 'Check to ensure '
-                                                                                              'coordinate input boxes '
+                                                                                              'coordinate input '
                                                                                               'contain only numbers.')
 
     def clear_origin_fields(self):
@@ -102,11 +106,44 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.westXEntry.clear()
         self.originOutputBox.clear()
 
+    def clear_convert_fields(self):
+        self.converCoordsEntry.clear()
+        self.converterOutput.clear()
+
     def dd_to_dms(self):
         """
         Convert decimal degrees to lat/lon
         :return: lat/lon value
         """
+
+        blank_entry = False
+        input_coord = self.converCoordsEntry.text()
+        outputText = self.converterOutput
+        if len(input_coord) == 0:
+            blank_entry = True
+            title = "Error"
+            text = "Missing coordinate input."
+            info = "Check that coordinate field contains valid value."
+            self.error_popup(title, text, info)
+        else:
+            try:
+                input_coord = float(input_coord)
+                number_list = modf(input_coord)
+                print(number_list)
+                integer = number_list[1]
+                decimal = number_list[0]
+
+                degrees = int(integer)
+                minutes = int(60 * decimal)
+                # seconds = int(60 * modf(minutes)[1])
+                seconds = round(((decimal - (minutes / 60)) * 3600), 3)
+
+                output = '{0}d, {1}m, {2}s'.format(degrees, minutes, seconds)
+                outputText.setText(output)
+
+            except ValueError:
+                self.error_popup('Error', 'Error converting decimal degrees to lat/lon.', 'Check to ensure coordinate '
+                                                                                          'input only contains numbers.')
 
     def dms_to_dd(self):
         """
@@ -117,6 +154,8 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
         degrees = 0
         minutes = 0
         seconds = 0
+
+        input_coord = self.converCoordsEntry.text()
 
         dd = degrees + (minutes / 60) + (seconds / 3600)
 

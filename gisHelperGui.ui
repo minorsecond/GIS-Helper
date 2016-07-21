@@ -471,7 +471,7 @@
       </widget>
       <widget class="QPushButton" name="convCoordClear">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="geometry">
         <rect>
@@ -492,7 +492,7 @@
       </widget>
       <widget class="QPushButton" name="convCoordCalc">
        <property name="enabled">
-        <bool>false</bool>
+        <bool>true</bool>
        </property>
        <property name="geometry">
         <rect>
@@ -515,7 +515,7 @@
        <property name="geometry">
         <rect>
          <x>40</x>
-         <y>180</y>
+         <y>48</y>
          <width>291</width>
          <height>26</height>
         </rect>
@@ -536,100 +536,7 @@
         </property>
        </item>
       </widget>
-      <widget class="QLineEdit" name="westXEntry_2">
-       <property name="geometry">
-        <rect>
-         <x>241</x>
-         <y>108</y>
-         <width>103</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>32767</number>
-       </property>
-       <property name="placeholderText">
-        <string>West X</string>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="eastXEntry_2">
-       <property name="geometry">
-        <rect>
-         <x>16</x>
-         <y>108</y>
-         <width>103</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>32767</number>
-       </property>
-       <property name="placeholderText">
-        <string>East X</string>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_7">
-       <property name="geometry">
-        <rect>
-         <x>16</x>
-         <y>88</y>
-         <width>59</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>X</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_8">
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>88</y>
-         <width>59</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Y</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="lineEdit_5">
+      <widget class="QLineEdit" name="converterOutput">
        <property name="geometry">
         <rect>
          <x>22</x>
@@ -640,6 +547,33 @@
        </property>
        <property name="readOnly">
         <bool>true</bool>
+       </property>
+      </widget>
+      <widget class="QLineEdit" name="converCoordsEntry">
+       <property name="geometry">
+        <rect>
+         <x>120</x>
+         <y>108</y>
+         <width>126</width>
+         <height>29</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>Arial</family>
+        </font>
+       </property>
+       <property name="inputMask">
+        <string/>
+       </property>
+       <property name="maxLength">
+        <number>32767</number>
+       </property>
+       <property name="placeholderText">
+        <string>Input Coordinates</string>
+       </property>
+       <property name="clearButtonEnabled">
+        <bool>false</bool>
        </property>
       </widget>
      </widget>
