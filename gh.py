@@ -206,7 +206,7 @@ def origin_calc(coords):
     blank_entry = False
 
     for i in coords:
-        if len(i) == 0:
+        if not coords:
             blank_entry = True
 
     if not blank_entry:
@@ -232,22 +232,21 @@ def dd_to_dms(coords):
     :param coords: a float (DD)
     :return: DMS coordinates
     """
-    if len(coords) > 0:
-        try:
-            input_coord = float(coords)
-            number_list = modf(input_coord)
-            integer = number_list[1]
-            decimal = number_list[0]
 
-            degrees = int(integer)
-            minutes = int(60 * decimal)
-            seconds = round(((decimal - (minutes / 60)) * 3600), 3)
+    try:
+        input_coord = float(coords)
+        number_list = modf(input_coord)
+        integer = number_list[1]
+        decimal = number_list[0]
 
-            return (degrees, minutes, seconds)
-        except Exception as e:
-            print(e)
-    else:
+        degrees = int(integer)
+        minutes = int(60 * decimal)
+        seconds = round(((decimal - (minutes / 60)) * 3600), 3)
+
+        return (degrees, minutes, seconds)
+    except Exception as e:
         return False
+        print(e)
 
 
 if __name__ == "__main__":
