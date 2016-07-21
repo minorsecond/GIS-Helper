@@ -14,25 +14,25 @@ import shapefile
 from gui import *
 
 
-class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
+class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setFixedSize(self.size())
 
-        self.originCalculateButton.clicked.connect(self.calculateOrigin)
+        self.originCalculateButton.clicked.connect(self.calculate_origin)
         self.originClearButton.clicked.connect(self.clear_origin_fields)
 
         self.convCoordCalc.clicked.connect(self.dd_to_dms)
         self.convCoordClear.clicked.connect(self.clear_convert_fields)
 
-        self.shapefileViewBrowseButton.clicked.connect(self.browseFileSystem)
+        self.shapefileViewBrowseButton.clicked.connect(self.browse_filesystem)
         self.shapefileViewGo.clicked.connect(self.display_shapefile)
 
         plt.rcParams['toolbar'] = 'None'
 
-    def browseFileSystem(self):
+    def browse_filesystem(self):
         """
         Browse file system for files
         :return:
@@ -51,17 +51,16 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         error_popup.exec()
 
-    def calculateOrigin(self):
+    def calculate_origin(self):
         """
         Calculates the origin, given bounding box coordinates
         :return: Origin
         """
 
         blank_entry = False
-        outputText = self.originOutputBox
+        output_text = self.originOutputBox
 
         # Grab values from text entry boxes and convert to floats
-        # TODO: Data validation
         north_y = self.northYEntry.text()
         south_y = self.southYEntry.text()
         east_x = self.eastXEntry.text()
@@ -92,7 +91,7 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
                 centroid = (sum(x) / 2, sum(y) / 2)
                 centroid = "{0}, {1}".format(centroid[0], centroid[1])
 
-                outputText.setText(centroid)
+                output_text.setText(centroid)
 
             except ValueError:
                 self.error_popup('Error', 'Error converting coordinates to decimal numbers.', 'Check to ensure '
@@ -116,15 +115,14 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return: lat/lon value
         """
 
-        blank_entry = False
         input_coord = self.converCoordsEntry.text()
-        outputText = self.converterOutput
+        output_text = self.converterOutput
         if len(input_coord) == 0:
-            blank_entry = True
             title = "Error"
             text = "Missing coordinate input."
             info = "Check that coordinate field contains valid value."
             self.error_popup(title, text, info)
+
         else:
             try:
                 input_coord = float(input_coord)
@@ -139,11 +137,11 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
                 seconds = round(((decimal - (minutes / 60)) * 3600), 3)
 
                 output = '{0}d, {1}m, {2}s'.format(degrees, minutes, seconds)
-                outputText.setText(output)
+                output_text.setText(output)
 
             except ValueError:
-                self.error_popup('Error', 'Error converting decimal degrees to lat/lon.', 'Check to ensure coordinate '
-                                                                                          'input only contains numbers.')
+                self.error_popup('Error', 'Error converting decimal degrees to lat/lon.',
+                                 'Check to ensure coordinate input only contains numbers.')
 
     def dms_to_dd(self):
         """
@@ -159,7 +157,7 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         dd = degrees + (minutes / 60) + (seconds / 3600)
 
-    def bounding_box(self, shapefile):
+    def bounding_box(self, shp):
         """
         Get bounding box of shapefile
         :return:
@@ -170,10 +168,10 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
         ur_lat = 0.0
         ur_lon = 0.0
 
-        shapefile = shapefile.shapes()
+        shp = shp.shapes()
         bounding_box = [ll_lon, ll_lat, ur_lon, ur_lat]
 
-        for i in shapefile:
+        for i in shp:
             bbox = i.bbox
             if bbox[0] < bounding_box[0]:
                 bounding_box[0] = bbox[0]
@@ -189,18 +187,17 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         return bounding_box
 
-
     def display_shapefile(self):
         """
         Display shape data on screen
         :return:
         """
 
-        shpFilePath = self.shapefileViewPath.text()
+        shp_path = self.shapefileViewPath.text()
 
-        if len(shpFilePath) > 0:
+        if len(shp_path) > 0:
             try:
-                shp = shapefile.Reader(shpFilePath)
+                shp = shapefile.Reader(shp_path)
                 plt.figure()
                 try:
                     for shape in shp.shapeRecords():
@@ -212,12 +209,11 @@ class gishelper(QtWidgets.QMainWindow, Ui_MainWindow):
                     self.error_popup('Error', 'Shapefile does not contain points.',
                                      'Check feature type and try again')
 
-
             except shapefile.ShapefileException:
                 self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
-    window = gishelper()
+    window = GisHelper()
     window.show()
     sys.exit(app.exec_())
