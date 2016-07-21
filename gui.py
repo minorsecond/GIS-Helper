@@ -8,7 +8,6 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -27,7 +26,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.tabContainer = QtWidgets.QTabWidget(self.centralwidget)
         self.tabContainer.setEnabled(True)
-        self.tabContainer.setGeometry(QtCore.QRect(10, 0, 781, 551))
+        self.tabContainer.setGeometry(QtCore.QRect(10, 0, 781, 575))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.tabContainer.setFont(font)
@@ -36,7 +35,7 @@ class Ui_MainWindow(object):
         self.gisCalc = QtWidgets.QWidget()
         self.gisCalc.setObjectName("gisCalc")
         self.centroidGroup = QtWidgets.QGroupBox(self.gisCalc)
-        self.centroidGroup.setGeometry(QtCore.QRect(4, 20, 361, 501))
+        self.centroidGroup.setGeometry(QtCore.QRect(4, 20, 361, 529))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.centroidGroup.setFont(font)
@@ -165,7 +164,7 @@ class Ui_MainWindow(object):
         self.originOutputBox.setReadOnly(True)
         self.originOutputBox.setObjectName("originOutputBox")
         self.originGroup = QtWidgets.QGroupBox(self.gisCalc)
-        self.originGroup.setGeometry(QtCore.QRect(410, 20, 361, 501))
+        self.originGroup.setGeometry(QtCore.QRect(410, 20, 361, 529))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.originGroup.setFont(font)
