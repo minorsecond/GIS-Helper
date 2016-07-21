@@ -205,8 +205,6 @@ def origin_calc(coords):
 
     blank_entry = False
 
-    print(coords)
-
     for i in coords:
         if len(i) == 0:
             blank_entry = True

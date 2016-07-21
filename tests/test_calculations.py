@@ -8,5 +8,5 @@ def test_dd_to_dms():
 
 
 def test_origin_calculation():
-    coordinates = [(43.7291, 26.2946), (43.8058, 26.3759)]
+    coordinates = [43.7291, 26.2946, 43.8058, 26.3759]
     assert origin_calc(coordinates) == '43.76745, 26.33525'
