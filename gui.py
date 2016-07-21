@@ -6,11 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 
-import datetime
-
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-buildno = datetime.datetime.now().strftime('%H%M%S')
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -30,7 +26,7 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.tabContainer = QtWidgets.QTabWidget(self.centralwidget)
         self.tabContainer.setEnabled(True)
-        self.tabContainer.setGeometry(QtCore.QRect(10, 0, 781, 575))
+        self.tabContainer.setGeometry(QtCore.QRect(10, 6, 781, 569))
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.tabContainer.setFont(font)
@@ -242,20 +238,12 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
-        self.textEdit = QtWidgets.QTextEdit(self.catalogTiff)
-        self.textEdit.setGeometry(QtCore.QRect(140, 30, 481, 21))
-        self.textEdit.setOverwriteMode(True)
-        self.textEdit.setObjectName("textEdit")
         self.catalogTiffBrowseButton = QtWidgets.QPushButton(self.catalogTiff)
         self.catalogTiffBrowseButton.setGeometry(QtCore.QRect(652, 26, 113, 32))
         self.catalogTiffBrowseButton.setObjectName("catalogTiffBrowseButton")
         self.tiffCatalogOutputLabel = QtWidgets.QLabel(self.catalogTiff)
         self.tiffCatalogOutputLabel.setGeometry(QtCore.QRect(12, 78, 105, 16))
         self.tiffCatalogOutputLabel.setObjectName("tiffCatalogOutputLabel")
-        self.textEdit_2 = QtWidgets.QTextEdit(self.catalogTiff)
-        self.textEdit_2.setGeometry(QtCore.QRect(140, 76, 481, 21))
-        self.textEdit_2.setOverwriteMode(True)
-        self.textEdit_2.setObjectName("textEdit_2")
         self.catalogTiffBrowseButton_2 = QtWidgets.QPushButton(self.catalogTiff)
         self.catalogTiffBrowseButton_2.setGeometry(QtCore.QRect(652, 72, 113, 32))
         self.catalogTiffBrowseButton_2.setObjectName("catalogTiffBrowseButton_2")
@@ -273,6 +261,12 @@ class Ui_MainWindow(object):
         self.progressBar_2.setGeometry(QtCore.QRect(16, 158, 745, 23))
         self.progressBar_2.setProperty("value", 0)
         self.progressBar_2.setObjectName("progressBar_2")
+        self.lineEdit_4 = QtWidgets.QLineEdit(self.catalogTiff)
+        self.lineEdit_4.setGeometry(QtCore.QRect(140, 28, 481, 21))
+        self.lineEdit_4.setObjectName("lineEdit_4")
+        self.lineEdit_5 = QtWidgets.QLineEdit(self.catalogTiff)
+        self.lineEdit_5.setGeometry(QtCore.QRect(140, 76, 481, 21))
+        self.lineEdit_5.setObjectName("lineEdit_5")
         self.tabContainer.addTab(self.catalogTiff, "")
         self.copyTiffs = QtWidgets.QWidget()
         self.copyTiffs.setObjectName("copyTiffs")
@@ -337,7 +331,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("Arial")
         self.label_13.setFont(font)
-        self.label_13.setAlignment(QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+        self.label_13.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_13.setObjectName("label_13")
         self.shapefileViewPath = QtWidgets.QLineEdit(self.qkShp)
         self.shapefileViewPath.setGeometry(QtCore.QRect(188, 18, 433, 21))
@@ -367,7 +361,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "GIS Helper - {0}".format(buildno)))
+        MainWindow.setWindowTitle(_translate("MainWindow", "GIS Helper"))
         self.centroidCalcLabel.setText(_translate("MainWindow", "Calculate Origin"))
         self.originClearButton.setText(_translate("MainWindow", "Clear"))
         self.originCalculateButton.setText(_translate("MainWindow", "Calculate"))
@@ -390,15 +384,13 @@ class Ui_MainWindow(object):
         self.conversionCombo.setItemText(1, _translate("MainWindow", "Decimal Degrees to Lat/Lon"))
         self.converCoordsEntry.setPlaceholderText(_translate("MainWindow", "Input Coordinates"))
         self.coordinatesResultsLabel.setText(_translate("MainWindow", "Converted Coordinates"))
-        self.tabContainer.setTabText(self.tabContainer.indexOf(self.gisCalc),
-                                     _translate("MainWindow", "GIS Calculator"))
+        self.tabContainer.setTabText(self.tabContainer.indexOf(self.gisCalc), _translate("MainWindow", "GIS Calculator"))
         self.label_2.setText(_translate("MainWindow", "Geotiff Directory: "))
         self.catalogTiffBrowseButton.setText(_translate("MainWindow", "Browse"))
         self.tiffCatalogOutputLabel.setText(_translate("MainWindow", "Output Directory: "))
         self.catalogTiffBrowseButton_2.setText(_translate("MainWindow", "Browse"))
         self.checkBox.setText(_translate("MainWindow", "Fan out by resolution"))
-        self.tabContainer.setTabText(self.tabContainer.indexOf(self.catalogTiff),
-                                     _translate("MainWindow", "Catalog Tiffs"))
+        self.tabContainer.setTabText(self.tabContainer.indexOf(self.catalogTiff), _translate("MainWindow", "Catalog Tiffs"))
         self.label_9.setText(_translate("MainWindow", "Geotiff Catalog Directory:"))
         self.label_10.setText(_translate("MainWindow", "Intersecting Shapepfile: "))
         self.label_11.setText(_translate("MainWindow", "Geotiff Output Directory: "))
@@ -411,5 +403,5 @@ class Ui_MainWindow(object):
         self.shapefileViewBrowseButton.setText(_translate("MainWindow", "Browse"))
         self.shapefileViewClear.setText(_translate("MainWindow", "Clear"))
         self.shapefileViewGo.setText(_translate("MainWindow", "Open Shape"))
-        self.tabContainer.setTabText(self.tabContainer.indexOf(self.qkShp),
-                                     _translate("MainWindow", "Shapefile QuickView"))
+        self.tabContainer.setTabText(self.tabContainer.indexOf(self.qkShp), _translate("MainWindow", "Shapefile QuickView"))
+
