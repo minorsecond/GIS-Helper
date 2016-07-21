@@ -6,7 +6,11 @@
 #
 # WARNING! All changes made in this file will be lost!
 
+import datetime
+
 from PyQt5 import QtCore, QtGui, QtWidgets
+
+buildno = datetime.datetime.now().strftime('%H%M%S')
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
@@ -363,7 +367,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "GIS Helper"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "GIS Helper - {0}".format(buildno)))
         self.centroidCalcLabel.setText(_translate("MainWindow", "Calculate Origin"))
         self.originClearButton.setText(_translate("MainWindow", "Clear"))
         self.originCalculateButton.setText(_translate("MainWindow", "Calculate"))
