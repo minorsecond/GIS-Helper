@@ -1,4 +1,4 @@
-from gh.py import GisHelper
+from gh import GisHelper
 GisHelper = GisHelper()
 
 def test_dd_to_dms():
