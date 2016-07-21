@@ -21,10 +21,10 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setFixedSize(self.size())
 
-        self.originCalculateButton.clicked.connect(self.calculate_origin)
+        self.originCalculateButton.clicked.connect(self.get_origin)
         self.originClearButton.clicked.connect(self.clear_origin_fields)
 
-        self.convCoordCalc.clicked.connect(self.dd_to_dms)
+        self.convCoordCalc.clicked.connect(self.get_dd_dms)
         self.convCoordClear.clicked.connect(self.clear_convert_fields)
 
         self.shapefileViewBrowseButton.clicked.connect(self.browse_filesystem)
@@ -51,9 +51,9 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         error_popup.exec()
 
-    def calculate_origin(self):
+    def get_origin(self):
         """
-        Calculates the origin, given bounding box coordinates
+        Button function to get origin calculation. Runs the origin_calc() function which runs the calculation.
         :return: Origin
         """
 
@@ -68,6 +68,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         coordinates = [north_y, south_y, east_x, west_x]
 
+        # Print error message if entry is blank
         for i in coordinates:
             if len(i) == 0:
                 blank_entry = True
@@ -79,24 +80,15 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             self.error_popup(title, text, info)
 
         else:
-            try:
-                coordinates[0] = float(coordinates[0])
-                coordinates[1] = float(coordinates[1])
-                coordinates[2] = float(coordinates[2])
-                coordinates[3] = float(coordinates[3])
-
-                x = [coordinates[2], coordinates[3]]
-                y = [coordinates[0], coordinates[1]]
-
-                centroid = (sum(x) / 2, sum(y) / 2)
+            centroid = origin_calc(coordinates)  # Get origin from origin_calc
+            if centroid:  # If a centroid is returned, print to text box.
                 centroid = "{0}, {1}".format(centroid[0], centroid[1])
-
                 output_text.setText(centroid)
-
-            except ValueError:
-                self.error_popup('Error', 'Error converting coordinates to decimal numbers.', 'Check to ensure '
-                                                                                              'coordinate input '
-                                                                                              'contain only numbers.')
+            else:  # Calculate_origin returned false, indicating invalid input. Print error message.
+                self.error_popup('Error', 'Error converting coordinates to decimal numbers.',
+                                 'Check to ensure '
+                                 'coordinate input '
+                                 'contain only numbers.')
 
     def clear_origin_fields(self):
         self.northYEntry.clear()
@@ -109,7 +101,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.converCoordsEntry.clear()
         self.converterOutput.clear()
 
-    def dd_to_dms(self):
+    def get_dd_dms(self):
         """
         Convert decimal degrees to lat/lon
         :return: lat/lon value
@@ -117,6 +109,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         input_coord = self.converCoordsEntry.text()
         output_text = self.converterOutput
+
         if len(input_coord) == 0:
             title = "Error"
             text = "Missing coordinate input."
@@ -125,19 +118,12 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         else:
             try:
-                input_coord = float(input_coord)
-                number_list = modf(input_coord)
-                print(number_list)
-                integer = number_list[1]
-                decimal = number_list[0]
-
-                degrees = int(integer)
-                minutes = int(60 * decimal)
-                # seconds = int(60 * modf(minutes)[1])
-                seconds = round(((decimal - (minutes / 60)) * 3600), 3)
-
-                output = '{0}d, {1}m, {2}s'.format(degrees, minutes, seconds)
-                output_text.setText(output)
+                degrees, minutes, seconds, valid = dd_to_dms(input_coord)
+                if valid:
+                    output = '{0}d, {1}m, {2}s'.format(degrees, minutes, seconds)
+                    output_text.setText(output)
+                else:
+                    self.error_popup('Error', 'Check input and try again.', '')
 
             except ValueError:
                 self.error_popup('Error', 'Error converting decimal degrees to lat/lon.',
@@ -211,6 +197,67 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
             except shapefile.ShapefileException:
                 self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
+
+
+def origin_calc(coords):
+    """
+    Calculates the origin of a bounding box
+    :param coords: List of tuples containing coordinates in (x,y),(x,y) format
+    :return: A list of xy coords denoting origin, false if coordinate entry is invalid
+    """
+
+    blank_entry = False
+
+    for i in coords:
+        if not coords:
+            blank_entry = True
+
+    if not blank_entry:
+        try:
+            coords[0] = float(coords[0])
+            coords[1] = float(coords[1])
+            coords[2] = float(coords[2])
+            coords[3] = float(coords[3])
+
+            x = [coords[2], coords[3]]
+            y = [coords[0], coords[1]]
+
+            centroid = (sum(x) / 2, sum(y) / 2)
+            return centroid
+
+        except ValueError:
+            return False
+
+
+def dd_to_dms(coords):
+    """
+    Calculates decimal degrees to degrees, minutes, seconds
+    :param coords: a float (DD)
+    :return: DMS coordinates
+    """
+    degrees = None
+    minutes = None
+    seconds = None
+    valid = True
+
+    try:
+        input_coord = float(coords)
+        if input_coord >= -180 and input_coord <= 180:
+            number_list = modf(input_coord)
+            integer = number_list[1]
+            decimal = number_list[0]
+
+            degrees = int(integer)
+            minutes = int(60 * decimal)
+            seconds = abs(round(((decimal - (minutes / 60)) * 3600), 3))
+        else:
+            valid = False
+
+    except Exception as e:
+        print(e)
+
+    return degrees, minutes, seconds, valid
+
 
 if __name__ == "__main__":
     app = QtWidgets.QApplication(sys.argv)
