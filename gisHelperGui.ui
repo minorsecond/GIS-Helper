@@ -33,9 +33,9 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>0</y>
+      <y>6</y>
       <width>781</width>
-      <height>575</height>
+      <height>569</height>
      </rect>
     </property>
     <property name="font">
@@ -628,19 +628,6 @@
        <string>Geotiff Directory: </string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="textEdit">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>30</y>
-        <width>481</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="overwriteMode">
-       <bool>true</bool>
-      </property>
-     </widget>
      <widget class="QPushButton" name="catalogTiffBrowseButton">
       <property name="geometry">
        <rect>
@@ -665,19 +652,6 @@
       </property>
       <property name="text">
        <string>Output Directory: </string>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="textEdit_2">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>76</y>
-        <width>481</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="overwriteMode">
-       <bool>true</bool>
       </property>
      </widget>
      <widget class="QPushButton" name="catalogTiffBrowseButton_2">
@@ -735,6 +709,26 @@
       </property>
       <property name="value">
        <number>0</number>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_4">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>28</y>
+        <width>481</width>
+        <height>21</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="lineEdit_5">
+      <property name="geometry">
+       <rect>
+        <x>140</x>
+        <y>76</y>
+        <width>481</width>
+        <height>21</height>
+       </rect>
       </property>
      </widget>
     </widget>
