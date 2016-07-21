@@ -118,9 +118,12 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         else:
             try:
-                degrees, minutes, seconds = dd_to_dms(input_coord)
-                output = '{0}d, {1}m, {2}s'.format(degrees, minutes, seconds)
-                output_text.setText(output)
+                degrees, minutes, seconds, valid = dd_to_dms(input_coord)
+                if valid:
+                    output = '{0}d, {1}m, {2}s'.format(degrees, minutes, seconds)
+                    output_text.setText(output)
+                else:
+                    self.error_popup('Error', 'Check input and try again.', '')
 
             except ValueError:
                 self.error_popup('Error', 'Error converting decimal degrees to lat/lon.',
@@ -232,21 +235,28 @@ def dd_to_dms(coords):
     :param coords: a float (DD)
     :return: DMS coordinates
     """
+    degrees = None
+    minutes = None
+    seconds = None
+    valid = True
 
     try:
         input_coord = float(coords)
-        number_list = modf(input_coord)
-        integer = number_list[1]
-        decimal = number_list[0]
+        if input_coord >= -180 and input_coord <= 180:
+            number_list = modf(input_coord)
+            integer = number_list[1]
+            decimal = number_list[0]
 
-        degrees = int(integer)
-        minutes = int(60 * decimal)
-        seconds = round(((decimal - (minutes / 60)) * 3600), 3)
+            degrees = int(integer)
+            minutes = int(60 * decimal)
+            seconds = abs(round(((decimal - (minutes / 60)) * 3600), 3))
+        else:
+            valid = False
 
-        return (degrees, minutes, seconds)
     except Exception as e:
-        return False
         print(e)
+
+    return degrees, minutes, seconds, valid
 
 
 if __name__ == "__main__":
