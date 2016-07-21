@@ -245,7 +245,7 @@ def dd_to_dms(coords):
             minutes = int(60 * decimal)
             seconds = round(((decimal - (minutes / 60)) * 3600), 3)
 
-            return degrees, minutes, seconds
+            return (degrees, minutes, seconds)
         except Exception as e:
             print(e)
     else:
