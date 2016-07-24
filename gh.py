@@ -8,8 +8,8 @@ Robert Ross Wardrup
 import sys
 from math import modf
 
+import fiona
 import matplotlib.pyplot as plt
-import shapefile
 
 from gui import *
 
@@ -39,7 +39,7 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         """
 
         openfile = QtGui.QFileDialog.getOpenFileName(self)
-        self.shapefileViewPath.setText(openfile[0])
+        self.shapefileViewPath.setText(openfile)
 
     def error_popup(self, title, message, info):
         error_popup = QtGui.QMessageBox()
@@ -199,21 +199,25 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
 
         if len(shp_path) > 0:
             try:
-                shp = shapefile.Reader(shp_path)
-                meta = self.get_shape_meta(shp)
-                plt.figure()
-                try:
-                    for shape in shp.shapeRecords():
-                        xy = [i for i in shape.shape.points[:]]
-                        x, y = zip(*[(j[0], j[1]) for j in xy])
-                        plt.plot(x, y)
-                    plt.show(1)
-                except AssertionError:
-                    self.error_popup('Error', 'Shapefile does not contain points.',
-                                     'Check feature type and try again')
+                shp = fiona.open(shp_path)
+                first = shp.next()
+                print(first)
 
-            except shapefile.ShapefileException:
-                self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
+                # meta = self.get_shape_meta(shp)
+                # plt.figure()
+                # try:
+                #    for shape in shp.shapeRecords():
+                #        xy = [i for i in shape.shape.points[:]]
+                #        x, y = zip(*[(j[0], j[1]) for j in xy])
+                #        plt.plot(x, y)
+                #    plt.show(1)
+                # except AssertionError:
+                #    self.error_popup('Error', 'Shapefile does not contain points.',
+                #                     'Check feature type and try again')
+
+            except Exception as e:
+                print(e)
+                #    self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
 
 
 def origin_calc(coords):
