@@ -1,3 +1,5 @@
 pyshp
-PyQt5
+pyqt
 matplotlib
+fiona
+gdal
