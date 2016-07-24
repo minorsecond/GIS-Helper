@@ -10,6 +10,10 @@ from math import modf
 
 import fiona
 import matplotlib.pyplot as plt
+import numpy as np
+from descartes import PolygonPatch
+from matplotlib.collections import PatchCollection
+from shapely.geometry import MultiPolygon, shape
 
 from gui import *
 
@@ -194,29 +198,42 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         Display shape data on screen
         :return:
         """
-
         shp_path = self.shapefileViewPath.text()
+        color_map = plt.get_cmap('RdBu')
+        num_colors = 1000
 
         if len(shp_path) > 0:
-            try:
-                shp = fiona.open(shp_path)
-                first = shp.next()
-                print(first)
+            # try:
 
-                # meta = self.get_shape_meta(shp)
-                # plt.figure()
-                # try:
-                #    for shape in shp.shapeRecords():
-                #        xy = [i for i in shape.shape.points[:]]
-                #        x, y = zip(*[(j[0], j[1]) for j in xy])
-                #        plt.plot(x, y)
-                #    plt.show(1)
-                # except AssertionError:
+            # Open shape data
+            shp = MultiPolygon(
+                [shape(pol['geometry']) for pol in fiona.open(shp_path)]
+            )
+
+            fig = plt.figure()
+
+            # try:
+            ax = fig.add_subplot(111)
+            minx, miny, maxx, maxy = shp.bounds
+            w, h = maxx - minx, maxy - miny
+            ax.set_xlim(minx - 0.2 * w, maxx + 0.2 * w)
+            ax.set_ylim(miny - 0.2 * h, maxy + 0.2 * h)
+            ax.set_aspect(1)
+
+            patches = []
+            for idx, p in enumerate(shp):
+                colour = color_map(1. * idx / num_colors)
+                patches.append(PolygonPatch(p, fc=np.random.rand(3, ), ec='#555555', alpha=1., zorder=1))
+
+            ax.add_collection(PatchCollection(patches, match_original=True))
+            plt.show()
+
+            #except AssertionError:
                 #    self.error_popup('Error', 'Shapefile does not contain points.',
                 #                     'Check feature type and try again')
 
-            except Exception as e:
-                print(e)
+            # except Exception as e:
+            #print(e)
                 #    self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
 
 
