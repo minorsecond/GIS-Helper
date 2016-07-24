@@ -10,7 +10,6 @@ from math import modf
 
 import fiona
 import matplotlib.pyplot as plt
-import numpy as np
 from descartes import PolygonPatch
 from matplotlib.collections import PatchCollection
 from shapely.geometry import MultiPolygon, shape
@@ -210,6 +209,8 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
                 [shape(pol['geometry']) for pol in fiona.open(shp_path)]
             )
 
+            print("Finished loading shape data")
+
             fig = plt.figure()
 
             # try:
@@ -223,7 +224,8 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
             patches = []
             for idx, p in enumerate(shp):
                 colour = color_map(1. * idx / num_colors)
-                patches.append(PolygonPatch(p, fc=np.random.rand(3, ), ec='#555555', alpha=1., zorder=1))
+                patches.append(PolygonPatch(p, fc=colour, ec='#555555', alpha=1., zorder=1))
+                print("Adding {0} to plot.".format(idx))
 
             ax.add_collection(PatchCollection(patches, match_original=True))
             plt.show()
