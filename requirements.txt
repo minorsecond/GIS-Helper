@@ -1,5 +1,5 @@
 pyshp==1.2.3
-pyqt==4.11.4
+pyqt
 matplotlib==1.5.1
 fiona==1.6.3
 gdal==1.11.4
