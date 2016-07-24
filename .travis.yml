@@ -19,6 +19,9 @@ install:
     - conda update -q conda
     - conda create -q -n test-environment python=$TRAVIS_PYTHON_VERSION fiona gdal
     - source activate test-environment
+    - conda install -c osgeo gdal=1.11.4
+    - conda install -c ioos fiona=1.6.3
+
     - export DISPLAY=:99.0
     - sh -e /etc/init.d/xvfb start
     - sudo apt-get install -y libqt4-dev
