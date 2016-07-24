@@ -14,9 +14,9 @@ import shapefile
 from gui import *
 
 
-class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
+class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
     def __init__(self):
-        QtWidgets.QMainWindow.__init__(self)
+        QtGui.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setFixedSize(self.size())
@@ -38,11 +38,11 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openfile = QtWidgets.QFileDialog.getOpenFileName(self)
+        openfile = QtGui.QFileDialog.getOpenFileName(self)
         self.shapefileViewPath.setText(openfile[0])
 
     def error_popup(self, title, message, info):
-        error_popup = QtWidgets.QMessageBox()
+        error_popup = QtGui.QMessageBox()
         error_popup.setIcon(error_popup.Critical)
         error_popup.setText(message)
         error_popup.setWindowTitle(title)
@@ -160,18 +160,34 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         for i in shp:
             bbox = i.bbox
             if bbox[0] < bounding_box[0]:
-                bounding_box[0] = bbox[0]
+                bounding_box[0] = round(bbox[0], 5)
 
             if bbox[1] < bounding_box[1]:
-                bounding_box[1] = bbox[1]
+                bounding_box[1] = round(bbox[1], 5)
 
             if bbox[2] > bounding_box[2]:
-                bounding_box[2] = bbox[2]
+                bounding_box[2] = round(bbox[2], 5)
 
             if bbox[3] > bounding_box[3]:
-                bounding_box[3] = bbox[3]
+                bounding_box[3] = round(bbox[3], 5)
 
         return bounding_box
+
+    def get_shape_meta(self, shp):
+        """
+        Gets metadata from shapefile
+        :return: shapefile metadata
+        """
+        metadata = {
+            'proj': None,
+            'origin': None,
+            'bounds': None,
+            'nRecords': None
+        }
+
+        metadata['bounds'] = self.bounding_box(shp)
+
+        print(metadata)
 
     def display_shapefile(self):
         """
@@ -184,6 +200,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         if len(shp_path) > 0:
             try:
                 shp = shapefile.Reader(shp_path)
+                meta = self.get_shape_meta(shp)
                 plt.figure()
                 try:
                     for shape in shp.shapeRecords():
@@ -260,7 +277,7 @@ def dd_to_dms(coords):
 
 
 if __name__ == "__main__":
-    app = QtWidgets.QApplication(sys.argv)
+    app = QtGui.QApplication(sys.argv)
     window = GisHelper()
     window.show()
     sys.exit(app.exec_())
