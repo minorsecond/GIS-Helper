@@ -1,6 +1,6 @@
 ##Spatial Tools
 
-[![Build Status](http:www.imspatial.me/jenkins/buildStatus/icon?job=GIS Helper)](http:www.imspatial.me/jenkins/job/GIS Helper)
+[![Build Status](http:www.imspatial.me/jenkins/buildStatus/icon?job=GIS Helper)](http:www.imspatial.me/jenkins/job/GIS%20Helper/)
 
 A tool to facilitate with GIS tasks.
 
