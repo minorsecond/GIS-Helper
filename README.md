@@ -1,6 +1,6 @@
 ##Spatial Tools
 
-[![Build Status](https://travis-ci.com/minorsecond/ContentHelperTools.svg?token=wfAbG9kWC8ppU9fqpKrJ&branch=master)](https://travis-ci.com/minorsecond/ContentHelperTools)
+[![Build Status](http:www.imspatial.me/jenkins/buildStatus/icon?job=GIS Helper)](http:www.imspatial.me/jenkins/job/GIS%20Helper/)
 
 A tool to facilitate with GIS tasks.
 
