@@ -511,7 +511,7 @@
         <string>Calculate</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="conversionCombo">
+      <widget class="QComboBox" name="convCombo">
        <property name="geometry">
         <rect>
          <x>40</x>
