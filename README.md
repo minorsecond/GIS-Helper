@@ -1,8 +1,9 @@
 ##Spatial Tools
 
-[![Build Status](https://travis-ci.com/minorsecond/ContentHelperTools.svg?token=wfAbG9kWC8ppU9fqpKrJ&branch=master)](https://travis-ci.com/minorsecond/ContentHelperTools)
+[![Build Status](http:www.imspatial.me:8080/buildStatus/icon?job=GIS Helper)](http:www.imspatial.me:8080/job/GIS%20Helper/)
 
 A tool to facilitate with GIS tasks.
+
 
 ### How do I get set up? ###
 
