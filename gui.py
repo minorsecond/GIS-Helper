@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'gisHelperGUi.ui'
+# Form implementation generated from reading ui file 'gisHelperGui.ui'
 #
 # Created by: PyQt4 UI code generator 4.11.4
 #
@@ -16,8 +16,6 @@ except AttributeError:
 
 try:
     _encoding = QtGui.QApplication.UnicodeUTF8
-
-
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
@@ -118,7 +116,7 @@ class Ui_MainWindow(object):
         self.westXEntry.setInputMask(_fromUtf8(""))
         self.westXEntry.setText(_fromUtf8(""))
         self.westXEntry.setMaxLength(32767)
-        # self.westXEntry.setClearButtonEnabled(False)
+        self.westXEntry.setClearButtonEnabled(False)
         self.westXEntry.setObjectName(_fromUtf8("westXEntry"))
         self.eastXEntry = QtGui.QLineEdit(self.centroidGroup)
         self.eastXEntry.setGeometry(QtCore.QRect(240, 108, 103, 29))
@@ -127,7 +125,7 @@ class Ui_MainWindow(object):
         self.eastXEntry.setFont(font)
         self.eastXEntry.setInputMask(_fromUtf8(""))
         self.eastXEntry.setMaxLength(32767)
-        # self.eastXEntry.setClearButtonEnabled(False)
+        self.eastXEntry.setClearButtonEnabled(False)
         self.eastXEntry.setObjectName(_fromUtf8("eastXEntry"))
         self.northYEntry = QtGui.QLineEdit(self.centroidGroup)
         self.northYEntry.setGeometry(QtCore.QRect(128, 60, 103, 29))
@@ -140,7 +138,7 @@ class Ui_MainWindow(object):
         self.northYEntry.setText(_fromUtf8(""))
         self.northYEntry.setMaxLength(32767)
         self.northYEntry.setCursorPosition(0)
-        # self.northYEntry.setClearButtonEnabled(False)
+        self.northYEntry.setClearButtonEnabled(False)
         self.northYEntry.setObjectName(_fromUtf8("northYEntry"))
         self.southYEntry = QtGui.QLineEdit(self.centroidGroup)
         self.southYEntry.setGeometry(QtCore.QRect(128, 160, 103, 29))
@@ -149,7 +147,7 @@ class Ui_MainWindow(object):
         self.southYEntry.setFont(font)
         self.southYEntry.setInputMask(_fromUtf8(""))
         self.southYEntry.setMaxLength(32767)
-        # self.southYEntry.setClearButtonEnabled(False)
+        self.southYEntry.setClearButtonEnabled(False)
         self.southYEntry.setObjectName(_fromUtf8("southYEntry"))
         self.label_3 = QtGui.QLabel(self.centroidGroup)
         self.label_3.setGeometry(QtCore.QRect(20, 88, 59, 16))
@@ -210,14 +208,6 @@ class Ui_MainWindow(object):
         font.setFamily(_fromUtf8("Arial"))
         self.convCoordCalc.setFont(font)
         self.convCoordCalc.setObjectName(_fromUtf8("convCoordCalc"))
-        self.conversionCombo = QtGui.QComboBox(self.originGroup)
-        self.conversionCombo.setGeometry(QtCore.QRect(40, 48, 291, 26))
-        font = QtGui.QFont()
-        font.setFamily(_fromUtf8("Arial"))
-        self.conversionCombo.setFont(font)
-        self.conversionCombo.setObjectName(_fromUtf8("conversionCombo"))
-        self.conversionCombo.addItem(_fromUtf8(""))
-        self.conversionCombo.addItem(_fromUtf8(""))
         self.converterOutput = QtGui.QLineEdit(self.originGroup)
         self.converterOutput.setGeometry(QtCore.QRect(22, 376, 321, 29))
         self.converterOutput.setReadOnly(True)
@@ -229,8 +219,14 @@ class Ui_MainWindow(object):
         self.converCoordsEntry.setFont(font)
         self.converCoordsEntry.setInputMask(_fromUtf8(""))
         self.converCoordsEntry.setMaxLength(32767)
-        # self.converCoordsEntry.setClearButtonEnabled(False)
+        self.converCoordsEntry.setClearButtonEnabled(False)
         self.converCoordsEntry.setObjectName(_fromUtf8("converCoordsEntry"))
+        self.radioButton = QtGui.QRadioButton(self.originGroup)
+        self.radioButton.setGeometry(QtCore.QRect(76, 56, 100, 20))
+        self.radioButton.setObjectName(_fromUtf8("radioButton"))
+        self.radioButton_2 = QtGui.QRadioButton(self.originGroup)
+        self.radioButton_2.setGeometry(QtCore.QRect(192, 56, 100, 20))
+        self.radioButton_2.setObjectName(_fromUtf8("radioButton_2"))
         self.coordinatesResultsLabel = QtGui.QLabel(self.gisCalc)
         self.coordinatesResultsLabel.setGeometry(QtCore.QRect(430, 368, 321, 20))
         font = QtGui.QFont()
@@ -395,9 +391,9 @@ class Ui_MainWindow(object):
         self.centroidCalcLabel_2.setText(_translate("MainWindow", "Convert Coordinates", None))
         self.convCoordClear.setText(_translate("MainWindow", "Clear", None))
         self.convCoordCalc.setText(_translate("MainWindow", "Calculate", None))
-        self.conversionCombo.setItemText(0, _translate("MainWindow", "Lat/Lon to Decimal Degrees", None))
-        self.conversionCombo.setItemText(1, _translate("MainWindow", "Decimal Degrees to Lat/Lon", None))
         self.converCoordsEntry.setPlaceholderText(_translate("MainWindow", "Input Coordinates", None))
+        self.radioButton.setText(_translate("MainWindow", "DMS to DD", None))
+        self.radioButton_2.setText(_translate("MainWindow", "DD to DMS", None))
         self.coordinatesResultsLabel.setText(_translate("MainWindow", "Converted Coordinates", None))
         self.tabContainer.setTabText(self.tabContainer.indexOf(self.gisCalc),
                                      _translate("MainWindow", "GIS Calculator", None))

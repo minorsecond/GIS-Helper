@@ -511,31 +511,6 @@
         <string>Calculate</string>
        </property>
       </widget>
-      <widget class="QComboBox" name="conversionCombo">
-       <property name="geometry">
-        <rect>
-         <x>40</x>
-         <y>48</y>
-         <width>291</width>
-         <height>26</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <item>
-        <property name="text">
-         <string>Lat/Lon to Decimal Degrees</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Decimal Degrees to Lat/Lon</string>
-        </property>
-       </item>
-      </widget>
       <widget class="QLineEdit" name="converterOutput">
        <property name="geometry">
         <rect>
@@ -574,6 +549,32 @@
        </property>
        <property name="clearButtonEnabled">
         <bool>false</bool>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton">
+       <property name="geometry">
+        <rect>
+         <x>76</x>
+         <y>56</y>
+         <width>100</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>DMS to DD</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_2">
+       <property name="geometry">
+        <rect>
+         <x>192</x>
+         <y>56</y>
+         <width>100</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>DD to DMS</string>
        </property>
       </widget>
      </widget>
