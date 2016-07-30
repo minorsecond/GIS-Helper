@@ -266,25 +266,7 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
 
         path = self.geoTiffDir1.text()
 
-        for dirpath, dirnames, filenames in walk(path):
-            for file in filenames:
-                if file.endswith('.tif'):
-                    rasters.append(join(dirpath, file))
-
-        for raster in rasters:
-            raster_count += 1
-            image = gdal.Open(raster)  # Open the file using gdal
-            ulx, xres, xskew, uly, yskew, yres = image.GetGeoTransform()
-            lrx = ulx + (image.RasterXSize * xres)
-            lry = uly + (image.RasterYSize * yres)
-
-            ulx = round(ulx, 3)
-            uly = round(uly, 3)
-            lrx = round(lrx, 3)
-            lry = round(lry, 3)
-
-            bounds = [ulx, uly, lrx, lry]
-            raster_dictionary[raster] = bounds
+        raster_count, raster_dictionary = CalculateRasterBounds(path)
 
         output_text = "Finished processing {0} rasters.\n\n".format(raster_count)
         output_text += 'Raster paths and bounds (ulX, ulY, lrX, lrY): \n'
@@ -355,6 +337,40 @@ def dd_to_dms(coords):
         print(e)
 
     return degrees, minutes, seconds, valid
+
+
+def CalculateRasterBounds(path):
+    """
+    Gets bounding box of raster image using GDAL bindings
+    :param path: path to raster
+    :return: tuple of bounding coordinates
+    """
+
+    rasters = []
+    raster_dictionary = {}
+    raster_count = 0
+
+    for dirpath, dirnames, filenames in walk(path):
+        for file in filenames:
+            if file.endswith('.tif'):
+                rasters.append(join(dirpath, file))
+
+    for raster in rasters:
+        raster_count += 1
+        image = gdal.Open(raster)  # Open the file using gdal
+        ulx, xres, xskew, uly, yskew, yres = image.GetGeoTransform()
+        lrx = ulx + (image.RasterXSize * xres)
+        lry = uly + (image.RasterYSize * yres)
+
+        ulx = round(ulx, 3)
+        uly = round(uly, 3)
+        lrx = round(lrx, 3)
+        lry = round(lry, 3)
+
+        bounds = [ulx, uly, lrx, lry]
+        raster_dictionary[raster] = bounds
+
+    return raster_count, raster_dictionary
 
 
 if __name__ == "__main__":
