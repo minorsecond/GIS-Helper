@@ -40,7 +40,7 @@
     </property>
     <property name="font">
      <font>
-      <family>Arial</family>
+      <family>Helvetica</family>
      </font>
     </property>
     <property name="acceptDrops">
@@ -605,7 +605,7 @@
       </property>
       <property name="font">
        <font>
-        <family>Arial</family>
+        <family>Helvetica</family>
         <weight>50</weight>
         <bold>false</bold>
        </font>
@@ -623,6 +623,11 @@
         <height>32</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+       </font>
+      </property>
       <property name="text">
        <string>Browse</string>
       </property>
@@ -635,6 +640,11 @@
         <width>105</width>
         <height>16</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+       </font>
       </property>
       <property name="text">
        <string>Output Directory: </string>
@@ -649,6 +659,11 @@
         <height>32</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+       </font>
+      </property>
       <property name="text">
        <string>Browse</string>
       </property>
@@ -661,6 +676,12 @@
         <width>755</width>
         <height>325</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+        <pointsize>11</pointsize>
+       </font>
       </property>
       <property name="readOnly">
        <bool>true</bool>
@@ -677,7 +698,7 @@
       </property>
       <property name="font">
        <font>
-        <family>Arial</family>
+        <family>Helvetica</family>
        </font>
       </property>
       <property name="text">
@@ -693,6 +714,11 @@
         <height>23</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+       </font>
+      </property>
       <property name="value">
        <number>0</number>
       </property>
@@ -706,6 +732,11 @@
         <height>21</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+       </font>
+      </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit_5">
       <property name="geometry">
@@ -716,6 +747,11 @@
         <height>21</height>
        </rect>
       </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+       </font>
+      </property>
      </widget>
      <widget class="QPushButton" name="catalogTiffProcess">
       <property name="geometry">
@@ -725,6 +761,11 @@
         <width>113</width>
         <height>32</height>
        </rect>
+      </property>
+      <property name="font">
+       <font>
+        <family>Helvetica</family>
+       </font>
       </property>
       <property name="text">
        <string>Process</string>

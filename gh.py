@@ -277,8 +277,22 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
             ulx, xres, xskew, uly, yskew, yres = image.GetGeoTransform()
             lrx = ulx + (image.RasterXSize * xres)
             lry = uly + (image.RasterYSize * yres)
-            bounds = (ulx, uly, lrx, lry)
+
+            ulx = round(ulx, 3)
+            uly = round(uly, 3)
+            lrx = round(lrx, 3)
+            lry = round(lry, 3)
+
+            bounds = [ulx, uly, lrx, lry]
             raster_dictionary[raster] = bounds
+
+        output_text = "Finished processing {0} rasters.\n\n".format(raster_count)
+        output_text += 'Raster paths and bounds (ulX, ulY, lrX, lrY): \n'
+
+        for filepath, bounds in raster_dictionary.items():
+            output_text += '{0}: {1}\n\n'.format(filepath, bounds)
+
+        self.catalogTiffOutputWindow.setText(output_text)
 
         return raster_count, raster_dictionary
 
