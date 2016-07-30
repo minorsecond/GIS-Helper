@@ -21,4 +21,8 @@ def test_raster_bounds():
     results = CalculateRasterBounds(path)
     print(results)
 
-    assert results == (0, {})
+    assert results == ('/home/rwardrup/DEV/gis-helper/n19_ak13_106112_ndvi.tif', {-977500.0,  # ulX
+                                                                                  2422500.0,  # ulY
+                                                                                  1534500.0,  # lrX
+                                                                                  430500.0  # lrY
+                                                                                  })
