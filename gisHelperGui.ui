@@ -47,7 +47,7 @@
      <bool>false</bool>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="gisCalc">
      <attribute name="title">
@@ -243,9 +243,6 @@
        <property name="placeholderText">
         <string>East X</string>
        </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
-       </property>
       </widget>
       <widget class="QLineEdit" name="eastXEntry">
        <property name="geometry">
@@ -269,9 +266,6 @@
        </property>
        <property name="placeholderText">
         <string>West X</string>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
        </property>
       </widget>
       <widget class="QLineEdit" name="northYEntry">
@@ -309,9 +303,6 @@
        <property name="placeholderText">
         <string>North Y</string>
        </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
-       </property>
       </widget>
       <widget class="QLineEdit" name="southYEntry">
        <property name="geometry">
@@ -335,9 +326,6 @@
        </property>
        <property name="placeholderText">
         <string>South Y</string>
-       </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
        </property>
       </widget>
       <widget class="QLabel" name="label_3">
@@ -547,9 +535,6 @@
        <property name="placeholderText">
         <string>Input Coordinates</string>
        </property>
-       <property name="clearButtonEnabled">
-        <bool>false</bool>
-       </property>
       </widget>
       <widget class="QRadioButton" name="radioButton">
        <property name="geometry">
@@ -712,7 +697,7 @@
        <number>0</number>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_4">
+     <widget class="QLineEdit" name="geoTiffDir1">
       <property name="geometry">
        <rect>
         <x>140</x>
@@ -730,6 +715,19 @@
         <width>481</width>
         <height>21</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="catalogTiffProcess">
+      <property name="geometry">
+       <rect>
+        <x>652</x>
+        <y>116</y>
+        <width>113</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Process</string>
       </property>
      </widget>
     </widget>

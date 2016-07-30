@@ -8,6 +8,7 @@ Robert Ross Wardrup
 import sys
 from math import modf
 
+from osgeo import gdal, ogr, osr
 import fiona
 import matplotlib.pyplot as plt
 from descartes import PolygonPatch
@@ -30,12 +31,21 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         self.convCoordCalc.clicked.connect(self.get_dd_dms)
         self.convCoordClear.clicked.connect(self.clear_convert_fields)
 
-        self.shapefileViewBrowseButton.clicked.connect(self.browse_filesystem)
+        self.shapefileViewBrowseButton.clicked.connect(self.browse_for_shp)
         self.shapefileViewGo.clicked.connect(self.display_shapefile)
 
         plt.rcParams['toolbar'] = 'None'
 
-    def browse_filesystem(self):
+    def browse_for_shp(self):
+        """
+        Browse file system for files
+        :return:
+        """
+
+        openfile = QtGui.QFileDialog.getOpenFileName(self)
+        self.geoTiffDir1.setText(openfile)
+
+    def browse_for_raster(self):
         """
         Browse file system for files
         :return:
@@ -298,6 +308,27 @@ def dd_to_dms(coords):
 
     return degrees, minutes, seconds, valid
 
+
+def GetRasterBounds(path):
+    """
+    Gets bounding box of raster image using GDAL bindings
+    :param path: path to raster
+    :return: tuple of bounding coordinates
+    """
+
+    all_raster_bounds = []
+
+    for raster in path:
+        image = gdal.Open(raster)  # Open the file using gdal
+        ulx, xres, xskew, uly, yskew, yres = image.GetGeoTransform()
+        lrx = ulx + (image.RasterXSize * xres)
+        lry = uly + (image.RasterYSize * yres)
+        bounds = (ulx, uly, lrx, lry)
+        print(bounds)
+
+        all_raster_bounds.append(bounds)
+
+    return all_raster_bounds
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
