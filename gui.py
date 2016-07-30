@@ -275,7 +275,7 @@ class Ui_MainWindow(object):
         self.lineEdit_5.setGeometry(QtCore.QRect(140, 76, 481, 21))
         self.lineEdit_5.setObjectName(_fromUtf8("lineEdit_5"))
         self.catalogTiffProcess = QtGui.QPushButton(self.catalogTiff)
-        self.catalogTiffProcess.setGeometry(QtCore.QRect(652, 116, 113, 32))
+        self.catalogTiffProcess.setGeometry(QtCore.QRect(652, 118, 113, 32))
         self.catalogTiffProcess.setObjectName(_fromUtf8("catalogTiffProcess"))
         self.tabContainer.addTab(self.catalogTiff, _fromUtf8(""))
         self.copyTiffs = QtGui.QWidget()

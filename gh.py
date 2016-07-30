@@ -7,12 +7,14 @@ Robert Ross Wardrup
 
 import sys
 from math import modf
+from os import walk
+from os.path import join
 
-from osgeo import gdal, ogr, osr
 import fiona
 import matplotlib.pyplot as plt
 from descartes import PolygonPatch
 from matplotlib.collections import PatchCollection
+from osgeo import gdal
 from shapely.geometry import MultiPolygon, shape
 
 from gui import *
@@ -34,6 +36,9 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         self.shapefileViewBrowseButton.clicked.connect(self.browse_for_shp)
         self.shapefileViewGo.clicked.connect(self.display_shapefile)
 
+        self.catalogTiffBrowseButton.clicked.connect(self.browse_for_raster)
+        self.catalogTiffProcess.clicked.connect(self.GetRasterBounds)
+
         plt.rcParams['toolbar'] = 'None'
 
     def browse_for_shp(self):
@@ -43,7 +48,7 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         """
 
         openfile = QtGui.QFileDialog.getOpenFileName(self)
-        self.geoTiffDir1.setText(openfile)
+        self.shapefileViewPath.setText(openfile)
 
     def browse_for_raster(self):
         """
@@ -51,8 +56,8 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openfile = QtGui.QFileDialog.getOpenFileName(self)
-        self.shapefileViewPath.setText(openfile)
+        openDir = QtGui.QFileDialog.getExistingDirectory(self, "Select Raster Directory")
+        self.geoTiffDir1.setText(openDir)
 
     def error_popup(self, title, message, info):
         error_popup = QtGui.QMessageBox()
@@ -248,6 +253,35 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
             #print(e)
                 #    self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
 
+    def GetRasterBounds(self):
+        """
+        Gets bounding box of raster image using GDAL bindings
+        :param path: path to raster
+        :return: tuple of bounding coordinates
+        """
+
+        rasters = []
+        raster_dictionary = {}
+        raster_count = 0
+
+        path = self.geoTiffDir1.text()
+
+        for dirpath, dirnames, filenames in walk(path):
+            for file in filenames:
+                if file.endswith('.tif'):
+                    rasters.append(join(dirpath, file))
+
+        for raster in rasters:
+            raster_count += 1
+            image = gdal.Open(raster)  # Open the file using gdal
+            ulx, xres, xskew, uly, yskew, yres = image.GetGeoTransform()
+            lrx = ulx + (image.RasterXSize * xres)
+            lry = uly + (image.RasterYSize * yres)
+            bounds = (ulx, uly, lrx, lry)
+            raster_dictionary[raster] = bounds
+
+        return raster_count, raster_dictionary
+
 
 def origin_calc(coords):
     """
@@ -308,27 +342,6 @@ def dd_to_dms(coords):
 
     return degrees, minutes, seconds, valid
 
-
-def GetRasterBounds(path):
-    """
-    Gets bounding box of raster image using GDAL bindings
-    :param path: path to raster
-    :return: tuple of bounding coordinates
-    """
-
-    all_raster_bounds = []
-
-    for raster in path:
-        image = gdal.Open(raster)  # Open the file using gdal
-        ulx, xres, xskew, uly, yskew, yres = image.GetGeoTransform()
-        lrx = ulx + (image.RasterXSize * xres)
-        lry = uly + (image.RasterYSize * yres)
-        bounds = (ulx, uly, lrx, lry)
-        print(bounds)
-
-        all_raster_bounds.append(bounds)
-
-    return all_raster_bounds
 
 if __name__ == "__main__":
     app = QtGui.QApplication(sys.argv)
