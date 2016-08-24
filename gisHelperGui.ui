@@ -47,7 +47,7 @@
      <bool>false</bool>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="gisCalc">
      <attribute name="title">
@@ -791,7 +791,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Geotiff Catalog Directory:</string>
+       <string>Tif Directory</string>
       </property>
      </widget>
      <widget class="QLabel" name="label_10">
@@ -809,7 +809,7 @@
        </font>
       </property>
       <property name="text">
-       <string>Intersecting Shapepfile: </string>
+       <string>Intersecting Shapefile: </string>
       </property>
      </widget>
      <widget class="QLabel" name="label_11">
@@ -830,7 +830,7 @@
        <string>Geotiff Output Directory: </string>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit">
+     <widget class="QLineEdit" name="TiffDirectory">
       <property name="geometry">
        <rect>
         <x>188</x>
@@ -840,7 +840,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_2">
+     <widget class="QLineEdit" name="intersectingShapefileEdit">
       <property name="geometry">
        <rect>
         <x>188</x>
@@ -850,7 +850,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_3">
+     <widget class="QLineEdit" name="geoTiffOutputDirEdit">
       <property name="geometry">
        <rect>
         <x>188</x>
@@ -860,7 +860,7 @@
        </rect>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="BrowseForTifDir">
       <property name="geometry">
        <rect>
         <x>642</x>
@@ -873,7 +873,7 @@
        <string>Browse</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="BrowseForIntShape">
       <property name="geometry">
        <rect>
         <x>642</x>
@@ -886,7 +886,7 @@
        <string>Browse</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="BrowseForGeoTiffOutputDir">
       <property name="geometry">
        <rect>
         <x>642</x>
@@ -941,6 +941,19 @@
       </property>
       <property name="value">
        <number>0</number>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="CopyTiffProcess">
+      <property name="geometry">
+       <rect>
+        <x>642</x>
+        <y>124</y>
+        <width>113</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Process</string>
       </property>
      </widget>
     </widget>

@@ -12,6 +12,7 @@ from os.path import join
 
 import fiona
 import matplotlib.pyplot as plt
+import shapefile
 from descartes import PolygonPatch
 from matplotlib.collections import PatchCollection
 from osgeo import gdal
@@ -27,7 +28,7 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setFixedSize(self.size())
 
-        self.originCalculateButton.clicked.connect(self.get_origin)
+        self.originCalculateButton.clicked.connect(get_origin)
         self.originClearButton.clicked.connect(self.clear_origin_fields)
 
         self.convCoordCalc.clicked.connect(self.get_dd_dms)
@@ -39,7 +40,40 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         self.catalogTiffBrowseButton.clicked.connect(self.browse_for_raster)
         self.catalogTiffProcess.clicked.connect(self.GetRasterBounds)
 
+        # Copy Tiffs page
+        self.BrowseForTifDir.clicked.connect(self.browse_for_tiff_directory)
+        self.BrowseForIntShape.clicked.connect(self.browse_for_intersecting_shp)
+        self.BrowseForGeoTiffOutputDir.clicked.connect(self.browse_for_output_directory)
+        self.CopyTiffProcess.clicked.connect(self.handle_tiff_copy)
+
         plt.rcParams['toolbar'] = 'None'
+
+    def browse_for_intersecting_shp(self):
+        """
+        Browse system for files
+        :return:
+        """
+
+        openfile = QtGui.QFileDialog.getOpenFileName(self)
+        self.intersectingShapefileEdit.setText(openfile)
+
+    def browse_for_tiff_directory(self):
+        """
+        Browse for file
+        :return:
+        """
+
+        openfile = QtGui.QFileDialog.getExistingDirectory(self)
+        self.TiffDirectory.setText(openfile)
+
+    def browse_for_output_directory(self):
+        """
+        Browse for file
+        :return:
+        """
+
+        openfile = QtGui.QFileDialog.getExistingDirectory(self)
+        self.geoTiffOutputDirEdit.setText(openfile)
 
     def browse_for_shp(self):
         """
@@ -68,45 +102,6 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         error_popup.setStandardButtons(error_popup.Ok)
 
         error_popup.exec()
-
-    def get_origin(self):
-        """
-        Button function to get origin calculation. Runs the origin_calc() function which runs the calculation.
-        :return: Origin
-        """
-
-        blank_entry = False
-        output_text = self.originOutputBox
-
-        # Grab values from text entry boxes and convert to floats
-        north_y = self.northYEntry.text()
-        south_y = self.southYEntry.text()
-        east_x = self.eastXEntry.text()
-        west_x = self.westXEntry.text()
-
-        coordinates = [north_y, south_y, east_x, west_x]
-
-        # Print error message if entry is blank
-        for i in coordinates:
-            if len(i) == 0:
-                blank_entry = True
-
-        if blank_entry:
-            title = "Error"
-            text = "Missing coordinate(s) input."
-            info = "Check that all coordinate fields contain valid values."
-            self.error_popup(title, text, info)
-
-        else:
-            centroid = origin_calc(coordinates)  # Get origin from origin_calc
-            if centroid:  # If a centroid is returned, print to text box.
-                centroid = "{0}, {1}".format(centroid[0], centroid[1])
-                output_text.setText(centroid)
-            else:  # Calculate_origin returned false, indicating invalid input. Print error message.
-                self.error_popup('Error', 'Error converting coordinates to decimal numbers.',
-                                 'Check to ensure '
-                                 'coordinate input '
-                                 'contain only numbers.')
 
     def clear_origin_fields(self):
         self.northYEntry.clear()
@@ -245,13 +240,6 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
             ax.add_collection(PatchCollection(patches, match_original=True))
             plt.show()
 
-            #except AssertionError:
-                #    self.error_popup('Error', 'Shapefile does not contain points.',
-                #                     'Check feature type and try again')
-
-            # except Exception as e:
-            #print(e)
-                #    self.error_popup('Error', 'Shapefile not found.', 'Ensure that the path is correct and try again.')
 
     def GetRasterBounds(self):
         """
@@ -277,6 +265,121 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         self.catalogTiffOutputWindow.setText(output_text)
 
         return raster_count, raster_dictionary
+
+    def handle_tiff_copy(self):
+        """
+        Handles code that copies tifs
+        :return: IO
+        """
+
+        tiff_directory = self.TiffDirectory.text()
+        shapefile_directory = self.intersectingShapefileEdit.text()
+        output_directory = self.geoTiffOutputDirEdit.text()
+
+        payload = (tiff_directory, shapefile_directory, output_directory)
+
+        polygon_functions = PolygonFunctions()
+        polygon_functions.get_polygon_vertices(payload)
+
+
+class PolygonFunctions:
+    """
+    Contains the IO functions
+    """
+
+    def load_polygons(self, payload):
+        """
+        Loads polygons into memory
+        :return:
+        """
+
+        self.input_file = payload[0]
+        self.shapefile_directory = payload[1]
+        self.output_directory = payload[2]
+
+        shp = shapefile.Reader(self.shapefile_directory)
+        self.shapes = shp.shapes()
+
+    def get_polygon_vertices(self, payload):
+        """
+        Gets vertex locations for polygons
+        :return:
+        """
+
+        self.vertices = []
+
+        self.load_polygons(payload)
+
+        for polygon in self.shapes:
+            self.vertices.append(polygon.points)
+
+        print(self.vertices)
+
+
+def get_origin(coords):
+    """
+    Button function to get origin calculation. Runs the origin_calc() function which runs the calculation.
+    :return: Origin
+    """
+
+    blank_entry = False
+    output_text = GisHelper.originOutputBox
+
+    if coords:
+        north_y = coords[0]
+        south_y = coords[1]
+        east_x = coords[2]
+        west_x = coords[3]
+    else:
+        # Grab values from text entry boxes and convert to floats
+        north_y = GisHelper.northYEntry.text()
+        south_y = GisHelper.southYEntry.text()
+        east_x = GisHelper.eastXEntry.text()
+        west_x = GisHelper.westXEntry.text()
+
+    coordinates = [north_y, south_y, east_x, west_x]
+
+    # Print error message if entry is blank
+    for i in coordinates:
+        if len(i) == 0:
+            blank_entry = True
+
+    if blank_entry:
+        title = "Error"
+        text = "Missing coordinate(s) input."
+        info = "Check that all coordinate fields contain valid values."
+        GisHelper.error_popup(title, text, info)
+
+    else:
+        centroid = origin_calc(coordinates)  # Get origin from origin_calc
+        if centroid:  # If a centroid is returned, print to text box.
+            centroid = "{0}, {1}".format(centroid[0], centroid[1])
+            output_text.setText(centroid)
+        else:  # Calculate_origin returned false, indicating invalid input. Print error message.
+            GisHelper.error_popup('Error', 'Error converting coordinates to decimal numbers.',
+                                  'Check to ensure '
+                                  'coordinate input '
+                                  'contain only numbers.')
+
+
+def getPixelValue(raster):
+    """
+    Gets raster pixel value at xy coordinate
+    :return: an RGB tuple
+    """
+
+    rgb2i = None
+    i2rgb = None
+
+    _, raster_dictionary = CalculateRasterBounds(
+        raster)  # Remove this - don't want to run this thing twice
+
+    for raster_path, bounds in raster_dictionary.items():
+        raster = gdal.Open(raster_path)
+        geoTransform = raster.GetGeoTransform()
+        rasterBand = geoTransform.GetRasterBand(1)
+        gdal.UseExceptions()
+
 
 
 def origin_calc(coords):
