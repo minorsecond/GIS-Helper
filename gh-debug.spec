@@ -4,11 +4,11 @@ block_cipher = None
 
 
 a = Analysis(['gh.py'],
-             pathex=['Z:\\home\\rwardrup\\DEV\\GIS-Helper'],
+             pathex=['C:\\Users\\rwardrup\\GIS-Helper'],
              binaries=[],
              datas=[],
              hiddenimports=['numpy', 'packaging', 'matplotlib', 'tkinter', 'matplotlib.backends.backend_tkagg', 'gishelper.ui', 'tkinter.filedialog'],
-             hookspath=['hooks'],
+             #hookspath=['hooks'],
              runtime_hooks=[],
              excludes=[],
              win_no_prefer_redirects=False,
