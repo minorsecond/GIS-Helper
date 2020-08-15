@@ -82,7 +82,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openfile = QtWidgets.QFileDialog.getOpenFileName(self)
+        openfile = QtWidgets.QFileDialog.getOpenFileName(self)[0]  # This now returns a tuple as of Qt5
         self.shapefileViewPath.setText(openfile)
 
     def browse_for_raster(self):
