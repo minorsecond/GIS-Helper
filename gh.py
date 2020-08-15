@@ -11,6 +11,7 @@ from os import walk
 from os.path import join
 
 import fiona
+from fiona import _shim, schema
 import matplotlib.pyplot as plt
 import shapefile
 from descartes import PolygonPatch
@@ -21,9 +22,9 @@ from shapely.geometry import MultiPolygon, shape
 from gui import *
 
 
-class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
+class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
-        QtGui.QMainWindow.__init__(self)
+        QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setFixedSize(self.size())
@@ -54,7 +55,7 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openfile = QtGui.QFileDialog.getOpenFileName(self)
+        openfile = QtWidgets.QFileDialog.getOpenFileName(self)
         self.intersectingShapefileEdit.setText(openfile)
 
     def browse_for_tiff_directory(self):
@@ -63,7 +64,7 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openfile = QtGui.QFileDialog.getExistingDirectory(self)
+        openfile = QtWidgets.QFileDialog.getExistingDirectory(self)
         self.TiffDirectory.setText(openfile)
 
     def browse_for_output_directory(self):
@@ -72,7 +73,7 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openfile = QtGui.QFileDialog.getExistingDirectory(self)
+        openfile = QtWidgets.QFileDialog.getExistingDirectory(self)
         self.geoTiffOutputDirEdit.setText(openfile)
 
     def browse_for_shp(self):
@@ -81,7 +82,7 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openfile = QtGui.QFileDialog.getOpenFileName(self)
+        openfile = QtWidgets.QFileDialog.getOpenFileName(self)
         self.shapefileViewPath.setText(openfile)
 
     def browse_for_raster(self):
@@ -90,11 +91,11 @@ class GisHelper(QtGui.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openDir = QtGui.QFileDialog.getExistingDirectory(self, "Select Raster Directory")
+        openDir = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Raster Directory")
         self.geoTiffDir1.setText(openDir)
 
     def error_popup(self, title, message, info):
-        error_popup = QtGui.QMessageBox()
+        error_popup = QtWidgets.QMessageBox()
         error_popup.setIcon(error_popup.Critical)
         error_popup.setText(message)
         error_popup.setWindowTitle(title)
@@ -477,7 +478,8 @@ def CalculateRasterBounds(path):
 
 
 if __name__ == "__main__":
-    app = QtGui.QApplication(sys.argv)
+    #app = QtGui.QGuiApplication.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     window = GisHelper()
     window.show()
     sys.exit(app.exec_())
