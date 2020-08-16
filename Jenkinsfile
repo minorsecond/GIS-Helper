@@ -21,7 +21,7 @@ pipeline {
                 sh '/c/Users/Ross/miniconda3/condabin/conda.bat create -y --name GIS-Helper python=3.8'
                 sh '/c/Users/Ross/miniconda3/condabin/conda.bat activate GIS-Helper'
                 sh '/c/Users/Ross/miniconda3/condabin/conda.bat install -y --file requirements.txt'
-                sh '/c/Users/Ross/miniconda3/Scripts/pyinstaller gh-debug.spec'
+                sh '/c/Users/Ross/miniconda3/Scripts/pyinstaller --onefile gh-debug.spec'
             }
             post {
                 success {
