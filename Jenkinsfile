@@ -11,7 +11,7 @@ pipeline {
 		}
 	    }
             steps {
-                sh 'python -m py_compile client/python-client/modelportfolio/ModelPortfolioMain.py client/python-client/modelportfolio/restfulAPI.py client/python-client/modelportfolio/Utils.py'
+                sh 'python -m py_compile gh.py gui.py'
             }
         }
 	stage('Deliver') {
@@ -21,11 +21,11 @@ pipeline {
                 }
             }
             steps {
-                sh 'pyinstaller --onefile client/python-client/modelportfolio/ModelPortfolioMain.py'
+                sh 'pyinstaller --onefile gh-debug.spec'
             }
             post {
                 success {
-                    archiveArtifacts 'dist/ModelPortfolioMain'
+                    archiveArtifacts 'dist/gh'
                 }
             }
         }
