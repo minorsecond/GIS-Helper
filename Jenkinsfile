@@ -15,15 +15,9 @@ pipeline {
             }
         }
 	stage('Deliver') {
-            //agent {
-            //    docker {
-            //        image 'cdrx/pyinstaller-windows'
-            //    }
-            //}
-            agent {label 'master'}
+            agent {label 'CI-W10-Slave'}
             steps {
-                sh 'ls -alh $(pwd)
-                sh 'docker run --privileged --rm -v "$(pwd):/src/:Z" cdrx/pyinstaller-windows:latest "apt install gdal-bin libgdal-dev && ls -alh"'
+                sh 'dir'
             }
             post {
                 success {
