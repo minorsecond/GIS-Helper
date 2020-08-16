@@ -22,8 +22,8 @@ pipeline {
             //}
             agent {label 'master'}
             steps {
-                sh 'ls -alh $(pwd)'
-                sh 'docker run --privileged --rm -v "$(pwd):/src/:Z" cdrx/pyinstaller-windows:latest "ls -alh"'
+                sh 'ls -alh $(pwd)
+                sh 'docker run --privileged --rm -v "$(pwd):/src/:Z" cdrx/pyinstaller-windows:latest "apt install gdal-bin libgdal-dev && ls -alh"'
             }
             post {
                 success {
