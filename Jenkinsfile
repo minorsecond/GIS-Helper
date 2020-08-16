@@ -22,7 +22,7 @@ pipeline {
             }
             steps {
                 sh 'ls -alh .'
-                sh 'pyinstaller gh-debug.spec'
+                sh 'pyinstaller gh.exe'
             }
             post {
                 success {
