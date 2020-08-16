@@ -22,7 +22,7 @@ pipeline {
             }
             steps {
                 sh 'ls -alh .'
-                sh 'pyinstaller'
+                sh 'sh docker run -v "$(pwd):/src/" cdrx/pyinstaller-windows:latest'
             }
             post {
                 success {
