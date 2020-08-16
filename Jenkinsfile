@@ -21,7 +21,7 @@ pipeline {
                 }
             }
             steps {
-                sh 'pyinstaller --onefile gh-debug.spec'
+                sh 'pyinstaller gh-debug.spec'
             }
             post {
                 success {
