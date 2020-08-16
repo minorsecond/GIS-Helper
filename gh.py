@@ -102,7 +102,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         error_popup.setInformativeText(info)
         error_popup.setStandardButtons(error_popup.Ok)
 
-        error_popup.exec()
+        error_popup.show()
 
     def clear_origin_fields(self):
         self.northYEntry.clear()
