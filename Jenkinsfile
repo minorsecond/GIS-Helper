@@ -14,7 +14,7 @@ pipeline {
                 sh 'python -m py_compile gh.py gui.py'
             }
         }
-	stage('Deliver') {
+	    stage('Deliver') {
             agent {label 'CI-W10-Slave'}
             steps {
                 sh '/c/Users/Ross/miniconda3/condabin/conda.bat env remove --name GIS-Helper'
@@ -23,7 +23,6 @@ pipeline {
                 sh '/c/Users/Ross/miniconda3/condabin/conda.bat install -y --file requirements.txt'
                 sh 'pyinstaller gh-debug.spec'
             }
-            agent {label 'CI-W10-Slave'}
             post {
                 success {
                     sh 'ls'
