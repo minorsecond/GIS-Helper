@@ -6,3 +6,4 @@ pyqt
 numpy
 descartes
 shapely
+pyinstaller
