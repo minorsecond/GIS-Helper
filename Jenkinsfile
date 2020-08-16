@@ -23,7 +23,7 @@ pipeline {
             agent {label 'master'}
             steps {
                 sh 'ls $(pwd)'
-                sh 'docker run -v "$(pwd):/src/" cdrx/pyinstaller-windows:latest "echo $pwd"'
+                sh 'docker run -v "$(pwd):/src/:Z" cdrx/pyinstaller-windows:latest "ls -alh"'
             }
             post {
                 success {
