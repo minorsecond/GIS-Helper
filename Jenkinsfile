@@ -28,6 +28,9 @@ pipeline {
                     sh 'ls'
                     archiveArtifacts 'dist/gh'
                 }
+                always {
+                    cleanWs()
+                }
             }
         }
     }
