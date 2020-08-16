@@ -23,7 +23,7 @@ pipeline {
             agent {label 'master'}
             steps {
                 sh 'ls $(pwd)'
-                sh 'docker run -v "$(pwd):/src/" cdrx/pyinstaller-windows:latest "pyinstaller -y gh-debug.spec"'
+                sh 'docker run -v "$(pwd):/src/" cdrx/pyinstaller-windows:latest "ls -alh"'
             }
             post {
                 success {
