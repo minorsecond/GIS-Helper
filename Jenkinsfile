@@ -17,10 +17,10 @@ pipeline {
 	stage('Deliver') {
             agent {label 'CI-W10-Slave'}
             steps {
-                sh 'c/Users/Ross/miniconda3/condabin/conda.bat env remove --name GIS-Helper'
-                sh 'c/Users/Ross/miniconda3/condabin/conda.bat GIS-Helper python=3.8'
-                sh 'c/Users/Ross/miniconda3/condabin/conda.bat activate GIS-Helper'
-                sh 'c/Users/Ross/miniconda3/condabin/conda.bat install --file requirements.txt'
+                sh '/c/Users/Ross/miniconda3/condabin/conda.bat env remove --name GIS-Helper'
+                sh '/c/Users/Ross/miniconda3/condabin/conda.bat GIS-Helper python=3.8'
+                sh '/c/Users/Ross/miniconda3/condabin/conda.bat activate GIS-Helper'
+                sh '/c/Users/Ross/miniconda3/condabin/conda.bat install --file requirements.txt'
             }
             post {
                 success {
