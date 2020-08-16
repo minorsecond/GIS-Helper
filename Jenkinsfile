@@ -20,6 +20,7 @@ pipeline {
             //        image 'cdrx/pyinstaller-windows'
             //    }
             //}
+            agent none
             steps {
                 sh 'ls -alh .'
                 sh 'sh docker run -v "$(pwd):/src/" cdrx/pyinstaller-windows:latest'
