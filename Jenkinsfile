@@ -15,11 +15,11 @@ pipeline {
             }
         }
 	stage('Deliver') {
-            agent {
-                docker {
-                    image 'cdrx/pyinstaller-windows'
-                }
-            }
+            //agent {
+            //    docker {
+            //        image 'cdrx/pyinstaller-windows'
+            //    }
+            //}
             steps {
                 sh 'ls -alh .'
                 sh 'sh docker run -v "$(pwd):/src/" cdrx/pyinstaller-windows:latest'
