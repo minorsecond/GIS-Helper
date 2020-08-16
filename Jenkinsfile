@@ -17,7 +17,7 @@ pipeline {
 	stage('Deliver') {
             agent {
                 docker {
-                    image 'cdrx/pyinstaller-windows:latest'
+                    image 'cdrx/pyinstaller-windows'
                 }
             }
             steps {
