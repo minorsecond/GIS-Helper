@@ -7,6 +7,7 @@ Robert Ross Wardrup
 
 import sys
 from math import modf
+import os
 from os import walk
 from os.path import join
 
@@ -21,6 +22,9 @@ from shapely.geometry import MultiPolygon, shape
 
 from gui import *
 
+# These must be declared for Python to find the gdal and proj libraries
+os.environ['GDAL_DATA'] = 'C:\\Users\\rwardrup\\miniconda3\\envs\\GIS-Helper\\Library\\share\\gdal'
+os.environ['PROJ_LIB'] = 'C:\\Users\\rwardrup\\miniconda3\\envs\\GIS-Helper\\Library\\share\\proj'
 
 class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
