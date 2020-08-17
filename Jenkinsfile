@@ -5,11 +5,10 @@ pipeline {
     }
     stages {
         stage('Build') {
-	    agent {
-                docker {
-                    image 'python:2-alpine'
-		}
-	    }
+            agent {label 'master'}
+            docker {
+                image 'python:2-alpine'
+		    }
             steps {
                 sh 'python -m py_compile gh.py gui.py'
             }
