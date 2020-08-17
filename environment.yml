@@ -1,0 +1,12 @@
+name: GIS-Helper
+dependencies:
+  - python=3.8
+  - pyshp
+  - matplotlib
+  - fiona
+  - gdal
+  - pyqt
+  - numpy
+  - descartes
+  - shapely
+  - pyinstaller
