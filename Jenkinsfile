@@ -21,7 +21,7 @@ pipeline {
                 bat 'conda env create' // Build environment based on environment.yml
                 bat 'conda activate GIS-Helper'
                 //bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
-                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\python -c import numpy'
+                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\python -c "import numpy"'
             }
             post {
                 success {
