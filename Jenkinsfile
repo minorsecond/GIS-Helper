@@ -18,7 +18,7 @@ pipeline {
             agent {label 'CI-W10-Slave'}
             steps {
                 bat 'conda env remove -y --name GIS-Helper'
-                bat 'conda env create -y' // Build environment based on environment.yml
+                bat 'conda env create' // Build environment based on environment.yml
                 bat 'conda activate GIS-Helper'
                 bat 'conda install -y --file requirements.txt'
                 bat 'pyinstaller --onefile gh-debug.spec'
