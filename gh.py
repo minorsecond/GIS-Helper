@@ -13,7 +13,8 @@ from os.path import join
 
 import fiona
 from fiona import _shim, schema
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+plt.style.use('ggplot')
 import shapefile
 from descartes import PolygonPatch
 from matplotlib.collections import PatchCollection
@@ -227,6 +228,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             print("Finished loading shape data")
 
             fig = plt.figure()
+            print("Created the figure")
 
             # try:
             ax = fig.add_subplot(111)
@@ -236,6 +238,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             ax.set_ylim(miny - 0.2 * h, maxy + 0.2 * h)
             ax.set_aspect(1)
 
+            print("Created the plot")
+
             patches = []
             for idx, p in enumerate(shp):
                 colour = color_map(1. * idx / num_colors)
@@ -243,6 +247,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                 print("Adding {0} to plot.".format(idx))
 
             ax.add_collection(PatchCollection(patches, match_original=True))
+
+            print("Built the graph")
             plt.show()
 
 
