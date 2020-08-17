@@ -1,6 +1,7 @@
 name: GIS-Helper
 dependencies:
   - python=3.8
+  - nomkl  # Don't use MKL-compiled libraries
   - pyshp
   - matplotlib
   - fiona
