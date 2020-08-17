@@ -4,13 +4,15 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
+        agent {label 'master'}
         stage('Build') {
-            agent {label 'master'}
+            agent }
             docker {
                 image 'python:2-alpine'
 		    }
             steps {
                 sh 'python -m py_compile gh.py gui.py'
+            }
             }
         }
 	    stage('Deliver') {
