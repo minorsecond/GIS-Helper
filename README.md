@@ -1,6 +1,6 @@
 ##Spatial Tools
 
-[![Build Status](http://ci.imspatial.me/job/GIS%20Helper/badge/icon)](http://ci.imspatial.me/job/GIS%20Helper/)
+[![Build Status](https://ci.wardrup.me/buildStatus/icon?job=GIS_Helper)](https://ci.wardrup.me/job/GIS_Helper/)
 
 A tool to facilitate with GIS tasks.
 
