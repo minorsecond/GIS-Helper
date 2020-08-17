@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['gh.py'],
-             pathex=['C:\\Users\\rwardrup\\GIS-Helper'],
+             pathex=['C:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Library\\bin', 'C:\\Users\\rwardrup\\PycharmProjects\\GIS-Helper'],
              binaries=[],
              datas=[],
              hiddenimports=['numpy', 'packaging', 'matplotlib', 'tkinter', 'matplotlib.backends.backend_tkagg', 'gishelper.ui', 'tkinter.filedialog'],

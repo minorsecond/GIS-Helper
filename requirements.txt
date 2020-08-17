@@ -6,3 +6,7 @@ pyqt
 numpy
 descartes
 shapely
+
+# Required for bundling
+pyinstaller
+

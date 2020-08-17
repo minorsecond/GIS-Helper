@@ -7,12 +7,14 @@ Robert Ross Wardrup
 
 import sys
 from math import modf
+import os
 from os import walk
 from os.path import join
 
 import fiona
 from fiona import _shim, schema
-import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
+plt.style.use('ggplot')
 import shapefile
 from descartes import PolygonPatch
 from matplotlib.collections import PatchCollection
@@ -21,6 +23,9 @@ from shapely.geometry import MultiPolygon, shape
 
 from gui import *
 
+# These must be declared for Python to find the gdal and proj libraries
+os.environ['GDAL_DATA'] = 'C:\\Users\\rwardrup\\miniconda3\\envs\\GIS-Helper\\Library\\share\\gdal'
+os.environ['PROJ_LIB'] = 'C:\\Users\\rwardrup\\miniconda3\\envs\\GIS-Helper\\Library\\share\\proj'
 
 class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -102,7 +107,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         error_popup.setInformativeText(info)
         error_popup.setStandardButtons(error_popup.Ok)
 
-        error_popup.exec()
+        error_popup.show()
 
     def clear_origin_fields(self):
         self.northYEntry.clear()
@@ -223,6 +228,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             print("Finished loading shape data")
 
             fig = plt.figure()
+            print("Created the figure")
 
             # try:
             ax = fig.add_subplot(111)
@@ -232,6 +238,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             ax.set_ylim(miny - 0.2 * h, maxy + 0.2 * h)
             ax.set_aspect(1)
 
+            print("Created the plot")
+
             patches = []
             for idx, p in enumerate(shp):
                 colour = color_map(1. * idx / num_colors)
@@ -239,6 +247,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                 print("Adding {0} to plot.".format(idx))
 
             ax.add_collection(PatchCollection(patches, match_original=True))
+
+            print("Built the graph")
             plt.show()
 
 
