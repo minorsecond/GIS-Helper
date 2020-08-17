@@ -23,8 +23,8 @@ pipeline {
                 bat 'conda env remove -y --name GIS-Helper'
                 bat 'conda env create' // Build environment based on environment.yml
                 bat 'conda activate GIS-Helper'
-                //bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
-                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\python -c "import mkl"'
+                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
+                //bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\python -c "import mkl"'
             }
             post {
                 success {
