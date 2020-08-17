@@ -30,7 +30,7 @@ pipeline {
                     sh 'ls'
                     archiveArtifacts 'dist/gh/**/*.*'
                 }
-                always {
+                cleanup {
                     cleanWs()
                 }
             }
