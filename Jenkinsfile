@@ -17,15 +17,15 @@ pipeline {
 	    stage('Deliver') {
             agent {label 'CI-W10-Slave'}
             steps {
-                sh '/c/Users/Ross/anaconda3/condabin/conda.bat env remove -y --name GIS-Helper'
-                sh '/c/Users/Ross/anaconda3/condabin/conda.bat create -y --name GIS-Helper python=3.8'
-                sh '/c/Users/Ross/anaconda3/condabin/conda.bat activate GIS-Helper'
-                sh '/c/Users/Ross/anaconda3/condabin/conda.bat install -y --file requirements.txt'
-                sh '/c/Users/Ross/anaconda3/Scripts/pyinstaller --onefile gh-debug.spec'
+                bat 'conda env remove -y --name GIS-Helper'
+                bat 'conda create -y --name GIS-Helper python=3.8'
+                bat 'conda activate GIS-Helper'
+                bat 'conda install -y --file requirements.txt'
+                bat 'pyinstaller --onefile gh-debug.spec'
             }
             post {
                 success {
-                    sh 'ls'
+                    sh 'ls dist/gh'
                     archiveArtifacts 'dist/gh'
                 }
                 always {
