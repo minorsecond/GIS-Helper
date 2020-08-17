@@ -1,6 +1,5 @@
 name: GIS-Helper
 dependencies:
-  - nomkl
   - python=3.8
   - pyshp
   - matplotlib
