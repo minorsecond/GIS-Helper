@@ -6,7 +6,7 @@ pipeline {
     stages {
         agent {label 'master'}
         stage('Build') {
-            agent }
+            agent {
                 docker {
                     image 'python:2-alpine'
 		        }
