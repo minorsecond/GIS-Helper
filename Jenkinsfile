@@ -28,7 +28,7 @@ pipeline {
             }
             post {
                 success {
-                    sh 'ls dist/gh'
+                    sh 'ls'
                     archiveArtifacts 'dist/gh'
                 }
                 always {
