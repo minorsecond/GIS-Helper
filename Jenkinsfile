@@ -7,12 +7,12 @@ pipeline {
         agent {label 'master'}
         stage('Build') {
             agent }
-            docker {
-                image 'python:2-alpine'
+                docker {
+                    image 'python:2-alpine'
+		        }
 		    }
             steps {
                 sh 'python -m py_compile gh.py gui.py'
-            }
             }
         }
 	    stage('Deliver') {
