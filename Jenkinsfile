@@ -5,10 +5,10 @@ pipeline {
     }
     stages {
         stage('Test') {
-            bat 'conda env create'  // Build environment based on environment.yml
-            bat 'conda activate GIS-Helper'
             agent {label 'CI-W10-Slave'}
             steps {
+                bat 'conda env create'  // Build environment based on environment.yml
+                bat 'conda activate GIS-Helper'
                 bat 'pytest'
             }
         }
