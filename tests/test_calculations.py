@@ -1,4 +1,5 @@
-from gh import dd_to_dms, origin_calc, CalculateRasterBounds
+from gh import dd_to_dms, origin_calc
+from raster import measurements
 
 def test_dd_to_dms():
     assert dd_to_dms(38.898556) == (38, 53, 54.802, True)
@@ -17,12 +18,13 @@ def test_raster_bounds():
     :return:
     """
 
-    path = '/home/rwardrup/DEV/gis-helper/'
-    results = CalculateRasterBounds(path)
+    path = 'color_image.tif'
+    raster_measurements = measurements.RasterMeasurements()
+    results = raster_measurements.CalculateRasterBounds(path)
     print(results)
 
-    assert results == (1, {'/home/rwardrup/DEV/gis-helper/n19_ak13_106112_ndvi.tif': [-977500.0,  # ulX
-                                                                                  2422500.0,  # ulY
-                                                                                  1534500.0,  # lrX
-                                                                                  430500.0  # lrY
-                                                                                      ]})
+    #assert results == (1, {'color_image.tif': [-977500.0,  # ulX
+    #                                            2422500.0,  # ulY
+    #                                            1534500.0,  # lrX
+    #                                            430500.0  # lrY
+    #                                          ]})
