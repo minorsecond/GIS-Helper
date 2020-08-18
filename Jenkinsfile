@@ -43,6 +43,9 @@ pipeline {
                 success {
                     archiveArtifacts 'dist/gh/**/**'
                 }
+                always {
+                    junit 'results.xml'
+                }
                 cleanup {
                     bat 'conda env remove -y --name GIS-Helper'
                     bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
