@@ -4,7 +4,7 @@ import shapefile
 from shapely.geometry import MultiPolygon, shape
 from descartes import PolygonPatch
 from fiona import open as fiona_open
-from fiona import _shim, schema
+from fiona import _shim, schema  # This is required for pyinstaller
 plt.style.use('ggplot')
 
 
@@ -13,7 +13,7 @@ class PolygonFunctions:
     Contains the IO functions
     """
 
-    def load_polygons(self, payload):
+    def load_polygons(self, payload):  # TODO: determine if this needs its own function
         """
         Loads polygons into memory
         :return:
@@ -25,6 +25,8 @@ class PolygonFunctions:
 
         shp = shapefile.Reader(self.shapefile_directory)
         self.shapes = shp.shapes()
+
+        return shp.shapes()
 
     def get_polygon_vertices(self, payload):
         """

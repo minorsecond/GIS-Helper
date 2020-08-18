@@ -18,12 +18,12 @@ def test_raster_bounds():
     :return:
     """
 
-    path = '.'
+    path = '.\\tests\\test_data\\'
     raster_measurements = measurements.RasterMeasurements()
     results = raster_measurements.CalculateRasterBounds(path)
     print(results)
 
-    assert results == (1, {'.\\tests\\i30dem.tif': [532935.13,  # ulX
+    assert results == (1, {'.\\tests\\test_data\\i30dem.tif': [532935.13,  # ulX
                                                4205684.82, # ulY
                                                577305.13,  # lrX
                                                4149794.82  # lrY
