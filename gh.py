@@ -22,6 +22,7 @@ from osgeo import gdal
 from shapely.geometry import MultiPolygon, shape
 
 from gui import *
+from vector import meta
 
 # These must be declared for Python to find the gdal and proj libraries
 os.environ['GDAL_DATA'] = 'C:\\Users\\rwardrup\\miniconda3\\envs\\GIS-Helper\\Library\\share\\gdal'
@@ -289,42 +290,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         payload = (tiff_directory, shapefile_directory, output_directory)
 
-        polygon_functions = PolygonFunctions()
+        polygon_functions = meta.PolygonFunctions()
         polygon_functions.get_polygon_vertices(payload)
-
-
-class PolygonFunctions:
-    """
-    Contains the IO functions
-    """
-
-    def load_polygons(self, payload):
-        """
-        Loads polygons into memory
-        :return:
-        """
-
-        self.input_file = payload[0]
-        self.shapefile_directory = payload[1]
-        self.output_directory = payload[2]
-
-        shp = shapefile.Reader(self.shapefile_directory)
-        self.shapes = shp.shapes()
-
-    def get_polygon_vertices(self, payload):
-        """
-        Gets vertex locations for polygons
-        :return:
-        """
-
-        self.vertices = []
-
-        self.load_polygons(payload)
-
-        for polygon in self.shapes:
-            self.vertices.append(polygon.points)
-
-        print(self.vertices)
 
 
 def get_origin(coords):
