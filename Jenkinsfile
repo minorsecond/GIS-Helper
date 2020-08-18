@@ -9,8 +9,10 @@ pipeline {
             environment {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
-            bat 'conda env create'  // Build environment based on environment.yml
-            bat 'conda activate GIS-Helper'
+            steps {
+                bat 'conda env create'  // Build environment based on environment.yml
+                bat 'conda activate GIS-Helper'
+            }
         }
         stage('Test') {
             agent {label 'CI-W10-Slave'}
