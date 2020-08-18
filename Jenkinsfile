@@ -11,6 +11,15 @@ pipeline {
                 bat 'conda activate GIS-Helper'
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest'
             }
+            post {
+                failure {
+                    cleanup {
+                        bat 'conda env remove -y --name GIS-Helper'
+                        bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
+                        cleanWs()
+                    }
+                }
+            }
         }
 
 	    stage('Deliver') {
@@ -25,10 +34,12 @@ pipeline {
                 success {
                     archiveArtifacts 'dist/gh/**/**'
                 }
-                cleanup {
-                    bat 'conda env remove -y --name GIS-Helper'
-                    bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
-                    cleanWs()
+                always {
+                    cleanup {
+                        bat 'conda env remove -y --name GIS-Helper'
+                        bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
+                        cleanWs()
+                    }
                 }
             }
         }
