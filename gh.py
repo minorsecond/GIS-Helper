@@ -14,15 +14,11 @@ from os.path import join
 import fiona
 from fiona import _shim, schema
 from matplotlib import pyplot as plt
-plt.style.use('ggplot')
-import shapefile
-from descartes import PolygonPatch
-from matplotlib.collections import PatchCollection
 from osgeo import gdal
-from shapely.geometry import MultiPolygon, shape
 
 from gui import *
 from vector import meta
+from raster import measurements
 
 # These must be declared for Python to find the gdal and proj libraries
 os.environ['GDAL_DATA'] = 'C:\\Users\\rwardrup\\miniconda3\\envs\\GIS-Helper\\Library\\share\\gdal'
@@ -34,6 +30,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setFixedSize(self.size())
+
+        self.shape_functions = meta.PolygonFunctions()
 
         self.originCalculateButton.clicked.connect(get_origin)
         self.originClearButton.clicked.connect(self.clear_origin_fields)
@@ -210,48 +208,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         print(metadata)
 
     def display_shapefile(self):
-        """
-        Display shape data on screen
-        :return:
-        """
-        shp_path = self.shapefileViewPath.text()
-        color_map = plt.get_cmap('RdBu')
-        num_colors = 1000
-
-        if len(shp_path) > 0:
-            # try:
-
-            # Open shape data
-            shp = MultiPolygon(
-                [shape(pol['geometry']) for pol in fiona.open(shp_path)]
-            )
-
-            print("Finished loading shape data")
-
-            fig = plt.figure()
-            print("Created the figure")
-
-            # try:
-            ax = fig.add_subplot(111)
-            minx, miny, maxx, maxy = shp.bounds
-            w, h = maxx - minx, maxy - miny
-            ax.set_xlim(minx - 0.2 * w, maxx + 0.2 * w)
-            ax.set_ylim(miny - 0.2 * h, maxy + 0.2 * h)
-            ax.set_aspect(1)
-
-            print("Created the plot")
-
-            patches = []
-            for idx, p in enumerate(shp):
-                colour = color_map(1. * idx / num_colors)
-                patches.append(PolygonPatch(p, fc=colour, ec='#555555', alpha=1., zorder=1))
-                print("Adding {0} to plot.".format(idx))
-
-            ax.add_collection(PatchCollection(patches, match_original=True))
-
-            print("Built the graph")
-            plt.show()
-
+        self.shape_functions.display_shapefile(self.shapefileViewPath)
 
     def GetRasterBounds(self):
         """
@@ -264,9 +221,11 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         raster_dictionary = {}
         raster_count = 0
 
+        raster_measurements = measurements.RasterMeasurements()
+
         path = self.geoTiffDir1.text()
 
-        raster_count, raster_dictionary = CalculateRasterBounds(path)
+        raster_count, raster_dictionary = raster_measurements.CalculateRasterBounds(path)
 
         output_text = "Finished processing {0} rasters.\n\n".format(raster_count)
         output_text += 'Raster paths and bounds (ulX, ulY, lrX, lrY): \n'
@@ -418,40 +377,6 @@ def dd_to_dms(coords):
         print(e)
 
     return degrees, minutes, seconds, valid
-
-
-def CalculateRasterBounds(path):
-    """
-    Gets bounding box of raster image using GDAL bindings
-    :param path: path to raster
-    :return: tuple of bounding coordinates
-    """
-
-    rasters = []
-    raster_dictionary = {}
-    raster_count = 0
-
-    for dirpath, dirnames, filenames in walk(path):
-        for file in filenames:
-            if file.endswith('.tif'):
-                rasters.append(join(dirpath, file))
-
-    for raster in rasters:
-        raster_count += 1
-        image = gdal.Open(raster)  # Open the file using gdal
-        ulx, xres, xskew, uly, yskew, yres = image.GetGeoTransform()
-        lrx = ulx + (image.RasterXSize * xres)
-        lry = uly + (image.RasterYSize * yres)
-
-        ulx = round(ulx, 3)
-        uly = round(uly, 3)
-        lrx = round(lrx, 3)
-        lry = round(lry, 3)
-
-        bounds = [ulx, uly, lrx, lry]
-        raster_dictionary[raster] = bounds
-
-    return raster_count, raster_dictionary
 
 
 if __name__ == "__main__":
