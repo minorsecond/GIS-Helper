@@ -7,7 +7,7 @@ checking raster statistics, and raster sorting.
 
 ##### How do I get set up? #####
 
-* Requires Anaconda.
+* Install Anaconda.
 * Clone repository and run 'conda env create'.
 
 ##### Who do I talk to? #####
