@@ -12,7 +12,7 @@ pipeline {
             steps {
                 bat 'conda env create'  // Build environment based on environment.yml
                 bat 'conda activate GIS-Helper'
-                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest'
+                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --junitxml results.xml'
             }
             post {
                 failure {
