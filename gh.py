@@ -8,24 +8,16 @@ Robert Ross Wardrup
 import sys
 from math import modf
 import os
-from os import walk
-from os.path import join
-
-import fiona
-from fiona import _shim, schema
 from matplotlib import pyplot as plt
-plt.style.use('ggplot')
-import shapefile
-from descartes import PolygonPatch
-from matplotlib.collections import PatchCollection
-from osgeo import gdal
-from shapely.geometry import MultiPolygon, shape
 
 from gui import *
+from vector import meta
+from raster import measurements
 
 # These must be declared for Python to find the gdal and proj libraries
 os.environ['GDAL_DATA'] = 'C:\\Users\\rwardrup\\miniconda3\\envs\\GIS-Helper\\Library\\share\\gdal'
 os.environ['PROJ_LIB'] = 'C:\\Users\\rwardrup\\miniconda3\\envs\\GIS-Helper\\Library\\share\\proj'
+
 
 class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -33,6 +25,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setFixedSize(self.size())
+
+        self.shape_functions = meta.PolygonFunctions()
 
         self.originCalculateButton.clicked.connect(get_origin)
         self.originClearButton.clicked.connect(self.clear_origin_fields)
@@ -162,35 +156,6 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         dd = degrees + (minutes / 60) + (seconds / 3600)
 
-    def bounding_box(self, shp):
-        """
-        Get bounding box of shapefile
-        :return:
-        """
-
-        ll_lat = 9999999999.9
-        ll_lon = 9999999999.9
-        ur_lat = 0.0
-        ur_lon = 0.0
-
-        shp = shp.shapes()
-        bounding_box = [ll_lon, ll_lat, ur_lon, ur_lat]
-
-        for i in shp:
-            bbox = i.bbox
-            if bbox[0] < bounding_box[0]:
-                bounding_box[0] = round(bbox[0], 5)
-
-            if bbox[1] < bounding_box[1]:
-                bounding_box[1] = round(bbox[1], 5)
-
-            if bbox[2] > bounding_box[2]:
-                bounding_box[2] = round(bbox[2], 5)
-
-            if bbox[3] > bounding_box[3]:
-                bounding_box[3] = round(bbox[3], 5)
-
-        return bounding_box
 
     def get_shape_meta(self, shp):
         """
@@ -204,53 +169,12 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             'nRecords': None
         }
 
-        metadata['bounds'] = self.bounding_box(shp)
+        metadata['bounds'] = meta.PolygonFunctions.bounding_box(shp)
 
         print(metadata)
 
     def display_shapefile(self):
-        """
-        Display shape data on screen
-        :return:
-        """
-        shp_path = self.shapefileViewPath.text()
-        color_map = plt.get_cmap('RdBu')
-        num_colors = 1000
-
-        if len(shp_path) > 0:
-            # try:
-
-            # Open shape data
-            shp = MultiPolygon(
-                [shape(pol['geometry']) for pol in fiona.open(shp_path)]
-            )
-
-            print("Finished loading shape data")
-
-            fig = plt.figure()
-            print("Created the figure")
-
-            # try:
-            ax = fig.add_subplot(111)
-            minx, miny, maxx, maxy = shp.bounds
-            w, h = maxx - minx, maxy - miny
-            ax.set_xlim(minx - 0.2 * w, maxx + 0.2 * w)
-            ax.set_ylim(miny - 0.2 * h, maxy + 0.2 * h)
-            ax.set_aspect(1)
-
-            print("Created the plot")
-
-            patches = []
-            for idx, p in enumerate(shp):
-                colour = color_map(1. * idx / num_colors)
-                patches.append(PolygonPatch(p, fc=colour, ec='#555555', alpha=1., zorder=1))
-                print("Adding {0} to plot.".format(idx))
-
-            ax.add_collection(PatchCollection(patches, match_original=True))
-
-            print("Built the graph")
-            plt.show()
-
+        self.shape_functions.display_shapefile(self.shapefileViewPath)
 
     def GetRasterBounds(self):
         """
@@ -263,9 +187,11 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         raster_dictionary = {}
         raster_count = 0
 
+        raster_measurements = measurements.RasterMeasurements()
+
         path = self.geoTiffDir1.text()
 
-        raster_count, raster_dictionary = CalculateRasterBounds(path)
+        raster_count, raster_dictionary = raster_measurements.CalculateRasterBounds(path)
 
         output_text = "Finished processing {0} rasters.\n\n".format(raster_count)
         output_text += 'Raster paths and bounds (ulX, ulY, lrX, lrY): \n'
@@ -289,42 +215,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         payload = (tiff_directory, shapefile_directory, output_directory)
 
-        polygon_functions = PolygonFunctions()
+        polygon_functions = meta.PolygonFunctions()
         polygon_functions.get_polygon_vertices(payload)
-
-
-class PolygonFunctions:
-    """
-    Contains the IO functions
-    """
-
-    def load_polygons(self, payload):
-        """
-        Loads polygons into memory
-        :return:
-        """
-
-        self.input_file = payload[0]
-        self.shapefile_directory = payload[1]
-        self.output_directory = payload[2]
-
-        shp = shapefile.Reader(self.shapefile_directory)
-        self.shapes = shp.shapes()
-
-    def get_polygon_vertices(self, payload):
-        """
-        Gets vertex locations for polygons
-        :return:
-        """
-
-        self.vertices = []
-
-        self.load_polygons(payload)
-
-        for polygon in self.shapes:
-            self.vertices.append(polygon.points)
-
-        print(self.vertices)
 
 
 def get_origin(coords):
@@ -371,26 +263,6 @@ def get_origin(coords):
                                   'Check to ensure '
                                   'coordinate input '
                                   'contain only numbers.')
-
-
-def getPixelValue(raster):
-    """
-    Gets raster pixel value at xy coordinate
-    :return: an RGB tuple
-    """
-
-    rgb2i = None
-    i2rgb = None
-
-    _, raster_dictionary = CalculateRasterBounds(
-        raster)  # Remove this - don't want to run this thing twice
-
-    for raster_path, bounds in raster_dictionary.items():
-        raster = gdal.Open(raster_path)
-        geoTransform = raster.GetGeoTransform()
-        rasterBand = geoTransform.GetRasterBand(1)
-        gdal.UseExceptions()
-
 
 
 def origin_calc(coords):
@@ -451,40 +323,6 @@ def dd_to_dms(coords):
         print(e)
 
     return degrees, minutes, seconds, valid
-
-
-def CalculateRasterBounds(path):
-    """
-    Gets bounding box of raster image using GDAL bindings
-    :param path: path to raster
-    :return: tuple of bounding coordinates
-    """
-
-    rasters = []
-    raster_dictionary = {}
-    raster_count = 0
-
-    for dirpath, dirnames, filenames in walk(path):
-        for file in filenames:
-            if file.endswith('.tif'):
-                rasters.append(join(dirpath, file))
-
-    for raster in rasters:
-        raster_count += 1
-        image = gdal.Open(raster)  # Open the file using gdal
-        ulx, xres, xskew, uly, yskew, yres = image.GetGeoTransform()
-        lrx = ulx + (image.RasterXSize * xres)
-        lry = uly + (image.RasterYSize * yres)
-
-        ulx = round(ulx, 3)
-        uly = round(uly, 3)
-        lrx = round(lrx, 3)
-        lry = round(lry, 3)
-
-        bounds = [ulx, uly, lrx, lry]
-        raster_dictionary[raster] = bounds
-
-    return raster_count, raster_dictionary
 
 
 if __name__ == "__main__":
