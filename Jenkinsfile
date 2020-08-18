@@ -6,10 +6,13 @@ pipeline {
     stages {
         stage('Test') {
             agent {label 'CI-W10-Slave'}
+            environment {
+                CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
+            }
             steps {
                 bat 'conda env create'  // Build environment based on environment.yml
                 bat 'conda activate GIS-Helper'
-               // bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest'
+                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest'
             }
             post {
                 failure {
