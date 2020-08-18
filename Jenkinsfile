@@ -4,21 +4,21 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Test') {
-            agent {label 'CI-W10-Slave'}
-            steps {
-                bat 'conda env create'  // Build environment based on environment.yml
-                bat 'conda activate GIS-Helper'
-                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest'
-            }
-            post {
-                failure {
-                    bat 'conda env remove -y --name GIS-Helper'
-                    bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
-                    cleanWs()
-                }
-            }
-        }
+        //stage('Test') {
+        //    agent {label 'CI-W10-Slave'}
+        //    steps {
+        //        bat 'conda env create'  // Build environment based on environment.yml
+        //        bat 'conda activate GIS-Helper'
+        //        bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest'
+        //    }
+        //    post {
+        //        failure {
+        //            bat 'conda env remove -y --name GIS-Helper'
+        //            bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
+        //            cleanWs()
+        //        }
+        //    }
+        //}
 
 	    stage('Deliver') {
             agent {label 'CI-W10-Slave'}
