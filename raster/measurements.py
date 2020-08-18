@@ -41,7 +41,6 @@ class RasterMeasurements:
 
         return raster_count, raster_dictionary
 
-
     def getPixelValue(self, raster):
         """
         Gets raster pixel value at xy coordinate

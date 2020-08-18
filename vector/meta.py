@@ -83,3 +83,33 @@ class PolygonFunctions:
 
             print("Built the graph")
             plt.show()
+
+    def bounding_box(self, shp):
+        """
+        Get bounding box of shapefile
+        :return:
+        """
+
+        ll_lat = 9999999999.9
+        ll_lon = 9999999999.9
+        ur_lat = 0.0
+        ur_lon = 0.0
+
+        shp = shp.shapes()
+        bounding_box = [ll_lon, ll_lat, ur_lon, ur_lat]
+
+        for i in shp:
+            bbox = i.bbox
+            if bbox[0] < bounding_box[0]:
+                bounding_box[0] = round(bbox[0], 5)
+
+            if bbox[1] < bounding_box[1]:
+                bounding_box[1] = round(bbox[1], 5)
+
+            if bbox[2] > bounding_box[2]:
+                bounding_box[2] = round(bbox[2], 5)
+
+            if bbox[3] > bounding_box[3]:
+                bounding_box[3] = round(bbox[3], 5)
+
+        return bounding_box
