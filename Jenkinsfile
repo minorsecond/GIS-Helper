@@ -4,6 +4,11 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
+        stage('Test') {
+            agent {label 'CI-W10-Slave'}
+            bat 'pytest'
+        }
+
 	    stage('Deliver') {
             agent {label 'CI-W10-Slave'}
             environment {
