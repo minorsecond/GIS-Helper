@@ -17,7 +17,6 @@ pipeline {
             }
             post {
                 success {
-                    sh 'ls dist\\gh\\'
                     archiveArtifacts 'dist/gh/**/**'
                 }
                 cleanup {
