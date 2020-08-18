@@ -6,7 +6,9 @@ pipeline {
     stages {
         stage('Test') {
             agent {label 'CI-W10-Slave'}
-            bat 'pytest'
+            steps {
+                bat 'pytest'
+            }
         }
 
 	    stage('Deliver') {
