@@ -13,7 +13,7 @@ pipeline {
                 bat 'conda env create' // Build environment based on environment.yml
                 bat 'conda activate GIS-Helper'
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
-                bat 'mv matplotlibrc dist/gh/'
+                bat 'move matplotlibrc dist/gh/'
             }
             post {
                 success {
