@@ -4,7 +4,7 @@ import shapefile
 from shapely.geometry import MultiPolygon, shape
 from descartes import PolygonPatch
 from fiona import open as fiona_open
-
+from fiona import _shim, schema
 plt.style.use('ggplot')
 
 

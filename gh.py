@@ -8,13 +8,7 @@ Robert Ross Wardrup
 import sys
 from math import modf
 import os
-from os import walk
-from os.path import join
-
-import fiona
-from fiona import _shim, schema
 from matplotlib import pyplot as plt
-from osgeo import gdal
 
 from gui import *
 from vector import meta
