@@ -299,26 +299,6 @@ def get_origin(coords):
                                   'contain only numbers.')
 
 
-def getPixelValue(raster):
-    """
-    Gets raster pixel value at xy coordinate
-    :return: an RGB tuple
-    """
-
-    rgb2i = None
-    i2rgb = None
-
-    _, raster_dictionary = CalculateRasterBounds(
-        raster)  # Remove this - don't want to run this thing twice
-
-    for raster_path, bounds in raster_dictionary.items():
-        raster = gdal.Open(raster_path)
-        geoTransform = raster.GetGeoTransform()
-        rasterBand = geoTransform.GetRasterBand(1)
-        gdal.UseExceptions()
-
-
-
 def origin_calc(coords):
     """
     Calculates the origin of a bounding box

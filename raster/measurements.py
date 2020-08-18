@@ -1,6 +1,7 @@
 from os.path import join
 from os import walk
-from gdal import Open as gdal_open
+import gdal
+
 
 class RasterMeasurements:
     """
@@ -25,7 +26,7 @@ class RasterMeasurements:
 
         for raster in rasters:
             raster_count += 1
-            image = gdal_open(raster)  # Open the file using gdal
+            image = gdal.Open(raster)  # Open the file using gdal
             ulx, xres, xskew, uly, yskew, yres = image.GetGeoTransform()
             lrx = ulx + (image.RasterXSize * xres)
             lry = uly + (image.RasterYSize * yres)
@@ -39,3 +40,22 @@ class RasterMeasurements:
             raster_dictionary[raster] = bounds
 
         return raster_count, raster_dictionary
+
+
+    def getPixelValue(self, raster):
+        """
+        Gets raster pixel value at xy coordinate
+        :return: an RGB tuple
+        """
+
+        rgb2i = None
+        i2rgb = None
+
+        _, raster_dictionary = self.CalculateRasterBounds(
+            raster)  # Remove this - don't want to run this thing twice
+
+        for raster_path, bounds in raster_dictionary.items():
+            raster = gdal.Open(raster_path)
+            geoTransform = raster.GetGeoTransform()
+            rasterBand = geoTransform.GetRasterBand(1)
+            gdal.UseExceptions()
