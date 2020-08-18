@@ -1,2 +1,2 @@
 backend : Qt5Agg
-backend.qt5 : PyQt5
+#backend.qt5 : PyQt5
