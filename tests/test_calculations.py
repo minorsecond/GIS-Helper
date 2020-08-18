@@ -18,13 +18,13 @@ def test_raster_bounds():
     :return:
     """
 
-    path = 'color_image.tif'
+    path = '.'
     raster_measurements = measurements.RasterMeasurements()
     results = raster_measurements.CalculateRasterBounds(path)
     print(results)
 
-    #assert results == (1, {'color_image.tif': [-977500.0,  # ulX
-    #                                            2422500.0,  # ulY
-    #                                            1534500.0,  # lrX
-    #                                            430500.0  # lrY
-    #                                          ]})
+    assert results == (1, {'.\\i30dem.tif': [532935.13,  # ulX
+                                               4205684.82, # ulY
+                                               577305.13,  # lrX
+                                               4149794.82  # lrY
+    ]})
