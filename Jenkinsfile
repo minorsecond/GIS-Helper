@@ -16,6 +16,9 @@ pipeline {
         }
         stage('Test') {
             agent {label 'CI-W10-Slave'}
+            environment {
+                CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
+            }
             steps {
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --junitxml results.xml'
             }
@@ -30,6 +33,9 @@ pipeline {
 
 	    stage('Deliver') {
             agent {label 'CI-W10-Slave'}
+            environment {
+                CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
+            }
             steps {
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
             }
