@@ -13,7 +13,7 @@ class PolygonFunctions:
     Contains the IO functions
     """
 
-    def load_polygons(self, payload):
+    def load_polygons(self, payload):  # TODO: determine if this needs its own function
         """
         Loads polygons into memory
         :return:
@@ -25,6 +25,8 @@ class PolygonFunctions:
 
         shp = shapefile.Reader(self.shapefile_directory)
         self.shapes = shp.shapes()
+
+        return shp.shapes()
 
     def get_polygon_vertices(self, payload):
         """
