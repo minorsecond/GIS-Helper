@@ -17,8 +17,8 @@ pipeline {
             }
             post {
                 success {
-                    sh 'ls'
-                    archiveArtifacts 'dist/gh/**/*.*'
+                    sh 'ls dist\\gh\\'
+                    archiveArtifacts 'dist/gh/**/**'
                 }
                 cleanup {
                     bat 'conda env remove -y --name GIS-Helper'
