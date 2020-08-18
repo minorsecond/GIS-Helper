@@ -9,3 +9,9 @@ def test_load_shapefile():
     shp = shapefile_functions.load_polygons(input_payload)
 
     assert type(shp) == shapefile.Shapes
+
+
+def test_load_raster():
+    input_payload = "tests\\test_data\\i30dem.tif"
+
+    # TODO: Write the raster load code
