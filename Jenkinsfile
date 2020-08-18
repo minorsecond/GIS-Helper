@@ -4,14 +4,17 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Test') {
+        stage('Build Environment') {
             agent {label 'CI-W10-Slave'}
             environment {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
+            bat 'conda env create'  // Build environment based on environment.yml
+            bat 'conda activate GIS-Helper'
+        }
+        stage('Test') {
+            agent {label 'CI-W10-Slave'}
             steps {
-                bat 'conda env create'  // Build environment based on environment.yml
-                bat 'conda activate GIS-Helper'
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --junitxml results.xml'
             }
             post {
@@ -25,9 +28,6 @@ pipeline {
 
 	    stage('Deliver') {
             agent {label 'CI-W10-Slave'}
-            environment {
-                CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
-            }
             steps {
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
             }
