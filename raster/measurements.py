@@ -2,6 +2,7 @@ from os.path import join
 from os import walk
 import gdal
 import rasterio as rio
+import rasterio._shim
 
 class RasterMeasurements:
     """
