@@ -4,7 +4,7 @@ import gdal
 import rasterio as rio
 
 # These are needed for pyinstaller
-from rasterio import _shim, control, crs, sample, vrt, _features
+from rasterio import _shim, control, crs, sample, vrt, _features  # noqa
 
 
 class RasterMeasurements:
