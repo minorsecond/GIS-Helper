@@ -59,9 +59,12 @@ class PolygonFunctions:
             # try:
 
             # Open shape data
+            print("Opening shapefile")
             shp = MultiPolygon(
                 [shape(pol['geometry']) for pol in fiona_open(shp_path)]
             )
+
+            print("Shapefile contents: {}".format(shp))
 
             print("Finished loading shape data")
 
