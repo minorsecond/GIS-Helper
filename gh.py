@@ -6,10 +6,16 @@ Robert Ross Wardrup
 import sys
 from math import modf
 from matplotlib import pyplot as plt
-
+import os
+from pathlib import Path
 from gui import QtWidgets, Ui_MainWindow
 from vector import meta
 from raster import measurements
+
+anaconda_dir = os.path.join(str(Path.home()), "anaconda3\\envs\\GIS-Helper")
+print("Anaconda3 Dir: {}".format(anaconda_dir))
+os.environ['GDAL_DATA'] = os.path.join(anaconda_dir, 'Library\\share\\gdal')
+os.environ['PROJ_LIB'] = os.path.join(anaconda_dir, 'Library\\share\\proj')
 
 
 class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
