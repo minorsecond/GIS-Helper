@@ -35,6 +35,7 @@ def test_raster_bounds():
                                                                31.562
                                                                ]})
 
+
 def test_get_pixel_value():
     path = 'tests\\test_data\\'
     raster_measurements = measurements.RasterMeasurements()
