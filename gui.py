@@ -16,26 +16,33 @@ except AttributeError:
 
 try:
     _encoding = QtWidgets.QApplication.UnicodeUTF8
+
     def _translate(context, text, disambig):
-        return QtWidgets.QApplication.translate(context, text, disambig, _encoding)
+        return QtWidgets.QApplication.translate(context, text, disambig,
+                                                _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
         return QtWidgets.QApplication.translate(context, text, disambig)
+
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(800, 600)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed,
+                                           QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().
+                                     hasHeightForWidth())
         MainWindow.setSizePolicy(sizePolicy)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed,
+                                           QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(self.centralwidget.sizePolicy().
+                                     hasHeightForWidth())
         self.centralwidget.setSizePolicy(sizePolicy)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.tabContainer = QtWidgets.QTabWidget(self.centralwidget)
@@ -77,7 +84,8 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
         self.originCalculateButton.setFont(font)
-        self.originCalculateButton.setObjectName(_fromUtf8("originCalculateButton"))
+        self.originCalculateButton.\
+            setObjectName(_fromUtf8("originCalculateButton"))
         self.originResultsLabel = QtWidgets.QLabel(self.centroidGroup)
         self.originResultsLabel.setGeometry(QtCore.QRect(20, 350, 321, 20))
         font = QtGui.QFont()
@@ -93,13 +101,15 @@ class Ui_MainWindow(object):
         font.setFamily(_fromUtf8("Arial"))
         self.ddButtonCalcOrigin_2.setFont(font)
         self.ddButtonCalcOrigin_2.setChecked(True)
-        self.ddButtonCalcOrigin_2.setObjectName(_fromUtf8("ddButtonCalcOrigin_2"))
+        self.ddButtonCalcOrigin_2.\
+            setObjectName(_fromUtf8("ddButtonCalcOrigin_2"))
         self.llButtonCalcOrigin_4 = QtWidgets.QRadioButton(self.centroidGroup)
         self.llButtonCalcOrigin_4.setGeometry(QtCore.QRect(20, 280, 131, 20))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
         self.llButtonCalcOrigin_4.setFont(font)
-        self.llButtonCalcOrigin_4.setObjectName(_fromUtf8("llButtonCalcOrigin_4"))
+        self.llButtonCalcOrigin_4.\
+            setObjectName(_fromUtf8("llButtonCalcOrigin_4"))
         self.label = QtWidgets.QLabel(self.centroidGroup)
         self.label.setGeometry(QtCore.QRect(20, 220, 141, 16))
         font = QtGui.QFont()
@@ -189,7 +199,8 @@ class Ui_MainWindow(object):
         font.setWeight(75)
         self.centroidCalcLabel_2.setFont(font)
         self.centroidCalcLabel_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.centroidCalcLabel_2.setObjectName(_fromUtf8("centroidCalcLabel_2"))
+        self.centroidCalcLabel_2.\
+            setObjectName(_fromUtf8("centroidCalcLabel_2"))
         self.convCoordClear = QtWidgets.QPushButton(self.originGroup)
         self.convCoordClear.setEnabled(True)
         self.convCoordClear.setGeometry(QtCore.QRect(10, 470, 113, 32))
@@ -223,14 +234,16 @@ class Ui_MainWindow(object):
         self.radioButton_2.setGeometry(QtCore.QRect(192, 56, 100, 20))
         self.radioButton_2.setObjectName(_fromUtf8("radioButton_2"))
         self.coordinatesResultsLabel = QtWidgets.QLabel(self.gisCalc)
-        self.coordinatesResultsLabel.setGeometry(QtCore.QRect(430, 368, 321, 20))
+        self.coordinatesResultsLabel.\
+            setGeometry(QtCore.QRect(430, 368, 321, 20))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
         font.setBold(True)
         font.setWeight(75)
         self.coordinatesResultsLabel.setFont(font)
         self.coordinatesResultsLabel.setAlignment(QtCore.Qt.AlignCenter)
-        self.coordinatesResultsLabel.setObjectName(_fromUtf8("coordinatesResultsLabel"))
+        self.coordinatesResultsLabel.\
+            setObjectName(_fromUtf8("coordinatesResultsLabel"))
         self.originGroup.raise_()
         self.centroidGroup.raise_()
         self.coordinatesResultsLabel.raise_()
@@ -246,31 +259,39 @@ class Ui_MainWindow(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.catalogTiffBrowseButton = QtWidgets.QPushButton(self.catalogTiff)
-        self.catalogTiffBrowseButton.setGeometry(QtCore.QRect(652, 26, 113, 32))
+        self.catalogTiffBrowseButton.\
+            setGeometry(QtCore.QRect(652, 26, 113, 32))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Helvetica"))
         self.catalogTiffBrowseButton.setFont(font)
-        self.catalogTiffBrowseButton.setObjectName(_fromUtf8("catalogTiffBrowseButton"))
+        self.catalogTiffBrowseButton.\
+            setObjectName(_fromUtf8("catalogTiffBrowseButton"))
         self.tiffCatalogOutputLabel = QtWidgets.QLabel(self.catalogTiff)
         self.tiffCatalogOutputLabel.setGeometry(QtCore.QRect(12, 78, 105, 16))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Helvetica"))
         self.tiffCatalogOutputLabel.setFont(font)
-        self.tiffCatalogOutputLabel.setObjectName(_fromUtf8("tiffCatalogOutputLabel"))
-        self.catalogTiffBrowseButton_2 = QtWidgets.QPushButton(self.catalogTiff)
-        self.catalogTiffBrowseButton_2.setGeometry(QtCore.QRect(652, 72, 113, 32))
+        self.tiffCatalogOutputLabel.\
+            setObjectName(_fromUtf8("tiffCatalogOutputLabel"))
+        self.catalogTiffBrowseButton_2 = QtWidgets.\
+            QPushButton(self.catalogTiff)
+        self.catalogTiffBrowseButton_2.\
+            setGeometry(QtCore.QRect(652, 72, 113, 32))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Helvetica"))
         self.catalogTiffBrowseButton_2.setFont(font)
-        self.catalogTiffBrowseButton_2.setObjectName(_fromUtf8("catalogTiffBrowseButton_2"))
+        self.catalogTiffBrowseButton_2.\
+            setObjectName(_fromUtf8("catalogTiffBrowseButton_2"))
         self.catalogTiffOutputWindow = QtWidgets.QTextEdit(self.catalogTiff)
-        self.catalogTiffOutputWindow.setGeometry(QtCore.QRect(10, 192, 755, 325))
+        self.catalogTiffOutputWindow.\
+            setGeometry(QtCore.QRect(10, 192, 755, 325))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Helvetica"))
         font.setPointSize(11)
         self.catalogTiffOutputWindow.setFont(font)
         self.catalogTiffOutputWindow.setReadOnly(True)
-        self.catalogTiffOutputWindow.setObjectName(_fromUtf8("catalogTiffOutputWindow"))
+        self.catalogTiffOutputWindow.\
+            setObjectName(_fromUtf8("catalogTiffOutputWindow"))
         self.checkBox = QtWidgets.QCheckBox(self.catalogTiff)
         self.checkBox.setGeometry(QtCore.QRect(12, 124, 153, 20))
         font = QtGui.QFont()
@@ -326,11 +347,14 @@ class Ui_MainWindow(object):
         self.TiffDirectory.setGeometry(QtCore.QRect(188, 32, 433, 21))
         self.TiffDirectory.setObjectName(_fromUtf8("TiffDirectory"))
         self.intersectingShapefileEdit = QtWidgets.QLineEdit(self.copyTiffs)
-        self.intersectingShapefileEdit.setGeometry(QtCore.QRect(188, 64, 433, 21))
-        self.intersectingShapefileEdit.setObjectName(_fromUtf8("intersectingShapefileEdit"))
+        self.intersectingShapefileEdit.setGeometry(QtCore.
+                                                   QRect(188, 64, 433, 21))
+        self.intersectingShapefileEdit.\
+            setObjectName(_fromUtf8("intersectingShapefileEdit"))
         self.geoTiffOutputDirEdit = QtWidgets.QLineEdit(self.copyTiffs)
         self.geoTiffOutputDirEdit.setGeometry(QtCore.QRect(188, 96, 433, 21))
-        self.geoTiffOutputDirEdit.setObjectName(_fromUtf8("geoTiffOutputDirEdit"))
+        self.geoTiffOutputDirEdit.\
+            setObjectName(_fromUtf8("geoTiffOutputDirEdit"))
         self.BrowseForTifDir = QtWidgets.QPushButton(self.copyTiffs)
         self.BrowseForTifDir.setGeometry(QtCore.QRect(642, 28, 113, 32))
         self.BrowseForTifDir.setObjectName(_fromUtf8("BrowseForTifDir"))
@@ -338,8 +362,10 @@ class Ui_MainWindow(object):
         self.BrowseForIntShape.setGeometry(QtCore.QRect(642, 60, 113, 32))
         self.BrowseForIntShape.setObjectName(_fromUtf8("BrowseForIntShape"))
         self.BrowseForGeoTiffOutputDir = QtWidgets.QPushButton(self.copyTiffs)
-        self.BrowseForGeoTiffOutputDir.setGeometry(QtCore.QRect(642, 92, 113, 32))
-        self.BrowseForGeoTiffOutputDir.setObjectName(_fromUtf8("BrowseForGeoTiffOutputDir"))
+        self.BrowseForGeoTiffOutputDir.\
+            setGeometry(QtCore.QRect(642, 92, 113, 32))
+        self.BrowseForGeoTiffOutputDir.\
+            setObjectName(_fromUtf8("BrowseForGeoTiffOutputDir"))
         self.checkBox_2 = QtWidgets.QCheckBox(self.copyTiffs)
         self.checkBox_2.setGeometry(QtCore.QRect(12, 124, 153, 20))
         font = QtGui.QFont()
@@ -347,9 +373,11 @@ class Ui_MainWindow(object):
         self.checkBox_2.setFont(font)
         self.checkBox_2.setObjectName(_fromUtf8("checkBox_2"))
         self.catalogTiffOutputWindow_2 = QtWidgets.QTextEdit(self.copyTiffs)
-        self.catalogTiffOutputWindow_2.setGeometry(QtCore.QRect(10, 192, 755, 325))
+        self.catalogTiffOutputWindow_2.\
+            setGeometry(QtCore.QRect(10, 192, 755, 325))
         self.catalogTiffOutputWindow_2.setReadOnly(True)
-        self.catalogTiffOutputWindow_2.setObjectName(_fromUtf8("catalogTiffOutputWindow_2"))
+        self.catalogTiffOutputWindow_2.\
+            setObjectName(_fromUtf8("catalogTiffOutputWindow_2"))
         self.progressBar = QtWidgets.QProgressBar(self.copyTiffs)
         self.progressBar.setGeometry(QtCore.QRect(16, 158, 745, 23))
         self.progressBar.setProperty("value", 0)
@@ -368,14 +396,18 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
         self.label_13.setFont(font)
-        self.label_13.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_13.setAlignment(QtCore.Qt.AlignLeading |
+                                   QtCore.Qt.AlignLeft |
+                                   QtCore.Qt.AlignVCenter)
         self.label_13.setObjectName(_fromUtf8("label_13"))
         self.shapefileViewPath = QtWidgets.QLineEdit(self.qkShp)
         self.shapefileViewPath.setGeometry(QtCore.QRect(188, 18, 433, 21))
         self.shapefileViewPath.setObjectName(_fromUtf8("shapefileViewPath"))
         self.shapefileViewBrowseButton = QtWidgets.QPushButton(self.qkShp)
-        self.shapefileViewBrowseButton.setGeometry(QtCore.QRect(642, 14, 113, 32))
-        self.shapefileViewBrowseButton.setObjectName(_fromUtf8("shapefileViewBrowseButton"))
+        self.shapefileViewBrowseButton.\
+            setGeometry(QtCore.QRect(642, 14, 113, 32))
+        self.shapefileViewBrowseButton.\
+            setObjectName(_fromUtf8("shapefileViewBrowseButton"))
         self.shapefileViewClear = QtWidgets.QPushButton(self.qkShp)
         self.shapefileViewClear.setGeometry(QtCore.QRect(20, 490, 113, 32))
         self.shapefileViewClear.setObjectName(_fromUtf8("shapefileViewClear"))
@@ -398,48 +430,86 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "GIS Helper", None))
-        self.centroidCalcLabel.setText(_translate("MainWindow", "Calculate Origin", None))
+        self.centroidCalcLabel.\
+            setText(_translate("MainWindow", "Calculate Origin", None))
         self.originClearButton.setText(_translate("MainWindow", "Clear", None))
-        self.originCalculateButton.setText(_translate("MainWindow", "Calculate", None))
-        self.originResultsLabel.setText(_translate("MainWindow", "Origin", None))
-        self.ddButtonCalcOrigin_2.setText(_translate("MainWindow", "Decimal Degrees", None))
-        self.llButtonCalcOrigin_4.setText(_translate("MainWindow", "Lat/Lon", None))
+        self.originCalculateButton.\
+            setText(_translate("MainWindow", "Calculate", None))
+        self.originResultsLabel.\
+            setText(_translate("MainWindow", "Origin", None))
+        self.ddButtonCalcOrigin_2.\
+            setText(_translate("MainWindow", "Decimal Degrees", None))
+        self.llButtonCalcOrigin_4.\
+            setText(_translate("MainWindow", "Lat/Lon", None))
         self.label.setText(_translate("MainWindow", "Coordinate System", None))
-        self.westXEntry.setPlaceholderText(_translate("MainWindow", "East X", None))
-        self.eastXEntry.setPlaceholderText(_translate("MainWindow", "West X", None))
-        self.northYEntry.setPlaceholderText(_translate("MainWindow", "North Y", None))
-        self.southYEntry.setPlaceholderText(_translate("MainWindow", "South Y", None))
+        self.westXEntry.\
+            setPlaceholderText(_translate("MainWindow", "East X", None))
+        self.eastXEntry.\
+            setPlaceholderText(_translate("MainWindow", "West X", None))
+        self.northYEntry.\
+            setPlaceholderText(_translate("MainWindow", "North Y", None))
+        self.southYEntry.\
+            setPlaceholderText(_translate("MainWindow", "South Y", None))
         self.label_3.setText(_translate("MainWindow", "West X", None))
         self.label_4.setText(_translate("MainWindow", "East X", None))
         self.label_5.setText(_translate("MainWindow", "North Y", None))
         self.label_6.setText(_translate("MainWindow", "South Y", None))
-        self.centroidCalcLabel_2.setText(_translate("MainWindow", "Convert Coordinates", None))
+        self.centroidCalcLabel_2.\
+            setText(_translate("MainWindow", "Convert Coordinates", None))
         self.convCoordClear.setText(_translate("MainWindow", "Clear", None))
         self.convCoordCalc.setText(_translate("MainWindow", "Calculate", None))
-        self.converCoordsEntry.setPlaceholderText(_translate("MainWindow", "Input Coordinates", None))
+        self.converCoordsEntry.\
+            setPlaceholderText(_translate("MainWindow",
+                                          "Input Coordinates", None))
         self.radioButton.setText(_translate("MainWindow", "DMS to DD", None))
         self.radioButton_2.setText(_translate("MainWindow", "DD to DMS", None))
-        self.coordinatesResultsLabel.setText(_translate("MainWindow", "Converted Coordinates", None))
-        self.tabContainer.setTabText(self.tabContainer.indexOf(self.gisCalc), _translate("MainWindow", "GIS Calculator", None))
-        self.label_2.setText(_translate("MainWindow", "Geotiff Directory: ", None))
-        self.catalogTiffBrowseButton.setText(_translate("MainWindow", "Browse", None))
-        self.tiffCatalogOutputLabel.setText(_translate("MainWindow", "Output Directory: ", None))
-        self.catalogTiffBrowseButton_2.setText(_translate("MainWindow", "Browse", None))
-        self.checkBox.setText(_translate("MainWindow", "Fan out by resolution", None))
-        self.catalogTiffProcess.setText(_translate("MainWindow", "Process", None))
-        self.tabContainer.setTabText(self.tabContainer.indexOf(self.catalogTiff), _translate("MainWindow", "Catalog Tiffs", None))
+        self.coordinatesResultsLabel.\
+            setText(_translate("MainWindow", "Converted Coordinates", None))
+        self.tabContainer.setTabText(self.tabContainer.
+                                     indexOf(self.gisCalc),
+                                     _translate("MainWindow",
+                                                "GIS Calculator", None))
+        self.label_2.setText(_translate("MainWindow",
+                                        "Geotiff Directory: ", None))
+        self.catalogTiffBrowseButton.setText(_translate("MainWindow",
+                                                        "Browse", None))
+        self.tiffCatalogOutputLabel.setText(_translate("MainWindow",
+                                                       "Output Directory: ",
+                                                       None))
+        self.catalogTiffBrowseButton_2.setText(_translate("MainWindow",
+                                                          "Browse", None))
+        self.checkBox.setText(_translate("MainWindow",
+                                         "Fan out by resolution", None))
+        self.catalogTiffProcess.setText(_translate("MainWindow",
+                                                   "Process", None))
+        self.tabContainer.setTabText(self.tabContainer.
+                                     indexOf(self.catalogTiff),
+                                     _translate("MainWindow",
+                                                "Catalog Tiffs", None))
         self.label_9.setText(_translate("MainWindow", "Tif Directory", None))
-        self.label_10.setText(_translate("MainWindow", "Intersecting Shapefile: ", None))
-        self.label_11.setText(_translate("MainWindow", "Geotiff Output Directory: ", None))
+        self.label_10.setText(_translate("MainWindow",
+                                         "Intersecting Shapefile: ", None))
+        self.label_11.setText(_translate("MainWindow",
+                                         "Geotiff Output Directory: ", None))
         self.BrowseForTifDir.setText(_translate("MainWindow", "Browse", None))
-        self.BrowseForIntShape.setText(_translate("MainWindow", "Browse", None))
-        self.BrowseForGeoTiffOutputDir.setText(_translate("MainWindow", "Browse", None))
-        self.checkBox_2.setText(_translate("MainWindow", "Fan out by resolution", None))
+        self.BrowseForIntShape.setText(_translate("MainWindow",
+                                                  "Browse", None))
+        self.BrowseForGeoTiffOutputDir.setText(_translate("MainWindow",
+                                                          "Browse", None))
+        self.checkBox_2.setText(_translate("MainWindow",
+                                           "Fan out by resolution", None))
         self.CopyTiffProcess.setText(_translate("MainWindow", "Process", None))
-        self.tabContainer.setTabText(self.tabContainer.indexOf(self.copyTiffs), _translate("MainWindow", "Copy Tiffs", None))
+        self.tabContainer.setTabText(self.tabContainer.
+                                     indexOf(self.copyTiffs),
+                                     _translate("MainWindow",
+                                                "Copy Tiffs", None))
         self.label_13.setText(_translate("MainWindow", "Shapefile: ", None))
-        self.shapefileViewBrowseButton.setText(_translate("MainWindow", "Browse", None))
-        self.shapefileViewClear.setText(_translate("MainWindow", "Clear", None))
-        self.shapefileViewGo.setText(_translate("MainWindow", "Open Shape", None))
-        self.tabContainer.setTabText(self.tabContainer.indexOf(self.qkShp), _translate("MainWindow", "Shapefile QuickView", None))
-
+        self.shapefileViewBrowseButton.setText(_translate("MainWindow",
+                                                          "Browse", None))
+        self.shapefileViewClear.setText(_translate("MainWindow",
+                                                   "Clear", None))
+        self.shapefileViewGo.setText(_translate("MainWindow",
+                                                "Open Shape", None))
+        self.tabContainer.setTabText(self.tabContainer.indexOf(self.qkShp),
+                                     _translate("MainWindow",
+                                                "Shapefile QuickView", None))

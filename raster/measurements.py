@@ -2,7 +2,10 @@ from os.path import join
 from os import walk
 import gdal
 import rasterio as rio
-from rasterio import _shim, control, crs, sample, vrt, _features  # These are needed for pyinstaller
+
+# These are needed for pyinstaller
+from rasterio import _shim, control, crs, sample, vrt, _features
+
 
 class RasterMeasurements:
     """
@@ -58,7 +61,9 @@ class RasterMeasurements:
         for raster_path, bounds in raster_dictionary.items():
             with rio.open(raster_path) as raster_input:
                 px, py = raster_input.index(in_x, in_y)
-                window = rio.windows.Window(py - 1//2, px - 1//2, 1, 1)  # one pixel window
+
+                # one-pixel window
+                window = rio.windows.Window(py - 1//2, px - 1//2, 1, 1)
                 clip = raster_input.read(window=window)
                 pixel_val = clip[0][0][0], clip[1][0][0], clip[2][0][0]
         return pixel_val

@@ -38,8 +38,10 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # Copy Tiffs page
         self.BrowseForTifDir.clicked.connect(self.browse_for_tiff_directory)
-        self.BrowseForIntShape.clicked.connect(self.browse_for_intersecting_shp)
-        self.BrowseForGeoTiffOutputDir.clicked.connect(self.browse_for_output_directory)
+        self.BrowseForIntShape.\
+            clicked.connect(self.browse_for_intersecting_shp)
+        self.BrowseForGeoTiffOutputDir.\
+            clicked.connect(self.browse_for_output_directory)
         self.CopyTiffProcess.clicked.connect(self.handle_tiff_copy)
 
         plt.rcParams['toolbar'] = 'None'
@@ -76,8 +78,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         Browse file system for files
         :return:
         """
-
-        openfile = QtWidgets.QFileDialog.getOpenFileName(self)[0]  # This now returns a tuple as of Qt5
+        # This now returns a tuple as of Qt5
+        openfile = QtWidgets.QFileDialog.getOpenFileName(self)[0]
         self.shapefileViewPath.setText(openfile)
 
     def browse_for_raster(self):
@@ -86,7 +88,9 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openDir = QtWidgets.QFileDialog.getExistingDirectory(self, "Select Raster Directory")
+        openDir = QtWidgets.QFileDialog.getExistingDirectory(self,
+                                                             "Select Raster "
+                                                             "Directory")
         self.geoTiffDir1.setText(openDir)
 
     def error_popup(self, title, message, info):
@@ -129,14 +133,18 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             try:
                 degrees, minutes, seconds, valid = dd_to_dms(input_coord)
                 if valid:
-                    output = '{0}d, {1}m, {2}s'.format(degrees, minutes, seconds)
+                    output = '{0}d, {1}m, {2}s'.format(degrees, minutes,
+                                                       seconds)
                     output_text.setText(output)
                 else:
                     self.error_popup('Error', 'Check input and try again.', '')
 
             except ValueError:
-                self.error_popup('Error', 'Error converting decimal degrees to lat/lon.',
-                                 'Check to ensure coordinate input only contains numbers.')
+                self.error_popup('Error',
+                                 'Error converting decimal degrees to '
+                                 'lat/lon.',
+                                 'Check to ensure coordinate input only'
+                                 ' contains numbers.')
 
     def dms_to_dd(self):
         """
@@ -151,7 +159,6 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         input_coord = self.converCoordsEntry.text()
 
         dd = degrees + (minutes / 60) + (seconds / 3600)
-
 
     def get_shape_meta(self, shp):
         """
@@ -187,9 +194,11 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         path = self.geoTiffDir1.text()
 
-        raster_count, raster_dictionary = raster_measurements.CalculateRasterBounds(path)
+        raster_count, raster_dictionary = raster_measurements.\
+            CalculateRasterBounds(path)
 
-        output_text = "Finished processing {0} rasters.\n\n".format(raster_count)
+        output_text = "Finished processing {0} rasters.\n\n".\
+            format(raster_count)
         output_text += 'Raster paths and bounds (ulX, ulY, lrX, lrY): \n'
 
         for filepath, bounds in raster_dictionary.items():
@@ -217,7 +226,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
 def get_origin(coords):
     """
-    Button function to get origin calculation. Runs the origin_calc() function which runs the calculation.
+    Button function to get origin calculation. Runs the origin_calc()
+    function which runs the calculation.
     :return: Origin
     """
 
@@ -254,8 +264,12 @@ def get_origin(coords):
         if centroid:  # If a centroid is returned, print to text box.
             centroid = "{0}, {1}".format(centroid[0], centroid[1])
             output_text.setText(centroid)
-        else:  # Calculate_origin returned false, indicating invalid input. Print error message.
-            GisHelper.error_popup('Error', 'Error converting coordinates to decimal numbers.',
+        # Calculate_origin returned false, indicating invalid input.
+        # Print error message.
+        else:
+            GisHelper.error_popup('Error',
+                                  'Error converting coordinates to'
+                                  'decimal numbers.',
                                   'Check to ensure '
                                   'coordinate input '
                                   'contain only numbers.')
@@ -265,7 +279,8 @@ def origin_calc(coords):
     """
     Calculates the origin of a bounding box
     :param coords: List of tuples containing coordinates in (x,y),(x,y) format
-    :return: A list of xy coords denoting origin, false if coordinate entry is invalid
+    :return: A list of xy coords denoting origin, false if coordinate entry is
+    invalid
     """
 
     blank_entry = False
@@ -322,7 +337,7 @@ def dd_to_dms(coords):
 
 
 if __name__ == "__main__":
-    #app = QtGui.QGuiApplication.QApplication(sys.argv)
+    # app = QtGui.QGuiApplication.QApplication(sys.argv)
     app = QtWidgets.QApplication(sys.argv)
     window = GisHelper()
     window.show()
