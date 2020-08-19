@@ -4,7 +4,9 @@ import shapefile
 from shapely.geometry import MultiPolygon, shape
 from descartes import PolygonPatch
 from fiona import open as fiona_open
-from fiona import _shim, schema  # This is required for pyinstaller
+
+# This is required for pyinstaller
+from fiona import _shim, schema  # noqa
 plt.style.use('ggplot')
 
 
@@ -13,7 +15,8 @@ class PolygonFunctions:
     Contains the IO functions
     """
 
-    def load_polygons(self, payload):  # TODO: determine if this needs its own function
+    # TODO: determine if this needs its own function
+    def load_polygons(self, payload):
         """
         Loads polygons into memory
         :return:
@@ -78,7 +81,8 @@ class PolygonFunctions:
             patches = []
             for idx, p in enumerate(shp):
                 colour = color_map(1. * idx / num_colors)
-                patches.append(PolygonPatch(p, fc=colour, ec='#555555', alpha=1., zorder=1))
+                patches.append(PolygonPatch(p, fc=colour, ec='#555555',
+                                            alpha=1., zorder=1))
                 print("Adding {0} to plot.".format(idx))
 
             ax.add_collection(PatchCollection(patches, match_original=True))
