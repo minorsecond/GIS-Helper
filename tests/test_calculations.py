@@ -13,7 +13,7 @@ def test_dd_to_dms():
 
 def test_origin_calculation():
     """
-    Test orgin coordinate calculation.
+    Test origin coordinate calculation.
     """
     coordinates = [0.0, 10.0, 0.0, 10.0]
     assert origin_calc(coordinates) == (5.0, 5.0)

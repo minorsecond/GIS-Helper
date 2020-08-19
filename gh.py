@@ -287,7 +287,7 @@ def origin_calc(coords):
     blank_entry = False
 
     for i in coords:
-        if not i:
+        if not isinstance(i, float) and not isinstance(i, int):
             blank_entry = True
 
     if not blank_entry:
