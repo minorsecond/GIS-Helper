@@ -2,7 +2,7 @@ from os.path import join
 from os import walk
 import gdal
 import rasterio as rio
-from rasterio import _shim
+from rasterio import _shim, control, crs, sample, vrt, _features  # These are needed for pyinstaller
 
 class RasterMeasurements:
     """
