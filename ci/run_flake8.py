@@ -6,17 +6,17 @@ import sys
 
 def ignore(p):
     """ Ignore hidden and test files """
-    parts = p.splitall()
-    if any(x.startswith(".") for x in parts):
+    if p.startswith("."):
         return True
-    if 'test' in parts:
+    if 'test' in p:
         return True
     return False
 
 
 def run_pyflakes():
-    cmd = ["pyflakes"]
+    cmd = ["flake8"]
     cmd.extend(collect_sources(ignore_func=ignore))
+
     return subprocess.call(cmd)
 
 

@@ -1,9 +1,12 @@
 import pathlib as path
+import os.path
 
 
 def collect_sources(ignore_func):
-    top_path = path.Path(".")
-    for py_path in top_path.walkfiles("*.py"):
-        py_path = py_path.normpath()  # get rid of the leading '.'
-        if not ignore_func(py_path):
-            yield py_path
+    top_path = path.Path().absolute().parent
+    for root, dirname, filenames in os.walk(top_path):
+        for file in filenames:
+            if os.path.splitext(file)[1] == ".py":
+                file_path = os.path.join(root, file)
+                if not ignore_func(file_path):
+                    yield file_path

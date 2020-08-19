@@ -7,10 +7,9 @@ Robert Ross Wardrup
 
 import sys
 from math import modf
-import os
 from matplotlib import pyplot as plt
 
-from gui import *
+from gui import QtWidgets, Ui_MainWindow
 from vector import meta
 from raster import measurements
 
@@ -185,10 +184,6 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :param path: path to raster
         :return: tuple of bounding coordinates
         """
-
-        rasters = []
-        raster_dictionary = {}
-        raster_count = 0
 
         raster_measurements = measurements.RasterMeasurements()
 

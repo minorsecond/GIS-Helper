@@ -51,8 +51,6 @@ class RasterMeasurements:
         :return: an RGB tuple
         """
 
-        rgb2i = None
-        i2rgb = None
         pixel_val = None
 
         # Remove this - don't want to run this thing twice
