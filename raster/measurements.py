@@ -1,7 +1,8 @@
 from os.path import join
 from os import walk
 import gdal
-import struct
+import rasterio as rio
+from matplotlib import pyplot
 
 class RasterMeasurements:
     """
@@ -49,27 +50,15 @@ class RasterMeasurements:
 
         rgb2i = None
         i2rgb = None
-        rasterBand = None
+        pixel_val = None
 
         # Remove this - don't want to run this thing twice
         raster_count, raster_dictionary = self.CalculateRasterBounds(raster)
 
         for raster_path, bounds in raster_dictionary.items():
-            raster = gdal.Open(raster_path, 1)
-            geoTransform = raster.GetGeoTransform()
-            print("geotransform: {}".format(geoTransform))
-            rasterBand = raster.GetRasterBand(1)
-
-            px = int((in_x - geoTransform[0]) / geoTransform[1])  # x pixel
-            py = int((in_y - geoTransform[3]) / geoTransform[5])  # y pixel
-
-            print("px: {0} py: {1}".format(px, py))
-            structval = rasterBand.ReadRaster(px, py, 1, 1, buf_type=gdal.GDT_UInt16)
-            print("structval: {}".format(structval))
-            intval = struct.unpack('h', structval)
-
-            print("Result: {}".format(intval[0]))
-
-            gdal.UseExceptions()
-
-        return rasterBand
+            with rio.open(raster_path) as raster_input:
+                px, py = raster_input.index(in_x, in_y)
+                window = rio.windows.Window(py - 1//2, px - 1//2, 1, 1)  # one pixel window
+                clip = raster_input.read(window=window)
+                pixel_val = clip[0][0][0], clip[1][0][0], clip[2][0][0]
+        return pixel_val
