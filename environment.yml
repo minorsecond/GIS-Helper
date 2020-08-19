@@ -10,3 +10,4 @@ dependencies:
   - shapely
   - pyinstaller
   - pytest
+  - pytest-cov
