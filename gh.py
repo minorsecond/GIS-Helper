@@ -3,8 +3,6 @@ Tools to help with various GIS tasks
 Robert Ross Wardrup
 """
 
-# TODO: database SHP scanner - scan subdirectories and catalog all shapedata.
-
 import sys
 from math import modf
 from matplotlib import pyplot as plt
@@ -15,6 +13,9 @@ from raster import measurements
 
 
 class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
+    """
+    Main user interface class.
+    """
     def __init__(self):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
@@ -33,7 +34,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.shapefileViewGo.clicked.connect(self.display_shapefile)
 
         self.catalogTiffBrowseButton.clicked.connect(self.browse_for_raster)
-        self.catalogTiffProcess.clicked.connect(self.GetRasterBounds)
+        self.catalogTiffProcess.clicked.connect(self.get_raster_bounds)
 
         # Copy Tiffs page
         self.BrowseForTifDir.clicked.connect(self.browse_for_tiff_directory)
@@ -42,6 +43,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.BrowseForGeoTiffOutputDir.\
             clicked.connect(self.browse_for_output_directory)
         self.CopyTiffProcess.clicked.connect(self.handle_tiff_copy)
+
+        self.error_popup = QtWidgets.QMessageBox()
 
         plt.rcParams['toolbar'] = 'None'
 
@@ -87,22 +90,33 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openDir = QtWidgets.QFileDialog.getExistingDirectory(self,
-                                                             "Select Raster "
-                                                             "Directory")
-        self.geoTiffDir1.setText(openDir)
+        open_dir = QtWidgets.QFileDialog.getExistingDirectory(self,
+                                                              "Select Raster "
+                                                              "Directory")
+        self.geoTiffDir1.setText(open_dir)
 
-    def error_popup(self, title, message, info):
-        error_popup = QtWidgets.QMessageBox()
-        error_popup.setIcon(error_popup.Critical)
-        error_popup.setText(message)
-        error_popup.setWindowTitle(title)
-        error_popup.setInformativeText(info)
-        error_popup.setStandardButtons(error_popup.Ok)
+    def error_popup_show(self, title, message, info):
+        """
+        Display an error message when an exception occurs.
+        :param title: A string for the window title, should be "Error"
+        :param message: Quick message about the error.
+        :param info: How to resolve the error.
+        :return: Error text displayed in QMessageBox
+        """
 
-        error_popup.show()
+        self.error_popup.setIcon(self.error_popup.Critical)
+        self.error_popup.setText(message)
+        self.error_popup.setWindowTitle(title)
+        self.error_popup.setInformativeText(info)
+        self.error_popup.setStandardButtons(self.error_popup.Ok)
+
+        self.error_popup.show()
 
     def clear_origin_fields(self):
+        """
+        Clear the orgin calculation fields
+        :return: Blank fields
+        """
         self.northYEntry.clear()
         self.southYEntry.clear()
         self.eastXEntry.clear()
@@ -110,6 +124,10 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.originOutputBox.clear()
 
     def clear_convert_fields(self):
+        """
+        Clear the coordinate system conversion fields
+        :return: Blank fields
+        """
         self.converCoordsEntry.clear()
         self.converterOutput.clear()
 
@@ -157,28 +175,17 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         input_coord = self.converCoordsEntry.text()
 
-        dd = degrees + (minutes / 60) + (seconds / 3600)
-
-    def get_shape_meta(self, shp):
-        """
-        Gets metadata from shapefile
-        :return: shapefile metadata
-        """
-        metadata = {
-            'proj': None,
-            'origin': None,
-            'bounds': None,
-            'nRecords': None
-        }
-
-        metadata['bounds'] = meta.PolygonFunctions.bounding_box(shp)
-
-        print(metadata)
+        decimal_degrees = degrees + (minutes / 60) + (seconds / 3600)
 
     def display_shapefile(self):
+        """
+        Linker to run the display_shapefile function iin shape_functions
+        module. #TODO This is eligible for removal.
+        :return:
+        """
         self.shape_functions.display_shapefile(self.shapefileViewPath)
 
-    def GetRasterBounds(self):
+    def get_raster_bounds(self):
         """
         Gets bounding box of raster image using GDAL bindings
         :param path: path to raster
@@ -227,6 +234,7 @@ def get_origin(coords):
     """
 
     blank_entry = False
+    gui = GisHelper()
     output_text = GisHelper.originOutputBox
 
     if coords:
@@ -252,7 +260,7 @@ def get_origin(coords):
         title = "Error"
         text = "Missing coordinate(s) input."
         info = "Check that all coordinate fields contain valid values."
-        GisHelper.error_popup(title, text, info)
+        GisHelper.error_popup_show(gui, title, text, info)
 
     else:
         centroid = origin_calc(coordinates)  # Get origin from origin_calc
@@ -262,12 +270,10 @@ def get_origin(coords):
         # Calculate_origin returned false, indicating invalid input.
         # Print error message.
         else:
-            GisHelper.error_popup('Error',
-                                  'Error converting coordinates to'
-                                  'decimal numbers.',
-                                  'Check to ensure '
-                                  'coordinate input '
-                                  'contain only numbers.')
+            title = "Error"
+            text = "Error converting coordinates to decimal numbers."
+            info = "Check to insure coordinate input contains only numbers."
+            GisHelper.error_popup_show(gui, title, text, info)
 
 
 def origin_calc(coords):
@@ -281,7 +287,7 @@ def origin_calc(coords):
     blank_entry = False
 
     for i in coords:
-        if not coords:
+        if not i:
             blank_entry = True
 
     if not blank_entry:
@@ -291,14 +297,16 @@ def origin_calc(coords):
             coords[2] = float(coords[2])
             coords[3] = float(coords[3])
 
-            x = [coords[2], coords[3]]
-            y = [coords[0], coords[1]]
+            x_coord = [coords[2], coords[3]]
+            y_coord = [coords[0], coords[1]]
 
-            centroid = (sum(x) / 2, sum(y) / 2)
+            centroid = (sum(x_coord) / 2, sum(y_coord) / 2)
             return centroid
 
         except ValueError:
             return False
+
+    return False
 
 
 def dd_to_dms(coords):
@@ -314,7 +322,7 @@ def dd_to_dms(coords):
 
     try:
         input_coord = float(coords)
-        if input_coord >= -180 and input_coord <= 180:
+        if -180 <= input_coord <= 180:
             number_list = modf(input_coord)
             integer = number_list[1]
             decimal = number_list[0]
@@ -325,10 +333,30 @@ def dd_to_dms(coords):
         else:
             valid = False
 
-    except Exception as e:
-        print(e)
+    except TypeError as type_error:
+        print(type_error)
 
     return degrees, minutes, seconds, valid
+
+
+def get_shape_meta(shp):
+    """
+    Gets metadata from shapefile
+    :return: shapefile metadata
+    """
+
+    polygon_functions = meta.PolygonFunctions()
+
+    metadata = {
+        'proj': None,
+        'origin': None,
+        'bounds': None,
+        'nRecords': None
+    }
+
+    metadata['bounds'] = polygon_functions.bounding_box(shp)
+
+    print(metadata)
 
 
 if __name__ == "__main__":
