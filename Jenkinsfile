@@ -44,7 +44,6 @@ pipeline {
                     archiveArtifacts 'dist/gh/**/**'
                 }
                 always {
-                    sh 'ls'
                     junit 'results.xml'
                 }
                 cleanup {
