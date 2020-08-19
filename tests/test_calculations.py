@@ -28,7 +28,6 @@ def test_raster_bounds():
     path = '.\\tests\\test_data\\'
     raster_measurements = measurements.RasterMeasurements()
     results = raster_measurements.CalculateRasterBounds(path)
-    print(results)
 
     assert results == (1, {'.\\tests\\test_data\\raster.tif': [-99.632,
                                                                31.564,
