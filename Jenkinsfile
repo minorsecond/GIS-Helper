@@ -20,7 +20,7 @@ pipeline {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
             steps {
-                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml--junitxml results.xml'
+                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml'
             }
             post {
                 failure {
