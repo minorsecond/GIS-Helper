@@ -2,12 +2,11 @@
 
 block_cipher = None
 
-
 a = Analysis(['gh.py'],
              pathex=['C:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Library\\bin', 'C:\\Users\\rwardrup\\PycharmProjects\\GIS-Helper'],
              binaries=[],
              datas=[('matplotlibrc', '.config')],
-             hiddenimports=['numpy', 'packaging', 'matplotlib', 'tkinter', 'matplotlib.backends.backend_tkagg', 'gishelper.ui', 'tkinter.filedialog', 'rasterio._shim'],
+             hiddenimports=['numpy', 'packaging', 'matplotlib', 'tkinter', 'matplotlib.backends.backend_tkagg', 'gishelper.ui', 'tkinter.filedialog', 'rasterio'],
              #hookspath=['hooks'],
              runtime_hooks=[],
              excludes=[],
