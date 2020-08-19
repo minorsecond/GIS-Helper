@@ -55,16 +55,17 @@ class RasterMeasurements:
         raster_count, raster_dictionary = self.CalculateRasterBounds(raster)
 
         for raster_path, bounds in raster_dictionary.items():
-            raster = gdal.Open(raster_path)
-            print("type: {}".format(raster))
+            raster = gdal.Open(raster_path, 1)
             geoTransform = raster.GetGeoTransform()
-            print("geotransform {}".format(geoTransform))
-            rasterBand = geoTransform.GetRasterBand(1)
+            print("geotransform: {}".format(geoTransform))
+            rasterBand = raster.GetRasterBand(1)
 
             px = int((in_x - geoTransform[0]) / geoTransform[1])  # x pixel
             py = int((in_y - geoTransform[3]) / geoTransform[5])  # y pixel
 
-            structval = geoTransform.ReadRaster(px, py, 1, 1,buf_type=gdal.GDT_UInt16)
+            print("px: {0} py: {1}".format(px, py))
+            structval = rasterBand.ReadRaster(px, py, 1, 1, buf_type=gdal.GDT_UInt16)
+            print("structval: {}".format(structval))
             intval = struct.unpack('h', structval)
 
             print("Result: {}".format(intval[0]))

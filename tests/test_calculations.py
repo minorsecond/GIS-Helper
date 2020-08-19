@@ -30,10 +30,10 @@ def test_raster_bounds():
     results = raster_measurements.CalculateRasterBounds(path)
     print(results)
 
-    assert results == (1, {'.\\tests\\test_data\\i30dem.tif': [532935.13,
-                                                               4205684.82,
-                                                               577305.13,
-                                                               4149794.82
+    assert results == (1, {'.\\tests\\test_data\\raster.tif': [-99.632,
+                                                               31.564,
+                                                               -99.628,
+                                                               31.562
                                                                ]})
 
 def test_get_pixel_value():
