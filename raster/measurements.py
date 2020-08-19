@@ -49,6 +49,7 @@ class RasterMeasurements:
 
         rgb2i = None
         i2rgb = None
+        rasterBand = None
 
         _, raster_dictionary = self.CalculateRasterBounds(
             raster)  # Remove this - don't want to run this thing twice
@@ -58,3 +59,5 @@ class RasterMeasurements:
             geoTransform = raster.GetGeoTransform()
             rasterBand = geoTransform.GetRasterBand(1)
             gdal.UseExceptions()
+
+        return rasterBand

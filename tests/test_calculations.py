@@ -35,3 +35,10 @@ def test_raster_bounds():
                                                                577305.13,
                                                                4149794.82
                                                                ]})
+
+def test_get_pixel_value():
+    path = '.\\tests\\test_data\\i30dem.tif'
+
+
+
+    assert pixel_value == (0,0,0)
