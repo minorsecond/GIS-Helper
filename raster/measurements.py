@@ -1,7 +1,7 @@
 from os.path import join
 from os import walk
 import gdal
-
+import struct
 
 class RasterMeasurements:
     """
@@ -41,7 +41,7 @@ class RasterMeasurements:
 
         return raster_count, raster_dictionary
 
-    def getPixelValue(self, raster):
+    def getPixelValue(self, raster, in_x, in_y):
         """
         Gets raster pixel value at xy coordinate
         :return: an RGB tuple
@@ -56,8 +56,19 @@ class RasterMeasurements:
 
         for raster_path, bounds in raster_dictionary.items():
             raster = gdal.Open(raster_path)
+            print("type: {}".format(raster))
             geoTransform = raster.GetGeoTransform()
+            print("geotransform {}".format(geoTransform))
             rasterBand = geoTransform.GetRasterBand(1)
+
+            px = int((in_x - geoTransform[0]) / geoTransform[1])  # x pixel
+            py = int((in_y - geoTransform[3]) / geoTransform[5])  # y pixel
+
+            structval = geoTransform.ReadRaster(px, py, 1, 1,buf_type=gdal.GDT_UInt16)
+            intval = struct.unpack('h', structval)
+
+            print("Result: {}".format(intval[0]))
+
             gdal.UseExceptions()
 
         return rasterBand

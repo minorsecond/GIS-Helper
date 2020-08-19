@@ -18,8 +18,13 @@ def test_origin_calculation():
     coordinates = [0.0, 10.0, 0.0, 10.0]
     assert origin_calc(coordinates) == (5.0, 5.0)
 
-"""
+
 def test_raster_bounds():
+    """
+    Tests raster bounding box calc
+    :return:
+    """
+
     path = '.\\tests\\test_data\\'
     raster_measurements = measurements.RasterMeasurements()
     results = raster_measurements.CalculateRasterBounds(path)
