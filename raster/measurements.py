@@ -51,8 +51,8 @@ class RasterMeasurements:
         i2rgb = None
         rasterBand = None
 
-        _, raster_dictionary = self.CalculateRasterBounds(
-            raster)  # Remove this - don't want to run this thing twice
+        # Remove this - don't want to run this thing twice
+        raster_count, raster_dictionary = self.CalculateRasterBounds(raster)
 
         for raster_path, bounds in raster_dictionary.items():
             raster = gdal.Open(raster_path)
