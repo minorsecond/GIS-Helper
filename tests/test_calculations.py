@@ -41,10 +41,3 @@ def test_get_pixel_value():
     raster_measurements = measurements.RasterMeasurements()
     pixel_value = raster_measurements.getPixelValue(raster=path, in_x=-99.631408, in_y=31.562316)
     assert pixel_value == (102, 120, 91)
-
-def test_get_pixel_value():
-    path = '.\\tests\\test_data\\i30dem.tif'
-
-
-
-    assert pixel_value == (0,0,0)
