@@ -2,7 +2,6 @@
 Tools to help with various GIS tasks
 Robert Ross Wardrup
 """
-
 import sys
 from math import modf
 from matplotlib import pyplot as plt
