@@ -64,8 +64,6 @@ class PolygonFunctions:
                 [shape(pol['geometry']) for pol in fiona_open(shp_path)]
             )
 
-            print("Shapefile contents: {}".format(shp))
-
             print("Finished loading shape data")
 
             fig = plt.figure()
