@@ -1,6 +1,6 @@
 ### GIS Helper ###
 
-[![Build Status](https://ci.wardrup.me/buildStatus/icon?job=GIS_Helper-Master)](https://ci.wardrup.me/job/GIS_Helper-Master/)
+[![Build Status](https://ci.wardrup.me/buildStatus/icon?job=GIS_Helper%2Fmaster)](https://ci.wardrup.me/job/GIS_Helper/job/master/)
 
 A tool to facilitate with GIS tasks.
 
