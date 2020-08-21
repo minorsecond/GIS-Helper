@@ -6,7 +6,7 @@ dependencies:
   - rasterio=1.1.5
   - fiona=1.8.13
   - numpy=1.19.1
-  - descartes1.1.0
+  - descartes=1.1.0
   - shapely=1.7.1
   - pyinstaller=4.0
   - pytest=6.0.1
