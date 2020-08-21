@@ -9,8 +9,7 @@ from matplotlib import pyplot as plt
 from gui import QtWidgets, Ui_MainWindow
 from vector import meta
 from raster import measurements
-from spatial_functions.calculations import origin_calc, \
-    dd_to_dms, dms_to_dd
+from spatial_functions.calculations import Convert, origin_calc
 
 anaconda_dir = os.path.join(str(Path.home()), "anaconda3\\envs\\GIS-Helper")
 print("Anaconda3 Dir: {}".format(anaconda_dir))
@@ -137,6 +136,13 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.converCoordsEntry.clear()
         self.converterOutput.clear()
 
+    def dd_dms_chooser(self):
+        """
+        Determine whether to run get_dd_dms or get_dms_dd
+        """
+
+        pass
+
     def get_dd_dms(self):
         """
         Convert decimal degrees to lat/lon
@@ -154,7 +160,39 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         else:
             try:
-                degrees, minutes, seconds, valid = dd_to_dms(input_coord)
+                degrees, minutes, seconds, valid = Convert.dd_to_dms(input_coord)
+                if valid:
+                    output = '{0}d, {1}m, {2}s'.format(degrees, minutes,
+                                                       seconds)
+                    output_text.setText(output)
+                else:
+                    self.error_popup('Error', 'Check input and try again.', '')
+
+            except ValueError:
+                self.error_popup('Error',
+                                 'Error converting decimal degrees to '
+                                 'lat/lon.',
+                                 'Check to ensure coordinate input only'
+                                 ' contains numbers.')
+
+    def get_dms_dd(self):
+        """
+        Convert degrees/minutes/seconds to decimal degrees
+        :return: a float decimal degree
+        """
+
+        input_coord = self.converCoordsEntry.text()
+        output_text = self.converterOutput
+
+        if len(input_coord) == 0:
+            title = "Error"
+            text = "Missing coordinate input."
+            info = "Check that coordinate field contains valid value."
+            self.error_popup(title, text, info)
+
+        else:
+            try:
+                degrees, minutes, seconds, valid = Convert.dd_to_dms(input_coord)
                 if valid:
                     output = '{0}d, {1}m, {2}s'.format(degrees, minutes,
                                                        seconds)
@@ -253,7 +291,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
             coordinates = [north_y, south_y, east_x, west_x]
 
-            centroid = origin_calc(coordinates)  # Get origin from origin_calc
+            # Get origin from origin_calc
+            centroid = origin_calc(coordinates)
             if centroid:  # If a centroid is returned, print to text box.
                 centroid = "{0}, {1}".format(centroid[0], centroid[1])
                 output_text.setText(centroid)
