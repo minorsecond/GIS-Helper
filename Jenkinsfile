@@ -14,12 +14,12 @@ pipeline {
                 bat 'conda env create'
                 bat 'conda activate GIS-Helper'
                 bat 'conda env list'
-                bat 'yes | c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt'
+                bat 'yes | c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt'
             }
             post {
                 failure {
                     bat 'conda env remove -y --name GIS-Helper'
-                    bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
+                    bat 'rmdir /Q /S c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
                     cleanWs()
                 }
             }
@@ -32,12 +32,12 @@ pipeline {
             steps {
                 bat 'conda activate GIS-Helper'
                 bat 'conda env list'
-                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml
+                bat 'c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml'
             }
             //post {
             //    failure {
             //        bat 'conda env remove -y --name GIS-Helper'
-            //        bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
+            //        bat 'rmdir /Q /S c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
             //        cleanWs()
             //    }
             //}
@@ -50,7 +50,7 @@ pipeline {
             }
             steps {
                 bat 'conda info --envs'
-                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
+                bat 'c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
             }
             post {
                 success {
@@ -62,7 +62,7 @@ pipeline {
                 }
                 cleanup {
                     bat 'conda env remove -y --name GIS-Helper'
-                    bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
+                    bat 'rmdir /Q /S c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
                     cleanWs()
                 }
             }
