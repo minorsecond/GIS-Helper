@@ -1,11 +1,12 @@
 import matplotlib
-matplotlib.use('TKAgg')
+from fiona import open as fiona_open
 from matplotlib.collections import PatchCollection
 from matplotlib import pyplot as plt
 import shapefile
 from shapely.geometry import MultiPolygon, shape
 from descartes import PolygonPatch
-from fiona import open as fiona_open
+matplotlib.use('TKAgg')
+
 
 # This is required for pyinstaller
 from fiona import _shim, schema  # noqa
@@ -120,3 +121,20 @@ class PolygonFunctions:
                 bounding_box[3] = round(bbox[3], 5)
 
         return bounding_box
+
+    def get_shape_meta(self, shp):
+        """
+        Gets metadata from shapefile
+        :return: shapefile metadata
+        """
+
+        metadata = {
+            'proj': None,
+            'origin': None,
+            'bounds': None,
+            'nRecords': None
+        }
+
+        metadata['bounds'] = self.bounding_box(shp)
+
+        print(metadata)

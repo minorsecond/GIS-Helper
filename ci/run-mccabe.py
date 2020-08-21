@@ -43,7 +43,7 @@ def process(py_source, max_complexity):
 
 
 def main():
-    max_complexity = int(5)
+    max_complexity = int(4)
     print("Looking for code with complexity above", max_complexity)
     for py_source in yield_sources():
         process(py_source, max_complexity)
