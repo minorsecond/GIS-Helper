@@ -30,12 +30,12 @@ pipeline {
             steps {
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml'
             }
-            post {
-                failure {
-                    bat 'conda env remove -y --name GIS-Helper'
-                    bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
-                    cleanWs()
-                }
+            //post {
+            //    failure {
+            //        bat 'conda env remove -y --name GIS-Helper'
+            //        bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
+            //        cleanWs()
+            //    }
             }
         }
 

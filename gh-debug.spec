@@ -14,7 +14,7 @@ mpl_data_dir = exec_statement("import matplotlib; print(matplotlib._get_data_pat
 linalg_dir = os.path.join(env_path, 'lib\\site-packages\\numpy\\linalg\\')
 
 a = Analysis(['gh.py'],
-             pathex=[current_path, os.path.join(env_path, '\\Library\\bin'), os.path.join(env_path, 'DLLS')],
+             pathex=[current_path, os.path.join(env_path, '\\Library\\bin')],
              binaries=[(os.path.join(linalg_dir, "_umath_linalg.cp37-win_amd64.pyd"), "numpy\\linalg"),
                        (os.path.join(linalg_dir, "lapack_lite.cp37-win_amd64.pyd"), "numpy\\linalg")
              ],
