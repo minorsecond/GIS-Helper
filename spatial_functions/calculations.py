@@ -76,9 +76,13 @@ class Convert:
         :return: dd
         """
 
-        degrees = 0
-        minutes = 0
-        seconds = 0
+        coords = [int(v) if float(v).is_integer() else float(v)
+                  for v in coords.split()]
 
-        decimal_degrees = degrees + (minutes / 60) + (seconds / 3600)
+        degrees = coords[0]
+        minutes = coords[1]
+        seconds = coords[2]
+
+        decimal_degrees = round((degrees + (minutes / 60) + (seconds / 3600)),
+                                8)
         return decimal_degrees

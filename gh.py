@@ -152,10 +152,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             self.error_popup(title, text, info)
 
         else:
-
-            coords = float(coords)
             if self.dmsToDD.isChecked():
-                print(coords)
                 self.get_dms_dd(coords)
             else:
                 self.get_dd_dms(coords)
@@ -165,15 +162,16 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         Convert decimal degrees to lat/lon
         :return: lat/lon value
         """
+        coords = float(coords)
 
-        output_text = self.converterOutput
+        dd_dms_output_text = self.converterOutput
 
         try:
             degrees, minutes, seconds, valid = Convert.dd_to_dms(coords)
             if valid:
                 output = '{0}d, {1}m, {2}s'.format(degrees, minutes,
                                                    seconds)
-                output_text.setText(output)
+                dd_dms_output_text.setText(output)
             else:
                 self.error_popup('Error', 'Check input and try again.', '')
 
@@ -190,16 +188,12 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return: a float decimal degree
         """
 
-        output_text = self.converterOutput
+        dms_dd_output_text = self.converterOutput
 
         try:
-            degrees, minutes, seconds, valid = Convert.dd_to_dms(coords)
-            if valid:
-                output = '{0}d, {1}m, {2}s'.format(degrees, minutes,
-                                                   seconds)
-                output_text.setText(output)
-            else:
-                self.error_popup('Error', 'Check input and try again.', '')
+            decimal_degrees = Convert.dms_to_dd(coords)
+            output = '{0}'.format(decimal_degrees)
+            dms_dd_output_text.setText(output)
 
         except ValueError:
             self.error_popup('Error',
