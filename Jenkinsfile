@@ -30,9 +30,9 @@ pipeline {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
             steps {
-                bat 'call activate GIS-Helper'
-                bat 'conda env list'
-                bat 'pytest --cov=. --cov-report xml --junitxml results.xml'
+                bat """call activate GIS-Helper
+                       call conda env list
+                       call pytest --cov=. --cov-report xml --junitxml results.xml"""
             }
             //post {
             //    failure {
@@ -49,9 +49,9 @@ pipeline {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
             steps {
-                bat 'call activate GIS-Helper'
-                bat 'conda info --envs'
-                bat 'pyinstaller --onefile gh-debug.spec'
+                bat """call activate GIS-Helper
+                       call conda info --envs
+                       call pyinstaller --onefile gh-debug.spec"""
             }
             post {
                 success {
