@@ -1,11 +1,12 @@
 import matplotlib
-matplotlib.use('TKAgg')
+from fiona import open as fiona_open
 from matplotlib.collections import PatchCollection
 from matplotlib import pyplot as plt
 import shapefile
 from shapely.geometry import MultiPolygon, shape
 from descartes import PolygonPatch
-from fiona import open as fiona_open
+matplotlib.use('TKAgg')
+
 
 # This is required for pyinstaller
 from fiona import _shim, schema  # noqa

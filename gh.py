@@ -169,7 +169,6 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                                  'Check to ensure coordinate input only'
                                  ' contains numbers.')
 
-
     def display_shapefile(self):
         """
         Linker to run the display_shapefile function iin shape_functions
@@ -263,7 +262,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             else:
                 title = "Error"
                 text = "Error converting coordinates to decimal numbers."
-                info = "Check to insure coordinate input contains only numbers."
+                info = "Check to insure coordinate input contains only " \
+                       "numbers."
                 self.error_popup_show(title, text, info)
 
 
