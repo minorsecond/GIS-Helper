@@ -11,6 +11,16 @@ def test_dd_to_dms():
     assert dd_to_dms(180.001) == (None, None, None, False)
 
 
+def test_dms_to_dd():
+    """
+    Test conversion from degrees, minutes, seconds to decimal degrees
+    """
+    assert dms_to_dd("32 46 3.5") == 32.76764
+    assert dms_to_dd("32d 46m 3.5s") == 32.76764
+    assert dms_to_dd("032m 046d 003.5s") == 32.76764
+    assert dms_to_dd("032046003.5") == 32.76764
+
+
 def test_origin_calculation():
     """
     Test origin coordinate calculation.
