@@ -241,13 +241,6 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             if len(i) == 0:
                 blank_entry = True
 
-        north_y = float(north_y)
-        south_y = float(south_y)
-        east_x = float(east_x)
-        west_x = float(west_x)
-
-        coordinates = [north_y, south_y, east_x, west_x]
-
         if blank_entry:
             title = "Error"
             text = "Missing coordinate(s) input."
@@ -255,6 +248,13 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             self.error_popup_show(title, text, info)
 
         else:
+            north_y = float(north_y)
+            south_y = float(south_y)
+            east_x = float(east_x)
+            west_x = float(west_x)
+
+            coordinates = [north_y, south_y, east_x, west_x]
+
             centroid = origin_calc(coordinates)  # Get origin from origin_calc
             if centroid:  # If a centroid is returned, print to text box.
                 centroid = "{0}, {1}".format(centroid[0], centroid[1])
