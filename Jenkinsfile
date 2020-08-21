@@ -10,7 +10,7 @@ pipeline {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
             steps {
-                bat 'set PATH=%PATH%;C:\\Windows\\System32\\downlevel;''
+                bat 'set PATH=%PATH%;C:\\Windows\\System32\\downlevel;'
                 bat 'conda env create'
                 bat 'conda activate GIS-Helper'
                 bat 'conda env list'
