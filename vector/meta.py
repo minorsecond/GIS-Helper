@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('TKAgg')
 from matplotlib.collections import PatchCollection
 from matplotlib import pyplot as plt
 import shapefile
@@ -59,17 +61,16 @@ class PolygonFunctions:
             # try:
 
             # Open shape data
+            print("Opening shapefile")
             shp = MultiPolygon(
                 [shape(pol['geometry']) for pol in fiona_open(shp_path)]
             )
 
             print("Finished loading shape data")
-
-            fig = plt.figure()
+            ax = plt.subplot()
             print("Created the figure")
 
             # try:
-            ax = fig.add_subplot(111)
             minx, miny, maxx, maxy = shp.bounds
             w, h = maxx - minx, maxy - miny
             ax.set_xlim(minx - 0.2 * w, maxx + 0.2 * w)

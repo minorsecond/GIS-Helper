@@ -2,7 +2,6 @@
 Tools to help with various GIS tasks
 Robert Ross Wardrup
 """
-
 import sys
 from math import modf
 from matplotlib import pyplot as plt
@@ -189,6 +188,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         module. #TODO This is eligible for removal.
         :return:
         """
+        print("calling display_shapefile")
         self.shape_functions.display_shapefile(self.shapefileViewPath)
 
     def get_raster_bounds(self):

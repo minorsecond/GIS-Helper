@@ -1,0 +1,1 @@
+matplotlib==3.3.1  # Must be installed in PIP otherwise issues with pyinstaller.
