@@ -127,7 +127,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.southYEntry.clear()
         self.eastXEntry.clear()
         self.westXEntry.clear()
-        self.origin_output_box.clear()
+        self.originOutputBox.clear()
 
     def clear_convert_fields(self):
         """
