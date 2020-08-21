@@ -35,46 +35,55 @@ def origin_calc(coords):
     return False
 
 
-def dd_to_dms(coords):
+class Convert:
     """
-    Calculates decimal degrees to degrees, minutes, seconds
-    :param coords: a float (DD)
-    :return: DMS coordinates
-    """
-    degrees = None
-    minutes = None
-    seconds = None
-    valid = True
-
-    try:
-        input_coord = float(coords)
-        if -180 <= input_coord <= 180:
-            number_list = modf(input_coord)
-            integer = number_list[1]
-            decimal = number_list[0]
-
-            degrees = int(integer)
-            minutes = int(60 * decimal)
-            seconds = abs(round(((decimal - (minutes / 60)) * 3600), 3))
-        else:
-            valid = False
-
-    except TypeError as type_error:
-        print(type_error)
-
-    return degrees, minutes, seconds, valid
-
-
-def dms_to_dd(self):
-    """
-    Convert dms to decimal degrees
-    :return: dd
+    Contains methods for converting things.
     """
 
-    degrees = 0
-    minutes = 0
-    seconds = 0
+    @staticmethod
+    def dd_to_dms(coords):
+        """
+        Calculates decimal degrees to degrees, minutes, seconds
+        :param coords: a float (DD)
+        :return: DMS coordinates
+        """
+        degrees = None
+        minutes = None
+        seconds = None
+        valid = True
 
-    input_coord = self.converCoordsEntry.text()
+        try:
+            input_coord = float(coords)
+            if -180 <= input_coord <= 180:
+                number_list = modf(input_coord)
+                integer = number_list[1]
+                decimal = number_list[0]
 
-    decimal_degrees = degrees + (minutes / 60) + (seconds / 3600)
+                degrees = int(integer)
+                minutes = int(60 * decimal)
+                seconds = abs(round(((decimal - (minutes / 60)) * 3600), 3))
+            else:
+                valid = False
+
+        except TypeError as type_error:
+            print(type_error)
+
+        return degrees, minutes, seconds, valid
+
+    @staticmethod
+    def dms_to_dd(coords):
+        """
+        Convert dms to decimal degrees
+        :return: dd
+        """
+
+        coords = [int(v) if float(v).is_integer() else float(v)
+                  for v in coords.split()]
+
+        degrees = coords[0]
+        minutes = coords[1]
+        seconds = coords[2]
+
+        decimal_degrees = round((degrees + (minutes / 60) + (seconds / 3600)),
+                                8)
+        return decimal_degrees
