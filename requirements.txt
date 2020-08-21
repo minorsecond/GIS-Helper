@@ -1,12 +1,1 @@
-pyshp
-matplotlib
-fiona
-gdal
-pyqt
-numpy
-descartes
-shapely
-
-# Required for bundling
-pyinstaller
-
+matplotlib==3.3.1  # Must be installed in PIP otherwise issues with pyinstaller.

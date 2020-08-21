@@ -47,7 +47,7 @@
      <bool>false</bool>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="gisCalc">
      <attribute name="title">
@@ -536,7 +536,7 @@
         <string>Input Coordinates</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="dmsToDD">
        <property name="geometry">
         <rect>
          <x>76</x>
@@ -549,7 +549,7 @@
         <string>DMS to DD</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="radioButton_2">
+      <widget class="QRadioButton" name="DDToDMS">
        <property name="geometry">
         <rect>
          <x>192</x>
@@ -1050,7 +1050,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
