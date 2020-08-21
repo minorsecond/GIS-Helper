@@ -1,7 +1,7 @@
 name: GIS-Helper
 channels:
-  - defaults
   - conda-forge
+  - defaults
 dependencies:
   - python=3.7
   - pyqt==5.12.3
