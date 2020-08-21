@@ -231,17 +231,22 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         output_text = self.originOutputBox
 
         # Grab values from text entry boxes and convert to floats
-        north_y = float(self.northYEntry.text())
-        south_y = float(self.southYEntry.text())
-        east_x = float(self.eastXEntry.text())
-        west_x = float(self.westXEntry.text())
-
-        coordinates = [north_y, south_y, east_x, west_x]
+        north_y = self.northYEntry.text()
+        south_y = self.southYEntry.text()
+        east_x = self.eastXEntry.text()
+        west_x = self.westXEntry.text()
 
         # Print error message if entry is blank
-        for i in coordinates:
+        for i in north_y, south_y, east_x, west_x:
             if len(i) == 0:
                 blank_entry = True
+
+        north_y = float(north_y)
+        south_y = float(south_y)
+        east_x = float(east_x)
+        west_x = float(west_x)
+
+        coordinates = [north_y, south_y, east_x, west_x]
 
         if blank_entry:
             title = "Error"
