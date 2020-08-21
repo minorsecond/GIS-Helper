@@ -12,7 +12,7 @@ pipeline {
             steps {
                 bat 'conda env create'  // Build environment based on environment.yml
                 bat 'conda activate GIS-Helper'
-                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pip install -y matplotlib'
+                bat 'yes | c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt'
             }
             post {
                 failure {
