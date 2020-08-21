@@ -34,6 +34,7 @@ def origin_calc(coords):
 
     return False
 
+
 class Convert:
     """
     Contains methods for converting things.

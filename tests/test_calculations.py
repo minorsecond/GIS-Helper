@@ -1,4 +1,4 @@
-from spatial_functions.calculations import origin_calc, dd_to_dms, dms_to_dd
+from spatial_functions.calculations import Convert, origin_calc
 from raster import measurements
 
 
@@ -6,16 +6,19 @@ def test_dd_to_dms():
     """
     Test conversion from decimal degrees to degrees, minutes, seconds
     """
-    assert dd_to_dms(38.898556) == (38, 53, 54.802, True)
-    assert dd_to_dms(-77.037852) == (-77, -2, 16.267, True)
-    assert dd_to_dms(180.001) == (None, None, None, False)
+    assert Convert.dd_to_dms(38.898556) == (38, 53, 54.802, True)
+    assert Convert.dd_to_dms(-77.037852) == (-77, -2, 16.267, True)
+    assert Convert.dd_to_dms(180.001) == (None, None, None, False)
 
 
 def test_dms_to_dd():
     """
     Test conversion from degrees, minutes, seconds to decimal degrees
     """
-    assert dms_to_dd("32 46 3.5") == 32.76763889
+    assert Convert.dms_to_dd("32 46 3.5") == 32.76763889
+    assert Convert.dms_to_dd("32 46 12.389") == 32.77010806
+    assert Convert.dms_to_dd("36 7 28.612") == 36.12461444
+
 
 
 def test_origin_calculation():

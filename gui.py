@@ -5,7 +5,7 @@
 # Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
-
+# flake8:  noqa
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
