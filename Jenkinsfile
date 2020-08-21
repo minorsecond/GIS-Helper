@@ -10,11 +10,11 @@ pipeline {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
             steps {
-                bat 'set PATH=%PATH%;C:\\Windows\\System32\\downlevel;'
-                bat 'conda env create'
-                bat 'call activate GIS-Helper'
-                bat 'conda info -a'
-                bat 'yes | pip install -r requirements.txt'
+                bat """set PATH=%PATH%;C:\\Windows\\System32\\downlevel;'
+                       call conda env create
+                       call activate GIS-Helper
+                       call conda info -a
+                       call yes | pip install -r requirements.txt"""
             }
             post {
                 failure {
