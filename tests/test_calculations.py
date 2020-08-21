@@ -1,4 +1,4 @@
-from gh import dd_to_dms, origin_calc
+from spatial_functions.calculations import origin_calc, dd_to_dms, dms_to_dd
 from raster import measurements
 
 
