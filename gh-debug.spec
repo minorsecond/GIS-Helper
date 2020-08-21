@@ -11,8 +11,8 @@ current_path = os.getcwd()
 home_path = str(Path.home())
 env_path = os.path.join(home_path, 'miniconda3')
 mpl_data_dir = exec_statement("import matplotlib; print(matplotlib._get_data_path())")
-linalg_dir = os.path.join(env_path, 'lib\\site-packages\\numpy\\linalg\\')
-
+linalg_dir = os.path.join(env_path, 'envs\\GIS-Helper\\lib\\site-packages\\numpy\\linalg\\')
+input(linalg_dir)
 a = Analysis(['gh.py'],
              pathex=[current_path, os.path.join(env_path, '\\Library\\bin')],
              binaries=[(os.path.join(linalg_dir, "_umath_linalg.cp37-win_amd64.pyd"), "numpy\\linalg"),
