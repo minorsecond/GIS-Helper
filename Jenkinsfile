@@ -36,7 +36,7 @@ pipeline {
             //        bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
             //        cleanWs()
             //    }
-            }
+            //}
         }
 
 	    stage('Deliver') {
