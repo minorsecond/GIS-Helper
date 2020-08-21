@@ -10,11 +10,11 @@ pipeline {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
             steps {
-                bat """set PATH=%PATH%;C:\\Windows\\System32\\downlevel;
-                       bat conda env create
-                       conda activate GIS-Helper
-                       conda env list
-                       yes | c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt"""
+                bat 'set PATH=%PATH%;C:\\Windows\\System32\\downlevel;'
+                bat 'conda env create'
+                bat 'conda activate GIS-Helper'
+                bat 'conda env list'
+                bat 'yes | c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt'
             }
             post {
                 failure {
@@ -30,9 +30,9 @@ pipeline {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
             steps {
-                bat """conda activate GIS-Helper
-                       conda env list
-                       c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml"""
+                bat 'conda activate GIS-Helper'
+                bat 'conda env list'
+                bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml
             }
             //post {
             //    failure {
