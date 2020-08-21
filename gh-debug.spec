@@ -9,7 +9,7 @@ from PyInstaller.utils.hooks import exec_statement
 
 current_path = os.getcwd()
 home_path = str(Path.home())
-env_path = os.environ['CONDA_PREFIX']
+env_path = os.path.join(home_path, 'Anaconda3')
 mpl_data_dir = exec_statement("import matplotlib; print(matplotlib._get_data_path())")
 linalg_dir = os.path.join(env_path, 'lib\\site-packages\\numpy\\linalg\\')
 
