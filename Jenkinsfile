@@ -11,7 +11,7 @@ pipeline {
             }
             steps {
                 bat """set PATH=%PATH%;C:\\Windows\\System32\\downlevel;
-                       conda env create  // Build environment based on environment.yml
+                       conda env create
                        conda activate GIS-Helper
                        conda env list
                        yes | c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt"""
