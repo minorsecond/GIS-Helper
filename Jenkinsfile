@@ -13,6 +13,7 @@ pipeline {
                 bat 'set PATH=%PATH%;C:\\Windows\\System32\\downlevel;'
                 bat 'conda env create'  // Build environment based on environment.yml
                 bat 'conda activate GIS-Helper'
+                bat 'conda env list'
                 bat 'yes | c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt'
             }
             post {
@@ -30,7 +31,7 @@ pipeline {
             }
             steps {
                 bat 'conda activate GIS-Helper'
-                bat 'conda info --envs'
+                bat 'conda env list'
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml'
             }
             //post {
@@ -48,7 +49,7 @@ pipeline {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
             steps {
-                bat 'conda info --envs'
+                //bat 'conda info --envs'
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
             }
             post {
