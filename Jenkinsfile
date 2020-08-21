@@ -12,6 +12,7 @@ pipeline {
             steps {
                 bat 'conda env create'  // Build environment based on environment.yml
                 bat 'conda activate GIS-Helper'
+                bat 'pip install -y matplotlib'
             }
         }
         stage('Test') {
