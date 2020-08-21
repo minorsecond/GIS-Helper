@@ -3,13 +3,14 @@ Tools to help with various GIS tasks
 Robert Ross Wardrup
 """
 import sys
-from math import modf
 from matplotlib import pyplot as plt
 import os
 from pathlib import Path
 from gui import QtWidgets, Ui_MainWindow
 from vector import meta
 from raster import measurements
+from spatial_functions.calculations import origin_calc, \
+    dd_to_dms, dms_to_dd
 
 anaconda_dir = os.path.join(str(Path.home()), "anaconda3\\envs\\GIS-Helper")
 print("Anaconda3 Dir: {}".format(anaconda_dir))
@@ -29,7 +30,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.shape_functions = meta.PolygonFunctions()
 
-        self.originCalculateButton.clicked.connect(get_origin)
+        self.originCalculateButton.clicked.connect(self.get_origin)
         self.originClearButton.clicked.connect(self.clear_origin_fields)
 
         self.convCoordCalc.clicked.connect(self.get_dd_dms)
@@ -126,7 +127,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.southYEntry.clear()
         self.eastXEntry.clear()
         self.westXEntry.clear()
-        self.originOutputBox.clear()
+        self.origin_output_box.clear()
 
     def clear_convert_fields(self):
         """
@@ -168,19 +169,6 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                                  'Check to ensure coordinate input only'
                                  ' contains numbers.')
 
-    def dms_to_dd(self):
-        """
-        Convert dms to decimal degrees
-        :return: dd
-        """
-
-        degrees = 0
-        minutes = 0
-        seconds = 0
-
-        input_coord = self.converCoordsEntry.text()
-
-        decimal_degrees = degrees + (minutes / 60) + (seconds / 3600)
 
     def display_shapefile(self):
         """
@@ -231,138 +219,48 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         polygon_functions = meta.PolygonFunctions()
         polygon_functions.get_polygon_vertices(payload)
 
+    def get_origin(self):
+        """
+        Button function to get origin calculation. Runs the origin_calc()
+        function which runs the calculation.
+        :return: Origin
+        """
 
-def get_origin(coords):
-    """
-    Button function to get origin calculation. Runs the origin_calc()
-    function which runs the calculation.
-    :return: Origin
-    """
+        blank_entry = False
+        gui = GisHelper()
+        output_text = self.originOutputBox
 
-    blank_entry = False
-    gui = GisHelper()
-    output_text = GisHelper.originOutputBox
-
-    if coords:
-        north_y = coords[0]
-        south_y = coords[1]
-        east_x = coords[2]
-        west_x = coords[3]
-    else:
         # Grab values from text entry boxes and convert to floats
-        north_y = GisHelper.northYEntry.text()
-        south_y = GisHelper.southYEntry.text()
-        east_x = GisHelper.eastXEntry.text()
-        west_x = GisHelper.westXEntry.text()
+        north_y = float(self.northYEntry.text())
+        south_y = float(self.southYEntry.text())
+        east_x = float(self.eastXEntry.text())
+        west_x = float(self.westXEntry.text())
 
-    coordinates = [north_y, south_y, east_x, west_x]
+        coordinates = [north_y, south_y, east_x, west_x]
 
-    # Print error message if entry is blank
-    for i in coordinates:
-        if len(i) == 0:
-            blank_entry = True
+        # Print error message if entry is blank
+        for i in coordinates:
+            if len(i) == 0:
+                blank_entry = True
 
-    if blank_entry:
-        title = "Error"
-        text = "Missing coordinate(s) input."
-        info = "Check that all coordinate fields contain valid values."
-        GisHelper.error_popup_show(gui, title, text, info)
-
-    else:
-        centroid = origin_calc(coordinates)  # Get origin from origin_calc
-        if centroid:  # If a centroid is returned, print to text box.
-            centroid = "{0}, {1}".format(centroid[0], centroid[1])
-            output_text.setText(centroid)
-        # Calculate_origin returned false, indicating invalid input.
-        # Print error message.
-        else:
+        if blank_entry:
             title = "Error"
-            text = "Error converting coordinates to decimal numbers."
-            info = "Check to insure coordinate input contains only numbers."
-            GisHelper.error_popup_show(gui, title, text, info)
+            text = "Missing coordinate(s) input."
+            info = "Check that all coordinate fields contain valid values."
+            self.error_popup_show(title, text, info)
 
-
-def origin_calc(coords):
-    """
-    Calculates the origin of a bounding box
-    :param coords: List of tuples containing coordinates in (x,y),(x,y) format
-    :return: A list of xy coords denoting origin, false if coordinate entry is
-    invalid
-    """
-
-    blank_entry = False
-
-    for i in coords:
-        if not isinstance(i, float) and not isinstance(i, int):
-            blank_entry = True
-
-    if not blank_entry:
-        try:
-            coords[0] = float(coords[0])
-            coords[1] = float(coords[1])
-            coords[2] = float(coords[2])
-            coords[3] = float(coords[3])
-
-            x_coord = [coords[2], coords[3]]
-            y_coord = [coords[0], coords[1]]
-
-            centroid = (sum(x_coord) / 2, sum(y_coord) / 2)
-            return centroid
-
-        except ValueError:
-            return False
-
-    return False
-
-
-def dd_to_dms(coords):
-    """
-    Calculates decimal degrees to degrees, minutes, seconds
-    :param coords: a float (DD)
-    :return: DMS coordinates
-    """
-    degrees = None
-    minutes = None
-    seconds = None
-    valid = True
-
-    try:
-        input_coord = float(coords)
-        if -180 <= input_coord <= 180:
-            number_list = modf(input_coord)
-            integer = number_list[1]
-            decimal = number_list[0]
-
-            degrees = int(integer)
-            minutes = int(60 * decimal)
-            seconds = abs(round(((decimal - (minutes / 60)) * 3600), 3))
         else:
-            valid = False
-
-    except TypeError as type_error:
-        print(type_error)
-
-    return degrees, minutes, seconds, valid
-
-
-def get_shape_meta(shp):
-    """
-    Gets metadata from shapefile
-    :return: shapefile metadata
-    """
-
-    polygon_functions = meta.PolygonFunctions()
-
-    metadata = {
-        'proj': None,
-        'origin': None,
-        'bounds': None,
-        'nRecords': None
-    }
-
-    metadata['bounds'] = polygon_functions.bounding_box(shp)
-
-    print(metadata)
+            centroid = origin_calc(coordinates)  # Get origin from origin_calc
+            if centroid:  # If a centroid is returned, print to text box.
+                centroid = "{0}, {1}".format(centroid[0], centroid[1])
+                output_text.setText(centroid)
+            # Calculate_origin returned false, indicating invalid input.
+            # Print error message.
+            else:
+                title = "Error"
+                text = "Error converting coordinates to decimal numbers."
+                info = "Check to insure coordinate input contains only numbers."
+                self.error_popup_show(title, text, info)
 
 
 if __name__ == "__main__":

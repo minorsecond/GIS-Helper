@@ -120,3 +120,23 @@ class PolygonFunctions:
                 bounding_box[3] = round(bbox[3], 5)
 
         return bounding_box
+
+
+def get_shape_meta(shp):
+    """
+    Gets metadata from shapefile
+    :return: shapefile metadata
+    """
+
+    polygon_functions = meta.PolygonFunctions()
+
+    metadata = {
+        'proj': None,
+        'origin': None,
+        'bounds': None,
+        'nRecords': None
+    }
+
+    metadata['bounds'] = polygon_functions.bounding_box(shp)
+
+    print(metadata)
