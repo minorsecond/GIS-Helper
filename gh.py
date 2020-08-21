@@ -3,9 +3,9 @@ Tools to help with various GIS tasks
 Robert Ross Wardrup
 """
 import sys
-from matplotlib import pyplot as plt
 import os
 from pathlib import Path
+from matplotlib import pyplot as plt
 from gui import QtWidgets, Ui_MainWindow
 from vector import meta
 from raster import measurements
@@ -227,7 +227,6 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         """
 
         blank_entry = False
-        gui = GisHelper()
         output_text = self.originOutputBox
 
         # Grab values from text entry boxes and convert to floats

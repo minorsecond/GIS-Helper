@@ -121,22 +121,19 @@ class PolygonFunctions:
 
         return bounding_box
 
+    def get_shape_meta(self, shp):
+        """
+        Gets metadata from shapefile
+        :return: shapefile metadata
+        """
 
-def get_shape_meta(shp):
-    """
-    Gets metadata from shapefile
-    :return: shapefile metadata
-    """
+        metadata = {
+            'proj': None,
+            'origin': None,
+            'bounds': None,
+            'nRecords': None
+        }
 
-    polygon_functions = meta.PolygonFunctions()
+        metadata['bounds'] = self.bounding_box(shp)
 
-    metadata = {
-        'proj': None,
-        'origin': None,
-        'bounds': None,
-        'nRecords': None
-    }
-
-    metadata['bounds'] = polygon_functions.bounding_box(shp)
-
-    print(metadata)
+        print(metadata)
