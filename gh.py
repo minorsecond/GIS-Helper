@@ -29,10 +29,11 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.shape_functions = meta.PolygonFunctions()
 
+        # GIS Calculator page
         self.originCalculateButton.clicked.connect(self.get_origin)
         self.originClearButton.clicked.connect(self.clear_origin_fields)
 
-        self.convCoordCalc.clicked.connect(self.get_dd_dms)
+        self.convCoordCalc.clicked.connect(self.dd_dms_chooser)
         self.convCoordClear.clicked.connect(self.clear_convert_fields)
 
         self.shapefileViewBrowseButton.clicked.connect(self.browse_for_shp)
@@ -40,6 +41,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         self.catalogTiffBrowseButton.clicked.connect(self.browse_for_raster)
         self.catalogTiffProcess.clicked.connect(self.get_raster_bounds)
+
+        self.dmsToDD.setChecked(True)
 
         # Copy Tiffs page
         self.BrowseForTifDir.clicked.connect(self.browse_for_tiff_directory)
@@ -140,72 +143,70 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         """
         Determine whether to run get_dd_dms or get_dms_dd
         """
+        coords = self.converCoordsEntry.text()
 
-        pass
+        if len(coords) == 0:
+            title = "Error"
+            text = "Missing coordinate input."
+            info = "Check that coordinate field contains valid value."
+            self.error_popup(title, text, info)
 
-    def get_dd_dms(self):
+        else:
+
+            coords = float(coords)
+            if self.dmsToDD.isChecked():
+                print(coords)
+                self.get_dms_dd(coords)
+            else:
+                self.get_dd_dms(coords)
+
+    def get_dd_dms(self, coords):
         """
         Convert decimal degrees to lat/lon
         :return: lat/lon value
         """
 
-        input_coord = self.converCoordsEntry.text()
         output_text = self.converterOutput
 
-        if len(input_coord) == 0:
-            title = "Error"
-            text = "Missing coordinate input."
-            info = "Check that coordinate field contains valid value."
-            self.error_popup(title, text, info)
+        try:
+            degrees, minutes, seconds, valid = Convert.dd_to_dms(coords)
+            if valid:
+                output = '{0}d, {1}m, {2}s'.format(degrees, minutes,
+                                                   seconds)
+                output_text.setText(output)
+            else:
+                self.error_popup('Error', 'Check input and try again.', '')
 
-        else:
-            try:
-                degrees, minutes, seconds, valid = Convert.dd_to_dms(input_coord)
-                if valid:
-                    output = '{0}d, {1}m, {2}s'.format(degrees, minutes,
-                                                       seconds)
-                    output_text.setText(output)
-                else:
-                    self.error_popup('Error', 'Check input and try again.', '')
+        except ValueError:
+            self.error_popup('Error',
+                             'Error converting decimal degrees to '
+                             'lat/lon.',
+                             'Check to ensure coordinate input only'
+                             ' contains numbers.')
 
-            except ValueError:
-                self.error_popup('Error',
-                                 'Error converting decimal degrees to '
-                                 'lat/lon.',
-                                 'Check to ensure coordinate input only'
-                                 ' contains numbers.')
-
-    def get_dms_dd(self):
+    def get_dms_dd(self, coords):
         """
         Convert degrees/minutes/seconds to decimal degrees
         :return: a float decimal degree
         """
 
-        input_coord = self.converCoordsEntry.text()
         output_text = self.converterOutput
 
-        if len(input_coord) == 0:
-            title = "Error"
-            text = "Missing coordinate input."
-            info = "Check that coordinate field contains valid value."
-            self.error_popup(title, text, info)
+        try:
+            degrees, minutes, seconds, valid = Convert.dd_to_dms(coords)
+            if valid:
+                output = '{0}d, {1}m, {2}s'.format(degrees, minutes,
+                                                   seconds)
+                output_text.setText(output)
+            else:
+                self.error_popup('Error', 'Check input and try again.', '')
 
-        else:
-            try:
-                degrees, minutes, seconds, valid = Convert.dd_to_dms(input_coord)
-                if valid:
-                    output = '{0}d, {1}m, {2}s'.format(degrees, minutes,
-                                                       seconds)
-                    output_text.setText(output)
-                else:
-                    self.error_popup('Error', 'Check input and try again.', '')
-
-            except ValueError:
-                self.error_popup('Error',
-                                 'Error converting decimal degrees to '
-                                 'lat/lon.',
-                                 'Check to ensure coordinate input only'
-                                 ' contains numbers.')
+        except ValueError:
+            self.error_popup('Error',
+                             'Error converting decimal degrees to '
+                             'lat/lon.',
+                             'Check to ensure coordinate input only'
+                             ' contains numbers.')
 
     def display_shapefile(self):
         """
