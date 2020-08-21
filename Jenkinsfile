@@ -8,6 +8,7 @@ pipeline {
             agent {label 'CI-W10-Slave'}
             environment {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
+                PATH=%PATH%;C:\Windows\System32\downlevel;
             }
             steps {
                 bat 'conda env create'  // Build environment based on environment.yml
