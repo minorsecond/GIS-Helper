@@ -2,14 +2,19 @@
 
 block_cipher = None
 
+block_cipher = None
+import os
 from PyInstaller.utils.hooks import exec_statement
+
+env_path = os.environ['CONDA_PREFIX']
 mpl_data_dir = exec_statement("import matplotlib; print(matplotlib._get_data_path())")
+pf_folder = os.path.join(env_path, 'Library\\plugins\\platforms\\')
 
 a = Analysis(['gh.py'],
              pathex=['C:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Library\\bin', 'C:\\Users\\rwardrup\\PycharmProjects\\GIS-Helper'],
              binaries=[],
              datas=[('matplotlibrc', '.config'), (mpl_data_dir, 'matplotlib\\mpl-data')],
-             hiddenimports=['numpy', 'packaging', 'matplotlib', 'tkinter', 'matplotlib.backends.backend_Qt5Agg', 'gishelper.ui', 'tkinter.filedialog'],
+             hiddenimports=['numpy', 'packaging', 'matplotlib', 'tkinter', 'matplotlib.backends.backend_Qt5Agg', 'gishelper.ui', 'tkinter.filedialog', 'PyQt5'],
              #hookspath=['hooks'],
              runtime_hooks=[],
              excludes=[],
