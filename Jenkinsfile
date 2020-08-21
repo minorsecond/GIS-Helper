@@ -14,6 +14,13 @@ pipeline {
                 bat 'conda activate GIS-Helper'
                 bat 'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pip install -y matplotlib'
             }
+            post {
+                failure {
+                    bat 'conda env remove -y --name GIS-Helper'
+                    bat 'rmdir /Q /S c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper'  // Make sure environment is fully gone
+                    cleanWs()
+                }
+            }
         }
         stage('Test') {
             agent {label 'CI-W10-Slave'}
