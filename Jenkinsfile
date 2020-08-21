@@ -11,8 +11,8 @@ pipeline {
             }
             steps {
                 bat """set PATH=%PATH%;C:\\Windows\\System32\\downlevel;
-                       conda env create
-                       conda activate GIS-Helper
+                       conda env create"""
+                bat """conda activate GIS-Helper
                        conda env list
                        yes | c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt"""
             }
@@ -31,8 +31,8 @@ pipeline {
             }
             steps {
                 bat """conda activate GIS-Helper
-                     conda env list'
-                     'c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml"""
+                       conda env list
+                       c:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml"""
             }
             //post {
             //    failure {
