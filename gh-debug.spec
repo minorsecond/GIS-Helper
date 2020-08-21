@@ -4,14 +4,17 @@ block_cipher = None
 
 block_cipher = None
 import os
+from pathlib import Path
 from PyInstaller.utils.hooks import exec_statement
 
+current_path = os.getcwd()
+home_path = str(Path.home())
 env_path = os.environ['CONDA_PREFIX']
 mpl_data_dir = exec_statement("import matplotlib; print(matplotlib._get_data_path())")
 linalg_dir = os.path.join(env_path, 'lib\\site-packages\\numpy\\linalg\\')
 
 a = Analysis(['gh.py'],
-             pathex=['C:\\Users\\Ross\\anaconda3\\envs\\GIS-Helper\\Library\\bin', 'C:\\Users\\rwardrup\\PycharmProjects\\GIS-Helper'],
+             pathex=[current_path, os.path.join(env_path, '\\Library\\bin'), os.path.join(env_path, 'DLLS')],
              binaries=[(os.path.join(linalg_dir, "_umath_linalg.cp37-win_amd64.pyd"), "numpy\\linalg"),
                        (os.path.join(linalg_dir, "lapack_lite.cp37-win_amd64.pyd"), "numpy\\linalg")
              ],
