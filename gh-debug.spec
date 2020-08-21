@@ -16,7 +16,13 @@ linalg_dir = os.path.join(env_path, 'lib\\site-packages\\numpy\\linalg\\')
 a = Analysis(['gh.py'],
              pathex=[current_path, os.path.join(env_path, '\\Library\\bin')],
              binaries=[(os.path.join(linalg_dir, "_umath_linalg.cp37-win_amd64.pyd"), "numpy\\linalg"),
-                       (os.path.join(linalg_dir, "lapack_lite.cp37-win_amd64.pyd"), "numpy\\linalg")
+                       (os.path.join(linalg_dir, "lapack_lite.cp37-win_amd64.pyd"), "numpy\\linalg"),
+                       (os.path.join(env_path, "api-ms-win-crt-stdio-l1-1-0.dll"), "."),
+                       (os.path.join(env_path, "api-ms-win-crt-heap-l1-1-0.dll"), "."),
+                       (os.path.join(env_path, "api-ms-win-crt-math-l1-1-0.dll"), "."),
+                       (os.path.join(env_path, "api-ms-win-crt-runtime-l1-1-0.dll"), "."),
+                       (os.path.join(env_path, "api-ms-win-crt-string-l1-1-0.dll"), "."),
+                       (os.path.join(env_path, "api-ms-win-crt-convert-l1-1-0.dll"), ".")
              ],
              datas=[('matplotlibrc', '.config'), (mpl_data_dir, 'matplotlib\\mpl-data')],
              hiddenimports=['numpy', 'packaging', 'matplotlib', 'tkinter', 'matplotlib.backends.backend_Qt5Agg', 'gishelper.ui', 'tkinter.filedialog', 'PyQt5'],
