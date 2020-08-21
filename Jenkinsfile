@@ -14,7 +14,7 @@ pipeline {
                 bat 'conda env create'
                 bat 'call activate GIS-Helper'
                 bat 'conda env list'
-                bat 'yes | c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt'
+                bat 'yes | pip install -r requirements.txt'
             }
             post {
                 failure {
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 bat 'conda activate GIS-Helper'
                 bat 'conda env list'
-                bat 'c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper\\Scripts\\pytest --cov=. --cov-report xml --junitxml results.xml'
+                bat 'pytest --cov=. --cov-report xml --junitxml results.xml'
             }
             //post {
             //    failure {
@@ -50,7 +50,7 @@ pipeline {
             }
             steps {
                 bat 'conda info --envs'
-                bat 'c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper\\Scripts\\pyinstaller --onefile gh-debug.spec'
+                bat 'pyinstaller --onefile gh-debug.spec'
             }
             post {
                 success {
