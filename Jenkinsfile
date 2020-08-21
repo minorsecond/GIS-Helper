@@ -12,7 +12,7 @@ pipeline {
             steps {
                 bat 'set PATH=%PATH%;C:\\Windows\\System32\\downlevel;'
                 bat 'conda env create'
-                bat 'conda activate GIS-Helper'
+                bat 'call activate GIS-Helper'
                 bat 'conda env list'
                 bat 'yes | c:\\Users\\Ross\\miniconda3\\envs\\GIS-Helper\\Scripts\\pip install -r requirements.txt'
             }
