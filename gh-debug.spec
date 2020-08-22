@@ -4,6 +4,7 @@ block_cipher = None
 
 block_cipher = None
 import os
+import shutil
 from pathlib import Path
 from PyInstaller.utils.hooks import exec_statement
 
@@ -12,6 +13,14 @@ current_path = os.getcwd()
 home_path = str(Path.home())
 mpl_data_dir = exec_statement("import matplotlib; print(matplotlib._get_data_path())")
 linalg_dir = os.path.join(env_path, 'lib\\site-packages\\numpy\\linalg\\')
+
+# Cleanup
+build_dir = os.path.join(os.getcwd(), "build")
+dist_dir = os.path.join(os.getcwd(), "dist")
+if os.path.isdir(build_dir):
+    shutil.rmtree(build_dir)
+if os.path.isdir(dist_dir):
+    shutil.rmtree(dist_dir)
 
 a = Analysis(['gh.py'],
              pathex=[current_path, os.path.join(env_path, '\\Library\\bin')],
