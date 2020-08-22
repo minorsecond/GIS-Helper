@@ -149,7 +149,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             title = "Error"
             text = "Missing coordinate input."
             info = "Check that coordinate field contains valid value."
-            self.error_popup(title, text, info)
+            self.error_popup_show(title, text, info)
 
         else:
             if self.dmsToDD.isChecked():
@@ -173,14 +173,15 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                                                    seconds)
                 dd_dms_output_text.setText(output)
             else:
-                self.error_popup('Error', 'Check input and try again.', '')
+                self.error_popup_show('Error', 'Check input and try again.',
+                                      '')
 
         except ValueError:
-            self.error_popup('Error',
-                             'Error converting decimal degrees to '
-                             'lat/lon.',
-                             'Check to ensure coordinate input only'
-                             ' contains numbers.')
+            self.error_popup_show('Error',
+                                  'Error converting decimal degrees to '
+                                  'lat/lon.',
+                                  'Check to ensure coordinate input only'
+                                  ' contains numbers.')
 
     def get_dms_dd(self, coords):
         """
@@ -192,15 +193,21 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         try:
             decimal_degrees = Convert.dms_to_dd(coords)
-            output = '{0}'.format(decimal_degrees)
-            dms_dd_output_text.setText(output)
-
+            if decimal_degrees:
+                output = '{0}'.format(decimal_degrees)
+                dms_dd_output_text.setText(output)
+            else:
+                self.error_popup_show('Error',
+                                      'Error converting decimal degrees to '
+                                      'lat/lon.',
+                                      'Check to ensure coordinate input only'
+                                      ' contains numbers.')
         except ValueError:
-            self.error_popup('Error',
-                             'Error converting decimal degrees to '
-                             'lat/lon.',
-                             'Check to ensure coordinate input only'
-                             ' contains numbers.')
+            self.error_popup_show('Error',
+                                  'Error converting decimal degrees to '
+                                  'lat/lon.',
+                                  'Check to ensure coordinate input only'
+                                  ' contains numbers.')
 
     def display_shapefile(self):
         """

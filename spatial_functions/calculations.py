@@ -76,14 +76,19 @@ class Convert:
         Convert dms to decimal degrees
         :return: dd
         """
+        decimal_degrees = None
 
-        coords = [int(v) if float(v).is_integer() else float(v)
-                  for v in coords.split()]
+        try:
+            coords = [int(v) if float(v).is_integer() else float(v)
+                      for v in coords.split()]
 
-        degrees = coords[0]
-        minutes = coords[1]
-        seconds = coords[2]
+            degrees = coords[0]
+            minutes = coords[1]
+            seconds = coords[2]
 
-        decimal_degrees = round((degrees + (minutes / 60) + (seconds / 3600)),
-                                8)
+            decimal_degrees = round((degrees + (minutes / 60) +
+                                     (seconds / 3600)), 8)
+        except IndexError as index_error:
+            print("User entered an invalid value: {}".format(coords))
+
         return decimal_degrees
