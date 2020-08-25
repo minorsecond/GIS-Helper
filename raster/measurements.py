@@ -99,7 +99,6 @@ class RasterMeasurements:
         pixel_val = None
 
         # Remove this - don't want to run this thing twice
-        input(raster)
         raster_count, raster_dictionary = calculate_raster_bounds(raster)
 
         for raster_path, bounds in raster_dictionary.items():
