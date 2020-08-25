@@ -47,7 +47,7 @@
      <bool>false</bool>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="gisCalc">
      <attribute name="title">
@@ -650,7 +650,7 @@
        <string>Output Directory: </string>
       </property>
      </widget>
-     <widget class="QPushButton" name="catalogTiffBrowseButton_2">
+     <widget class="QPushButton" name="catalogTiffBOutputrowseButton">
       <property name="geometry">
        <rect>
         <x>652</x>
@@ -738,7 +738,7 @@
        </font>
       </property>
      </widget>
-     <widget class="QLineEdit" name="lineEdit_5">
+     <widget class="QLineEdit" name="TiffCatalogOutputEdit">
       <property name="geometry">
        <rect>
         <x>140</x>
