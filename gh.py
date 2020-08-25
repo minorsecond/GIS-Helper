@@ -230,12 +230,11 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return: tuple of bounding coordinates
         """
 
-        raster_measurements = measurements.RasterMeasurements()
-
         path = self.geoTiffDir1.text()
+        output_path = self.TiffCatalogOutputEdit.text()
 
-        raster_count, raster_dictionary = raster_measurements.\
-            CalculateRasterBounds(path)
+        raster_count, raster_dictionary = measurements.\
+            create_catalog(path, output_path)
 
         output_text = "Finished processing {0} rasters.\n\n".\
             format(raster_count)
