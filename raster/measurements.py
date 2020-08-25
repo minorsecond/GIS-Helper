@@ -40,10 +40,7 @@ def calculate_raster_bounds(rasters):
 def create_catalog(path, output_dir):
     rasters = []
     polygons = []
-    print(output_dir)
     output_path = join(output_dir, 'tif_catalog.shp')
-
-    #print("Creating shapefile at {}".format(output_path))
 
     for dirpath, dirnames, filenames in walk(path):
         for file in filenames:
@@ -68,7 +65,6 @@ def create_catalog(path, output_dir):
         pointList = [p1, p2, p3, p4]
 
         polygons.append(Polygon([[p.x, p.y] for p in pointList]))
-        print(polygons)
 
     # Write to shp
     schema = {
