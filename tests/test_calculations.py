@@ -20,7 +20,6 @@ def test_dms_to_dd():
     assert Convert.dms_to_dd("36 7 28.612") == 36.12461444
 
 
-
 def test_origin_calculation():
     """
     Test origin coordinate calculation.
@@ -35,9 +34,8 @@ def test_raster_bounds():
     :return:
     """
 
-    path = '.\\tests\\test_data\\'
-    raster_measurements = measurements.RasterMeasurements()
-    results = raster_measurements.CalculateRasterBounds(path)
+    path = ['.\\tests\\test_data\\raster.tif']
+    results = measurements.calculate_raster_bounds(path)
 
     assert results == (1, {'.\\tests\\test_data\\raster.tif': [-99.632,
                                                                31.564,
@@ -47,7 +45,7 @@ def test_raster_bounds():
 
 
 def test_get_pixel_value():
-    path = 'tests\\test_data\\'
+    path = ['.\\tests\\test_data\\raster.tif']
     raster_measurements = measurements.RasterMeasurements()
     pixel_value = raster_measurements.getPixelValue(raster=path,
                                                     in_x=-99.631408,
