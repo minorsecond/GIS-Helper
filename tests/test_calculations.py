@@ -18,7 +18,7 @@ def test_dms_to_dd():
     assert Convert.dms_to_dd("32 46 3.5") == 32.76763889
     assert Convert.dms_to_dd("32 46 12.389") == 32.77010806
     assert Convert.dms_to_dd("36 7 28.612") == 36.12461444
-
+    assert Convert.dms_to_dd("99.5") is None
 
 def test_origin_calculation():
     """
