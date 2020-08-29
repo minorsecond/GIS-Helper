@@ -40,6 +40,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.shapefileViewGo.clicked.connect(self.display_shapefile)
 
         self.catalogTiffBrowseButton.clicked.connect(self.browse_for_raster)
+        self.catalogTiffBOutputrowseButton.clicked.\
+            connect(self.browse_catalog_output)
         self.catalogTiffProcess.clicked.connect(self.get_raster_bounds)
 
         self.dmsToDD.setChecked(True)
@@ -102,6 +104,16 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                                                               "Select Raster "
                                                               "Directory")
         self.geoTiffDir1.setText(open_dir)
+
+    def browse_catalog_output(self):
+        """
+        Browse for shapefile catalog output
+        :return:
+        """
+
+        open_dir = QtWidgets.QFileDialog.\
+            getExistingDirectory(self, "Select output directory")
+        self.TiffCatalogOutputEdit.setText(open_dir)
 
     def error_popup_show(self, title, message, info):
         """
@@ -225,12 +237,11 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return: tuple of bounding coordinates
         """
 
-        raster_measurements = measurements.RasterMeasurements()
-
         path = self.geoTiffDir1.text()
+        output_path = self.TiffCatalogOutputEdit.text()
 
-        raster_count, raster_dictionary = raster_measurements.\
-            CalculateRasterBounds(path)
+        raster_count, raster_dictionary = measurements.\
+            create_catalog(path, output_path)
 
         output_text = "Finished processing {0} rasters.\n\n".\
             format(raster_count)

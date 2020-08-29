@@ -5,7 +5,7 @@
 # Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
-# flake8:  noqa
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -245,12 +245,12 @@ class Ui_MainWindow(object):
         font.setFamily("Helvetica")
         self.tiffCatalogOutputLabel.setFont(font)
         self.tiffCatalogOutputLabel.setObjectName("tiffCatalogOutputLabel")
-        self.catalogTiffBrowseButton_2 = QtWidgets.QPushButton(self.catalogTiff)
-        self.catalogTiffBrowseButton_2.setGeometry(QtCore.QRect(652, 72, 113, 32))
+        self.catalogTiffBOutputrowseButton = QtWidgets.QPushButton(self.catalogTiff)
+        self.catalogTiffBOutputrowseButton.setGeometry(QtCore.QRect(652, 72, 113, 32))
         font = QtGui.QFont()
         font.setFamily("Helvetica")
-        self.catalogTiffBrowseButton_2.setFont(font)
-        self.catalogTiffBrowseButton_2.setObjectName("catalogTiffBrowseButton_2")
+        self.catalogTiffBOutputrowseButton.setFont(font)
+        self.catalogTiffBOutputrowseButton.setObjectName("catalogTiffBOutputrowseButton")
         self.catalogTiffOutputWindow = QtWidgets.QTextEdit(self.catalogTiff)
         self.catalogTiffOutputWindow.setGeometry(QtCore.QRect(10, 192, 755, 325))
         font = QtGui.QFont()
@@ -278,12 +278,12 @@ class Ui_MainWindow(object):
         font.setFamily("Helvetica")
         self.geoTiffDir1.setFont(font)
         self.geoTiffDir1.setObjectName("geoTiffDir1")
-        self.lineEdit_5 = QtWidgets.QLineEdit(self.catalogTiff)
-        self.lineEdit_5.setGeometry(QtCore.QRect(140, 76, 481, 21))
+        self.TiffCatalogOutputEdit = QtWidgets.QLineEdit(self.catalogTiff)
+        self.TiffCatalogOutputEdit.setGeometry(QtCore.QRect(140, 76, 481, 21))
         font = QtGui.QFont()
         font.setFamily("Helvetica")
-        self.lineEdit_5.setFont(font)
-        self.lineEdit_5.setObjectName("lineEdit_5")
+        self.TiffCatalogOutputEdit.setFont(font)
+        self.TiffCatalogOutputEdit.setObjectName("TiffCatalogOutputEdit")
         self.catalogTiffProcess = QtWidgets.QPushButton(self.catalogTiff)
         self.catalogTiffProcess.setGeometry(QtCore.QRect(652, 118, 113, 32))
         font = QtGui.QFont()
@@ -382,7 +382,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabContainer.setCurrentIndex(0)
+        self.tabContainer.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -414,7 +414,7 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "Geotiff Directory: "))
         self.catalogTiffBrowseButton.setText(_translate("MainWindow", "Browse"))
         self.tiffCatalogOutputLabel.setText(_translate("MainWindow", "Output Directory: "))
-        self.catalogTiffBrowseButton_2.setText(_translate("MainWindow", "Browse"))
+        self.catalogTiffBOutputrowseButton.setText(_translate("MainWindow", "Browse"))
         self.checkBox.setText(_translate("MainWindow", "Fan out by resolution"))
         self.catalogTiffProcess.setText(_translate("MainWindow", "Process"))
         self.tabContainer.setTabText(self.tabContainer.indexOf(self.catalogTiff), _translate("MainWindow", "Catalog Tiffs"))
