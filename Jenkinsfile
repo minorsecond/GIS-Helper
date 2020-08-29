@@ -5,7 +5,7 @@ pipeline {
     }
     stages {
         stage('Build Environment') {
-            agent {label 'CI-W10-Slave'}
+            agent {label 'CI-W10-Agent'}
             environment {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
