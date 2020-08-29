@@ -25,7 +25,7 @@ pipeline {
             }
         }
         stage('Test') {
-            agent {label 'CI-W10-Slave'}
+            agent {label 'CI-W10-Agent'}
             environment {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
@@ -44,7 +44,7 @@ pipeline {
         }
 
 	    stage('Deliver') {
-            agent {label 'CI-W10-Slave'}
+            agent {label 'CI-W10-Agent'}
             environment {
                 CONDA_DLL_SEARCH_MODIFICATION_ENABLE=1
             }
