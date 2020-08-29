@@ -55,7 +55,7 @@ pipeline {
             }
             post {
                 success {
-                    archiveArtifacts 'dist/gh.exe'
+                    archiveArtifacts 'dist/gh/*'
                 }
                 always {
                     junit 'results.xml'
