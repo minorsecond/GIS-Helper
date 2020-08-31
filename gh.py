@@ -239,9 +239,14 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         path = self.geoTiffDir1.text()
         output_path = self.TiffCatalogOutputEdit.text()
+        fanout = False
+
+        if self.FanOutByRes.isChecked():
+            fanout = True
+            print("Fanning out by resolution.")
 
         raster_count, raster_dictionary = measurements.\
-            create_catalog(path, output_path)
+            create_catalog(path, output_path, fanout)
 
         output_text = "Finished processing {0} rasters.\n\n".\
             format(raster_count)

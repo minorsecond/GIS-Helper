@@ -1,4 +1,5 @@
 from os.path import join, splitext
+from os import mkdir
 from os import walk
 import gdal
 import rasterio as rio
@@ -53,7 +54,6 @@ def create_catalog(path, output_dir, fanout=False):
     # rasters is a dict - path: [ulx, uly, lrx, lry]
     count, rasters = calculate_raster_bounds(rasters)
 
-    print("Creating polygons")
     # Create the polygons
     for path, bounds in rasters.items():
         resolution = get_resolution(path)
@@ -74,13 +74,14 @@ def create_catalog(path, output_dir, fanout=False):
         poly = Polygon([[p.x, p.y] for p in pointList])
         poly.path = path
         poly.resolution = resolution
-        polygons.append(poly)
 
         if fanout:  # Build the resolution dictionary
-            if resolution in rasters_by_resolution:
-                rasters_by_resolution[resolution] = [resolution]
+            if resolution not in rasters_by_resolution:
+                rasters_by_resolution[resolution] = [poly]
             else:
-                rasters_by_resolution[resolution].append(resolution)
+                rasters_by_resolution[resolution].append(poly)
+        else:
+            polygons.append(poly)
 
     # Write to shp
     schema = {
@@ -92,7 +93,11 @@ def create_catalog(path, output_dir, fanout=False):
 
     row_number = 0
     if fanout:
-        for resolution, rasters in rasters_by_resolution.items():
+        for resolution, polygons in rasters_by_resolution.items():
+            output_basedir = join(output_dir, resolution)
+            mkdir(output_basedir)
+            output_filename = resolution + "_raster_catalog.shp"
+            output_path = join(output_basedir, output_filename)
             with fiona.open(output_path, 'w', 'ESRI Shapefile', schema) as c:
                 for polygon in polygons:
                     c.write({
