@@ -94,6 +94,21 @@ def create_catalog(path, output_dir):
     return count, rasters
 
 
+def get_resolution(raster_path):
+    """
+    Gets resolution if input raster
+    :param raster_path: Path to raster
+    :return: list of integers denoting resolution of raster
+    """
+
+    raster = rio.open(raster_path)
+    gt = raster.affine
+    pixel_size_x = gt[0]
+    pixel_size_y = gt[1]
+
+    return [pixel_size_x, pixel_size_y]
+
+
 class RasterMeasurements:
     """
     Contains methods for measuring raster bounds, pixel size, etc.
