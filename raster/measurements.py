@@ -83,12 +83,12 @@ def create_catalog(path, output_dir, fanout=False):
                        'resolution': 'str'}
     }
 
-    id = 0
+    row_number = 0
     with fiona.open(output_path, 'w', 'ESRI Shapefile', schema) as c:
         for polygon in polygons:
             c.write({
                 'geometry': mapping(polygon),
-                'properties': {'id': id,
+                'properties': {'id': row_number,
                                'path': path,
                                'resolution': resolution
                                }
