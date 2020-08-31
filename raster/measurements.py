@@ -38,6 +38,7 @@ def calculate_raster_bounds(rasters):
 
 
 def create_catalog(path, output_dir, fanout=False):
+    rasters_by_resolution = {}
     rasters = []
     polygons = []
     resolution = None
@@ -75,6 +76,12 @@ def create_catalog(path, output_dir, fanout=False):
         poly.resolution = resolution
         polygons.append(poly)
 
+        if fanout:  # Build the resolution dictionary
+            if resolution in rasters_by_resolution:
+                rasters_by_resolution[resolution] = [resolution]
+            else:
+                rasters_by_resolution[resolution].append(resolution)
+
     # Write to shp
     schema = {
         'geometry': 'Polygon',
@@ -84,17 +91,32 @@ def create_catalog(path, output_dir, fanout=False):
     }
 
     row_number = 0
-    with fiona.open(output_path, 'w', 'ESRI Shapefile', schema) as c:
-        for polygon in polygons:
-            c.write({
-                'geometry': mapping(polygon),
-                'properties': {'id': row_number,
-                               'path': path,
-                               'resolution': resolution
-                               }
-            })
+    if fanout:
+        for resolution, rasters in rasters_by_resolution.items():
+            with fiona.open(output_path, 'w', 'ESRI Shapefile', schema) as c:
+                for polygon in polygons:
+                    c.write({
+                        'geometry': mapping(polygon),
+                        'properties': {'id': row_number,
+                                       'path': path,
+                                       'resolution': resolution
+                                       }
+                    })
 
-            id += 1
+                    row_number += 1
+
+    else:
+        with fiona.open(output_path, 'w', 'ESRI Shapefile', schema) as c:
+            for polygon in polygons:
+                c.write({
+                    'geometry': mapping(polygon),
+                    'properties': {'id': row_number,
+                                   'path': path,
+                                   'resolution': resolution
+                                   }
+                })
+
+                row_number += 1
 
     return count, rasters
 
