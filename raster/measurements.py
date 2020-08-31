@@ -37,9 +37,11 @@ def calculate_raster_bounds(rasters):
     return raster_count, raster_dictionary
 
 
-def create_catalog(path, output_dir):
+def create_catalog(path, output_dir, fanout=False):
     rasters = []
     polygons = []
+    resolution = None
+
     output_path = join(output_dir, 'tif_catalog.shp')
 
     for dirpath, dirnames, filenames in walk(path):
@@ -53,6 +55,9 @@ def create_catalog(path, output_dir):
     print("Creating polygons")
     # Create the polygons
     for path, bounds in rasters.items():
+        resolution = get_resolution(path)
+        resolution = f"{resolution[0]}x{resolution[1]}"
+
         ulx = bounds[0]
         uly = bounds[1]
         lrx = bounds[2]
@@ -67,16 +72,15 @@ def create_catalog(path, output_dir):
 
         poly = Polygon([[p.x, p.y] for p in pointList])
         poly.path = path
+        poly.resolution = resolution
         polygons.append(poly)
-
-        #polygons.append(Polygon([[p.x, p.y] for p in pointList]))
 
     # Write to shp
     schema = {
         'geometry': 'Polygon',
         'properties': {'id': 'int',
-                       'path': 'str'
-                       }
+                       'path': 'str',
+                       'resolution': 'str'}
     }
 
     id = 0
@@ -85,7 +89,8 @@ def create_catalog(path, output_dir):
             c.write({
                 'geometry': mapping(polygon),
                 'properties': {'id': id,
-                               'path': path
+                               'path': path,
+                               'resolution': resolution
                                }
             })
 
@@ -101,12 +106,10 @@ def get_resolution(raster_path):
     :return: list of integers denoting resolution of raster
     """
 
-    raster = rio.open(raster_path)
-    gt = raster.affine
-    pixel_size_x = gt[0]
-    pixel_size_y = gt[1]
+    with rio.open(raster_path) as raster:
+        res = raster.res
 
-    return [pixel_size_x, pixel_size_y]
+    return res
 
 
 class RasterMeasurements:
