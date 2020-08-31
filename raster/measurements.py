@@ -47,6 +47,7 @@ def create_catalog(path, output_dir):
             if splitext(file)[1].lower() == '.tif':
                 rasters.append(join(dirpath, file))
 
+    # rasters is a dict - path: [ulx, uly, lrx, lry]
     count, rasters = calculate_raster_bounds(rasters)
 
     print("Creating polygons")
@@ -64,12 +65,18 @@ def create_catalog(path, output_dir):
 
         pointList = [p1, p2, p3, p4]
 
-        polygons.append(Polygon([[p.x, p.y] for p in pointList]))
+        poly = Polygon([[p.x, p.y] for p in pointList])
+        poly.path = path
+        polygons.append(poly)
+
+        #polygons.append(Polygon([[p.x, p.y] for p in pointList]))
 
     # Write to shp
     schema = {
         'geometry': 'Polygon',
-        'properties': {'id': 'int'}
+        'properties': {'id': 'int',
+                       'path': 'str'
+                       }
     }
 
     id = 0
@@ -77,7 +84,9 @@ def create_catalog(path, output_dir):
         for polygon in polygons:
             c.write({
                 'geometry': mapping(polygon),
-                'properties': {'id': id}
+                'properties': {'id': id,
+                               'path': path
+                               }
             })
 
             id += 1
