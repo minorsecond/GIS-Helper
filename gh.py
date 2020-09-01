@@ -266,19 +266,20 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.catalogTiffOutputWindow.setRowCount(len(raster_dictionary))
         for filepath, bounds in raster_dictionary.items():
             print(f"adding {filepath} to window.")
+            print(bounds[1])
 
             filename = os.path.basename(filepath)
 
             self.catalogTiffOutputWindow.setItem(row, 0,
                                                  QTableWidgetItem(filename))
-            self.catalogTiffOutputWindow.setItem(row, 1,
-                                                 QTableWidgetItem(bounds[0]))
-            self.catalogTiffOutputWindow.setItem(row, 2,
-                                                 QTableWidgetItem(bounds[1]))
-            self.catalogTiffOutputWindow.setItem(row, 3,
-                                                 QTableWidgetItem(bounds[2]))
-            self.catalogTiffOutputWindow.setItem(row, 4,
-                                                 QTableWidgetItem(bounds[3]))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 1, QTableWidgetItem(str(bounds[0])))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 2, QTableWidgetItem(str(bounds[1])))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 3, QTableWidgetItem(str(bounds[2])))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 4, QTableWidgetItem(str(bounds[3])))
             row += 1
 
         return raster_count, raster_dictionary
