@@ -10,6 +10,7 @@ from gui import QtWidgets, Ui_MainWindow
 from vector import meta
 from raster import measurements
 from spatial_functions.calculations import Convert, origin_calc
+from PyQt5.QtWidgets import QHeaderView, QTableWidgetItem
 
 anaconda_dir = os.path.join(str(Path.home()), "anaconda3\\envs\\GIS-Helper")
 print("Anaconda3 Dir: {}".format(anaconda_dir))
@@ -26,6 +27,13 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setFixedSize(self.size())
+
+        self.catalogTiffOutputWindow.setColumnCount(5)
+        self.catalogTiffOutputWindow.setHorizontalHeaderLabels(['Filename',
+                                                                'ULX', 'ULY',
+                                                                'LRX', 'LRY'])
+        self.catalogTiffOutputWindow.horizontalHeader().\
+            setSectionResizeMode(0, QHeaderView.Stretch)
 
         self.shape_functions = meta.PolygonFunctions()
 
@@ -237,6 +245,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return: tuple of bounding coordinates
         """
 
+        # TODO: Fix output, switched to tablewidget
+
         path = self.geoTiffDir1.text()
         output_path = self.TiffCatalogOutputEdit.text()
         fanout = False
@@ -252,10 +262,25 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
             format(raster_count)
         output_text += 'Raster paths and bounds (ulX, ulY, lrX, lrY): \n'
 
+        row = 0
+        self.catalogTiffOutputWindow.setRowCount(len(raster_dictionary))
         for filepath, bounds in raster_dictionary.items():
-            output_text += '{0}: {1}\n\n'.format(filepath, bounds)
+            print(f"adding {filepath} to window.")
+            print(bounds[1])
 
-        self.catalogTiffOutputWindow.setText(output_text)
+            filename = os.path.basename(filepath)
+
+            self.catalogTiffOutputWindow.setItem(row, 0,
+                                                 QTableWidgetItem(filename))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 1, QTableWidgetItem(str(bounds[0])))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 2, QTableWidgetItem(str(bounds[1])))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 3, QTableWidgetItem(str(bounds[2])))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 4, QTableWidgetItem(str(bounds[3])))
+            row += 1
 
         return raster_count, raster_dictionary
 

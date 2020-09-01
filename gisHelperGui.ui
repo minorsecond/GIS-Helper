@@ -668,25 +668,6 @@
        <string>Browse</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="catalogTiffOutputWindow">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>192</y>
-        <width>755</width>
-        <height>325</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
      <widget class="QCheckBox" name="FanOutByRes">
       <property name="geometry">
        <rect>
@@ -769,6 +750,16 @@
       </property>
       <property name="text">
        <string>Process</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="catalogTiffOutputWindow">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>190</y>
+        <width>761</width>
+        <height>341</height>
+       </rect>
       </property>
      </widget>
     </widget>
