@@ -10,6 +10,7 @@ from gui import QtWidgets, Ui_MainWindow
 from vector import meta
 from raster import measurements
 from spatial_functions.calculations import Convert, origin_calc
+from PyQt5.QtWidgets import QHeaderView
 
 anaconda_dir = os.path.join(str(Path.home()), "anaconda3\\envs\\GIS-Helper")
 print("Anaconda3 Dir: {}".format(anaconda_dir))
@@ -26,6 +27,14 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setFixedSize(self.size())
+
+        self.catalogTiffOutputWindow.setColumnCount(5)
+        self.catalogTiffOutputWindow.setHorizontalHeaderLabels(['Path', 'ULX',
+                                                                'ULY', 'LRX',
+                                                                'LRY'])
+        self.catalogTiffOutputWindow.horizontalHeader().\
+            setSectionResizeMode(0, QHeaderView.Stretch)
+
 
         self.shape_functions = meta.PolygonFunctions()
 
@@ -236,6 +245,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :param path: path to raster
         :return: tuple of bounding coordinates
         """
+
+        # TODO: Fix output, switched to tablewidget
 
         path = self.geoTiffDir1.text()
         output_path = self.TiffCatalogOutputEdit.text()
