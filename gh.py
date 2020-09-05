@@ -10,6 +10,8 @@ from gui import QtWidgets, Ui_MainWindow
 from vector import meta
 from raster import measurements
 from spatial_functions.calculations import Convert, origin_calc
+from raster import measurements as raster_measurements
+from shapely.geometry import Polygon
 from PyQt5.QtWidgets import QHeaderView, QTableWidgetItem
 
 anaconda_dir = os.path.join(str(Path.home()), "anaconda3\\envs\\GIS-Helper")
@@ -294,10 +296,45 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         shapefile_directory = self.intersectingShapefileEdit.text()
         output_directory = self.geoTiffOutputDirEdit.text()
 
+        polygons = []
+        raster_paths = []
+        intersecting_rasters = []
+
         payload = (tiff_directory, shapefile_directory, output_directory)
 
         polygon_functions = meta.PolygonFunctions()
-        polygon_functions.get_polygon_vertices(payload)
+        shp_vertices = polygon_functions.get_polygon_vertices(payload)
+        for polygon in shp_vertices:
+            shp_poly = Polygon(polygon)
+            polygons.append(shp_poly)
+
+        for root, dirname, filenames in os.walk(tiff_directory):
+            for file in filenames:
+                if os.path.splitext(file)[1].lower() == ".tif":
+                    raster_path = os.path.join(root, file)
+                    raster_paths.append(raster_path)
+
+        raster_bounds = raster_measurements.calculate_raster_bounds(raster_paths)[1]
+
+        for path, bounds in raster_bounds.items():
+            raster_ulx = bounds[0]
+            raster_uly = bounds[1]
+            raster_lrx = bounds[2]
+            raster_lry = bounds[3]
+            raster_llx = raster_ulx
+            raster_lly = raster_lry
+            raster_urx = raster_lrx
+            raster_ury = raster_uly
+            raster_poly = Polygon([(raster_llx, raster_lly),
+                                   (raster_ulx, raster_uly),
+                                   (raster_urx, raster_ury),
+                                   (raster_lrx, raster_lry)])
+            print("Got raster poly")
+            for polygon in polygons:
+                if polygon.intersects(raster_poly):
+                    intersecting_rasters.append(path)
+        print(f"Intersecting rasters: {intersecting_rasters}")
+
 
     def get_origin(self):
         """
