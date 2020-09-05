@@ -14,9 +14,9 @@ def intersect_by_shape(tiff_directory, shapefile_path, output_directory):
     Find rasters that intersect polygons in a shapefile.
     :param tiff_directory: String denoting path of a directory
     containing rasters.
-    :param shapefile_directory: String denoting path to a shapefile
+    :param shapefile_directory: String denoting path to a shapefile.
     :param output_directory: Path denoting output path.
-    :return:
+    :return: A list containing paths of rasters that intersect the polygons.
     """
     polygons = []
     raster_paths = []
