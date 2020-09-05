@@ -47,7 +47,7 @@
      <bool>false</bool>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="gisCalc">
      <attribute name="title">
@@ -890,7 +890,7 @@
        <string>Browse</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_2">
+     <widget class="QCheckBox" name="CopyFanoutByResolution">
       <property name="geometry">
        <rect>
         <x>12</x>

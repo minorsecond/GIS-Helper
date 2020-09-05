@@ -12,6 +12,7 @@ from raster import measurements
 from spatial_functions.calculations import Convert, origin_calc
 from raster import measurements as raster_measurements
 from shapely.geometry import Polygon
+import shutil
 from PyQt5.QtWidgets import QHeaderView, QTableWidgetItem
 
 anaconda_dir = os.path.join(str(Path.home()), "anaconda3\\envs\\GIS-Helper")
@@ -247,8 +248,6 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return: tuple of bounding coordinates
         """
 
-        # TODO: Fix output, switched to tablewidget
-
         path = self.geoTiffDir1.text()
         output_path = self.TiffCatalogOutputEdit.text()
         fanout = False
@@ -291,6 +290,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         Handles code that copies tifs
         :return: IO
         """
+        rasters_by_resolution = {}
+        resolution = None
 
         tiff_directory = self.TiffDirectory.text()
         shapefile_directory = self.intersectingShapefileEdit.text()
@@ -314,7 +315,8 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                     raster_path = os.path.join(root, file)
                     raster_paths.append(raster_path)
 
-        raster_bounds = raster_measurements.calculate_raster_bounds(raster_paths)[1]
+        raster_bounds = raster_measurements.\
+            calculate_raster_bounds(raster_paths)[1]
 
         for path, bounds in raster_bounds.items():
             raster_ulx = bounds[0]
@@ -329,12 +331,29 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                                    (raster_ulx, raster_uly),
                                    (raster_urx, raster_ury),
                                    (raster_lrx, raster_lry)])
-            print("Got raster poly")
+
             for polygon in polygons:
                 if polygon.intersects(raster_poly):
                     intersecting_rasters.append(path)
-        print(f"Intersecting rasters: {intersecting_rasters}")
 
+        if self.CopyFanoutByResolution.isChecked():
+            for raster_path in intersecting_rasters:
+                resolution = measurements.get_resolution(raster_path)
+
+                # Create resolution directory name
+                resolution = f"{resolution[0]}x{resolution[1]}"
+                output_basedir = os.path.join(output_directory, resolution)
+                if not os.path.exists(output_basedir):
+                    os.mkdir(output_basedir)
+                output_filename = os.path.basename(raster_path)
+                output_raster_path = os.path.join(output_basedir,
+                                                  output_filename)
+                shutil.copy(raster_path, output_raster_path)
+        else:
+            for raster_path in intersecting_rasters:
+                output_path = os.path.join(output_directory,
+                                           os.path.basename(raster_path))
+                shutil.copy(raster_path, output_path)
 
     def get_origin(self):
         """
