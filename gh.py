@@ -72,7 +72,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openfile = QtWidgets.QFileDialog.getOpenFileName(self)
+        openfile = QtWidgets.QFileDialog.getOpenFileName(self, "Open Intersecting Shapefile", None, "shp(*.shp)")[0]
         self.intersectingShapefileEdit.setText(openfile)
 
     def browse_for_tiff_directory(self):
