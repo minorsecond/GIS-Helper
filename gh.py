@@ -329,6 +329,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                                                   QTableWidgetItem(raster_path))
                 self.copyTiffOutputWindow.setItem(row_position, 1,
                                                   QTableWidgetItem(output_raster_path))
+                self.copyTiffOutputWindow.resizeRowsToContents()
         else:
             for raster_path in intersecting_rasters:
                 row_position = self.copyTiffOutputWindow.rowCount()
@@ -340,6 +341,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                                                   QTableWidgetItem(raster_path))
                 self.copyTiffOutputWindow.setItem(row_position, 1,
                                                   QTableWidgetItem(output_path))
+                self.copyTiffOutputWindow.resizeRowsToContents()
     def get_origin(self):
         """
         Button function to get origin calculation. Runs the origin_calc()
