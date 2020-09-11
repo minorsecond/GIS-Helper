@@ -1,4 +1,5 @@
 from os.path import join, splitext
+from os import mkdir
 from os import walk
 import gdal
 import rasterio as rio
@@ -37,9 +38,12 @@ def calculate_raster_bounds(rasters):
     return raster_count, raster_dictionary
 
 
-def create_catalog(path, output_dir):
+def create_catalog(path, output_dir, fanout=False):
+    rasters_by_resolution = {}
     rasters = []
     polygons = []
+    resolution = None
+
     output_path = join(output_dir, 'tif_catalog.shp')
 
     for dirpath, dirnames, filenames in walk(path):
@@ -47,11 +51,14 @@ def create_catalog(path, output_dir):
             if splitext(file)[1].lower() == '.tif':
                 rasters.append(join(dirpath, file))
 
+    # rasters is a dict - path: [ulx, uly, lrx, lry]
     count, rasters = calculate_raster_bounds(rasters)
 
-    print("Creating polygons")
     # Create the polygons
     for path, bounds in rasters.items():
+        resolution = get_resolution(path)
+        resolution = f"{resolution[0]}x{resolution[1]}"
+
         ulx = bounds[0]
         uly = bounds[1]
         lrx = bounds[2]
@@ -64,25 +71,72 @@ def create_catalog(path, output_dir):
 
         pointList = [p1, p2, p3, p4]
 
-        polygons.append(Polygon([[p.x, p.y] for p in pointList]))
+        poly = Polygon([[p.x, p.y] for p in pointList])
+        poly.path = path
+        poly.resolution = resolution
+
+        if fanout:  # Build the resolution dictionary
+            if resolution not in rasters_by_resolution:
+                rasters_by_resolution[resolution] = [poly]
+            else:
+                rasters_by_resolution[resolution].append(poly)
+        else:
+            polygons.append(poly)
 
     # Write to shp
     schema = {
         'geometry': 'Polygon',
-        'properties': {'id': 'int'}
+        'properties': {'id': 'int',
+                       'path': 'str',
+                       'resolution': 'str'}
     }
 
-    id = 0
-    with fiona.open(output_path, 'w', 'ESRI Shapefile', schema) as c:
-        for polygon in polygons:
-            c.write({
-                'geometry': mapping(polygon),
-                'properties': {'id': id}
-            })
+    row_number = 0
+    if fanout:
+        for resolution, polygons in rasters_by_resolution.items():
+            output_basedir = join(output_dir, resolution)
+            mkdir(output_basedir)
+            output_filename = resolution + "_raster_catalog.shp"
+            output_path = join(output_basedir, output_filename)
+            with fiona.open(output_path, 'w', 'ESRI Shapefile', schema) as c:
+                for polygon in polygons:
+                    c.write({
+                        'geometry': mapping(polygon),
+                        'properties': {'id': row_number,
+                                       'path': path,
+                                       'resolution': resolution
+                                       }
+                    })
 
-            id += 1
+                    row_number += 1
+
+    else:
+        with fiona.open(output_path, 'w', 'ESRI Shapefile', schema) as c:
+            for polygon in polygons:
+                c.write({
+                    'geometry': mapping(polygon),
+                    'properties': {'id': row_number,
+                                   'path': path,
+                                   'resolution': resolution
+                                   }
+                })
+
+                row_number += 1
 
     return count, rasters
+
+
+def get_resolution(raster_path):
+    """
+    Gets resolution if input raster
+    :param raster_path: Path to raster
+    :return: list of integers denoting resolution of raster
+    """
+
+    with rio.open(raster_path) as raster:
+        res = raster.res
+
+    return res
 
 
 class RasterMeasurements:

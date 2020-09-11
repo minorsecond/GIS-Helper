@@ -47,7 +47,7 @@
      <bool>false</bool>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="gisCalc">
      <attribute name="title">
@@ -668,26 +668,7 @@
        <string>Browse</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="catalogTiffOutputWindow">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>192</y>
-        <width>755</width>
-        <height>325</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-        <pointsize>11</pointsize>
-       </font>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="checkBox">
+     <widget class="QCheckBox" name="FanOutByRes">
       <property name="geometry">
        <rect>
         <x>12</x>
@@ -769,6 +750,16 @@
       </property>
       <property name="text">
        <string>Process</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="catalogTiffOutputWindow">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>190</y>
+        <width>761</width>
+        <height>341</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -899,7 +890,7 @@
        <string>Browse</string>
       </property>
      </widget>
-     <widget class="QCheckBox" name="checkBox_2">
+     <widget class="QCheckBox" name="CopyFanoutByResolution">
       <property name="geometry">
        <rect>
         <x>12</x>
@@ -915,19 +906,6 @@
       </property>
       <property name="text">
        <string>Fan out by resolution</string>
-      </property>
-     </widget>
-     <widget class="QTextEdit" name="catalogTiffOutputWindow_2">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>192</y>
-        <width>755</width>
-        <height>325</height>
-       </rect>
-      </property>
-      <property name="readOnly">
-       <bool>true</bool>
       </property>
      </widget>
      <widget class="QProgressBar" name="progressBar">
@@ -954,6 +932,16 @@
       </property>
       <property name="text">
        <string>Process</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="copyTiffOutputWindow">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>190</y>
+        <width>761</width>
+        <height>341</height>
+       </rect>
       </property>
      </widget>
     </widget>

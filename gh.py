@@ -10,6 +10,10 @@ from gui import QtWidgets, Ui_MainWindow
 from vector import meta
 from raster import measurements
 from spatial_functions.calculations import Convert, origin_calc
+from raster import meta as raster_functions
+from shapely.geometry import Polygon
+import shutil
+from PyQt5.QtWidgets import QHeaderView, QTableWidgetItem
 
 anaconda_dir = os.path.join(str(Path.home()), "anaconda3\\envs\\GIS-Helper")
 print("Anaconda3 Dir: {}".format(anaconda_dir))
@@ -26,6 +30,20 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
         self.setFixedSize(self.size())
+
+        self.catalogTiffOutputWindow.setColumnCount(5)
+        self.catalogTiffOutputWindow.setHorizontalHeaderLabels(['Filename',
+                                                                'ULX', 'ULY',
+                                                                'LRX', 'LRY'])
+
+        self.copyTiffOutputWindow.setColumnCount(2)
+        self.copyTiffOutputWindow.setColumnWidth(0, 380)
+        self.copyTiffOutputWindow.setColumnWidth(1, 379)
+        self.copyTiffOutputWindow.setHorizontalHeaderLabels(["Source",
+                                                            "Destination"])
+
+        self.catalogTiffOutputWindow.horizontalHeader().\
+            setSectionResizeMode(0, QHeaderView.Stretch)
 
         self.shape_functions = meta.PolygonFunctions()
 
@@ -64,7 +82,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         :return:
         """
 
-        openfile = QtWidgets.QFileDialog.getOpenFileName(self)
+        openfile = QtWidgets.QFileDialog.getOpenFileName(self, "Open Intersecting Shapefile", None, "shp(*.shp)")[0]
         self.intersectingShapefileEdit.setText(openfile)
 
     def browse_for_tiff_directory(self):
@@ -239,36 +257,91 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
 
         path = self.geoTiffDir1.text()
         output_path = self.TiffCatalogOutputEdit.text()
+        fanout = False
+
+        if self.FanOutByRes.isChecked():
+            fanout = True
+            print("Fanning out by resolution.")
 
         raster_count, raster_dictionary = measurements.\
-            create_catalog(path, output_path)
+            create_catalog(path, output_path, fanout)
 
         output_text = "Finished processing {0} rasters.\n\n".\
             format(raster_count)
         output_text += 'Raster paths and bounds (ulX, ulY, lrX, lrY): \n'
 
+        row = 0
+        self.catalogTiffOutputWindow.setRowCount(len(raster_dictionary))
         for filepath, bounds in raster_dictionary.items():
-            output_text += '{0}: {1}\n\n'.format(filepath, bounds)
+            print(f"adding {filepath} to window.")
+            print(bounds[1])
 
-        self.catalogTiffOutputWindow.setText(output_text)
+            filename = os.path.basename(filepath)
+
+            self.catalogTiffOutputWindow.setItem(row, 0,
+                                                 QTableWidgetItem(filename))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 1, QTableWidgetItem(str(bounds[0])))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 2, QTableWidgetItem(str(bounds[1])))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 3, QTableWidgetItem(str(bounds[2])))
+            self.catalogTiffOutputWindow.\
+                setItem(row, 4, QTableWidgetItem(str(bounds[3])))
+            row += 1
 
         return raster_count, raster_dictionary
 
     def handle_tiff_copy(self):
         """
         Handles code that copies tifs
-        :return: IO
+        :return: None
         """
+        rasters_by_resolution = {}
+        resolution = None
 
         tiff_directory = self.TiffDirectory.text()
-        shapefile_directory = self.intersectingShapefileEdit.text()
+        shapefile_path = self.intersectingShapefileEdit.text()
         output_directory = self.geoTiffOutputDirEdit.text()
 
-        payload = (tiff_directory, shapefile_directory, output_directory)
+        intersecting_rasters = raster_functions.\
+            intersect_by_shape(tiff_directory, shapefile_path,
+                               output_directory)
+        self.copyTiffOutputWindow.clear()
 
-        polygon_functions = meta.PolygonFunctions()
-        polygon_functions.get_polygon_vertices(payload)
+        if self.CopyFanoutByResolution.isChecked():
+            for raster_path in intersecting_rasters:
+                row_position = self.copyTiffOutputWindow.rowCount()
+                self.copyTiffOutputWindow.insertRow(row_position)
+                resolution = measurements.get_resolution(raster_path)
 
+                # Create resolution directory name
+                resolution = f"{resolution[0]}x{resolution[1]}"
+                output_basedir = os.path.join(output_directory, resolution)
+                if not os.path.exists(output_basedir):
+                    os.mkdir(output_basedir)
+                output_filename = os.path.basename(raster_path)
+                output_raster_path = os.path.join(output_basedir,
+                                                  output_filename)
+                shutil.copy(raster_path, output_raster_path)
+
+                self.copyTiffOutputWindow.setItem(row_position, 0,
+                                                  QTableWidgetItem(raster_path))
+                self.copyTiffOutputWindow.setItem(row_position, 1,
+                                                  QTableWidgetItem(output_raster_path))
+                self.copyTiffOutputWindow.resizeRowsToContents()
+        else:
+            for raster_path in intersecting_rasters:
+                row_position = self.copyTiffOutputWindow.rowCount()
+                self.copyTiffOutputWindow.insertRow(row_position)
+                output_path = os.path.join(output_directory,
+                                           os.path.basename(raster_path))
+                shutil.copy(raster_path, output_path)
+                self.copyTiffOutputWindow.setItem(row_position, 0,
+                                                  QTableWidgetItem(raster_path))
+                self.copyTiffOutputWindow.setItem(row_position, 1,
+                                                  QTableWidgetItem(output_path))
+                self.copyTiffOutputWindow.resizeRowsToContents()
     def get_origin(self):
         """
         Button function to get origin calculation. Runs the origin_calc()

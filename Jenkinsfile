@@ -51,7 +51,7 @@ pipeline {
             steps {
                 bat """call activate GIS-Helper
                        call conda info --envs
-                       call pyinstaller --onefile gh-debug.spec"""
+                       call pyinstaller --onefile gh-release.spec"""
             }
             post {
                 success {

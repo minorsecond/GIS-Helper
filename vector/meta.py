@@ -47,7 +47,7 @@ class PolygonFunctions:
         for polygon in self.shapes:
             self.vertices.append(polygon.points)
 
-        print(self.vertices)
+        return self.vertices
 
     def display_shapefile(self, shapefile_path):
         """
