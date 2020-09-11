@@ -35,6 +35,13 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         self.catalogTiffOutputWindow.setHorizontalHeaderLabels(['Filename',
                                                                 'ULX', 'ULY',
                                                                 'LRX', 'LRY'])
+
+        self.copyTiffOutputWindow.setColumnCount(2)
+        self.copyTiffOutputWindow.setColumnWidth(0, 380)
+        self.copyTiffOutputWindow.setColumnWidth(1, 379)
+        self.copyTiffOutputWindow.setHorizontalHeaderLabels(["Source",
+                                                            "Destination"])
+
         self.catalogTiffOutputWindow.horizontalHeader().\
             setSectionResizeMode(0, QHeaderView.Stretch)
 
@@ -300,9 +307,12 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         intersecting_rasters = raster_functions.\
             intersect_by_shape(tiff_directory, shapefile_path,
                                output_directory)
+        self.copyTiffOutputWindow.clear()
 
         if self.CopyFanoutByResolution.isChecked():
             for raster_path in intersecting_rasters:
+                row_position = self.copyTiffOutputWindow.rowCount()
+                self.copyTiffOutputWindow.insertRow(row_position)
                 resolution = measurements.get_resolution(raster_path)
 
                 # Create resolution directory name
@@ -314,12 +324,24 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                 output_raster_path = os.path.join(output_basedir,
                                                   output_filename)
                 shutil.copy(raster_path, output_raster_path)
+
+                self.copyTiffOutputWindow.setItem(row_position, 0,
+                                                  QTableWidgetItem(raster_path))
+                self.copyTiffOutputWindow.setItem(row_position, 1,
+                                                  QTableWidgetItem(output_raster_path))
+                self.copyTiffOutputWindow.resizeRowsToContents()
         else:
             for raster_path in intersecting_rasters:
+                row_position = self.copyTiffOutputWindow.rowCount()
+                self.copyTiffOutputWindow.insertRow(row_position)
                 output_path = os.path.join(output_directory,
                                            os.path.basename(raster_path))
                 shutil.copy(raster_path, output_path)
-
+                self.copyTiffOutputWindow.setItem(row_position, 0,
+                                                  QTableWidgetItem(raster_path))
+                self.copyTiffOutputWindow.setItem(row_position, 1,
+                                                  QTableWidgetItem(output_path))
+                self.copyTiffOutputWindow.resizeRowsToContents()
     def get_origin(self):
         """
         Button function to get origin calculation. Runs the origin_calc()
