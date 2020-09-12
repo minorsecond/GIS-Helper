@@ -307,7 +307,7 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         intersecting_rasters = raster_functions.\
             intersect_by_shape(tiff_directory, shapefile_path,
                                output_directory)
-        self.copyTiffOutputWindow.clear()
+        self.copyTiffOutputWindow.setRowCount(0)
 
         if self.CopyFanoutByResolution.isChecked():
             for raster_path in intersecting_rasters:
@@ -325,10 +325,11 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                                                   output_filename)
                 shutil.copy(raster_path, output_raster_path)
 
-                self.copyTiffOutputWindow.setItem(row_position, 0,
-                                                  QTableWidgetItem(raster_path))
-                self.copyTiffOutputWindow.setItem(row_position, 1,
-                                                  QTableWidgetItem(output_raster_path))
+                self.copyTiffOutputWindow.\
+                    setItem(row_position, 0, QTableWidgetItem(raster_path))
+                self.copyTiffOutputWindow.\
+                    setItem(row_position, 1,
+                            QTableWidgetItem(output_raster_path))
                 self.copyTiffOutputWindow.resizeRowsToContents()
         else:
             for raster_path in intersecting_rasters:
@@ -337,11 +338,12 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
                 output_path = os.path.join(output_directory,
                                            os.path.basename(raster_path))
                 shutil.copy(raster_path, output_path)
-                self.copyTiffOutputWindow.setItem(row_position, 0,
-                                                  QTableWidgetItem(raster_path))
-                self.copyTiffOutputWindow.setItem(row_position, 1,
-                                                  QTableWidgetItem(output_path))
+                self.copyTiffOutputWindow.\
+                    setItem(row_position, 0, QTableWidgetItem(raster_path))
+                self.copyTiffOutputWindow.\
+                    setItem(row_position, 1, QTableWidgetItem(output_path))
                 self.copyTiffOutputWindow.resizeRowsToContents()
+
     def get_origin(self):
         """
         Button function to get origin calculation. Runs the origin_calc()
