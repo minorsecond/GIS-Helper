@@ -7,15 +7,14 @@ import shapefile
 from shapely.geometry import MultiPolygon, shape
 from descartes import PolygonPatch
 
+# This is required for pyinstaller
+from fiona import _shim, schema  # noqa
+plt.style.use('ggplot')
+
 if sys_pf == 'darwin':
     matplotlib.use('macosx')
 else:
     matplotlib.use('TKAgg')
-
-
-# This is required for pyinstaller
-from fiona import _shim, schema  # noqa
-plt.style.use('ggplot')
 
 
 class PolygonFunctions:
