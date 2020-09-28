@@ -15,7 +15,7 @@ else:
 
 # This is required for pyinstaller
 from fiona import _shim, schema  # noqa
-#plt.style.use('ggplot')
+plt.style.use('ggplot')
 
 
 class PolygonFunctions:
