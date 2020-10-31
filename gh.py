@@ -29,7 +29,6 @@ class GisHelper(QtWidgets.QMainWindow, Ui_MainWindow):
         QtWidgets.QMainWindow.__init__(self)
         Ui_MainWindow.__init__(self)
         self.setupUi(self)
-        self.setFixedSize(self.size())
 
         self.catalogTiffOutputWindow.setColumnCount(5)
         self.catalogTiffOutputWindow.setHorizontalHeaderLabels(['Filename',

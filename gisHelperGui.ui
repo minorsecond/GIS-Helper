@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>847</width>
+    <height>611</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -15,6 +15,12 @@
     <horstretch>0</horstretch>
     <verstretch>0</verstretch>
    </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="windowTitle">
    <string>GIS Helper</string>
@@ -26,1063 +32,775 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
-   <widget class="QTabWidget" name="tabContainer">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>6</y>
-      <width>781</width>
-      <height>569</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Helvetica</family>
-     </font>
-    </property>
-    <property name="acceptDrops">
-     <bool>false</bool>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="gisCalc">
-     <attribute name="title">
-      <string>GIS Calculator</string>
-     </attribute>
-     <widget class="QGroupBox" name="centroidGroup">
-      <property name="geometry">
-       <rect>
-        <x>4</x>
-        <y>20</y>
-        <width>361</width>
-        <height>529</height>
-       </rect>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabContainer">
+      <property name="enabled">
+       <bool>true</bool>
       </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-       </font>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <widget class="QLabel" name="centroidCalcLabel">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>10</y>
-         <width>321</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Calculate Origin</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="originClearButton">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>470</y>
-         <width>113</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Clear</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="originCalculateButton">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>470</y>
-         <width>113</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Calculate</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="originResultsLabel">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>350</y>
-         <width>321</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Origin</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="ddButtonCalcOrigin_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>250</y>
-         <width>131</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Decimal Degrees</string>
-       </property>
-       <property name="checked">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="llButtonCalcOrigin_4">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>280</y>
-         <width>131</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Lat/Lon</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>220</y>
-         <width>141</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Coordinate System</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="westXEntry">
-       <property name="geometry">
-        <rect>
-         <x>15</x>
-         <y>108</y>
-         <width>103</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>32767</number>
-       </property>
-       <property name="placeholderText">
-        <string>East X</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="eastXEntry">
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>108</y>
-         <width>103</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>32767</number>
-       </property>
-       <property name="placeholderText">
-        <string>West X</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="northYEntry">
-       <property name="geometry">
-        <rect>
-         <x>128</x>
-         <y>60</y>
-         <width>103</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="accessibleName">
-        <string/>
-       </property>
-       <property name="autoFillBackground">
-        <bool>false</bool>
-       </property>
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="text">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>32767</number>
-       </property>
-       <property name="cursorPosition">
-        <number>0</number>
-       </property>
-       <property name="placeholderText">
-        <string>North Y</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="southYEntry">
-       <property name="geometry">
-        <rect>
-         <x>128</x>
-         <y>160</y>
-         <width>103</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>32767</number>
-       </property>
-       <property name="placeholderText">
-        <string>South Y</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_3">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>88</y>
-         <width>59</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>West X</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_4">
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>88</y>
-         <width>59</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>East X</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_5">
-       <property name="geometry">
-        <rect>
-         <x>128</x>
-         <y>40</y>
-         <width>59</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>North Y</string>
-       </property>
-      </widget>
-      <widget class="QLabel" name="label_6">
-       <property name="geometry">
-        <rect>
-         <x>128</x>
-         <y>140</y>
-         <width>59</width>
-         <height>16</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>South Y</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="originOutputBox">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>376</y>
-         <width>321</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QGroupBox" name="originGroup">
-      <property name="geometry">
-       <rect>
-        <x>410</x>
-        <y>20</y>
-        <width>361</width>
-        <height>529</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-       </font>
-      </property>
-      <property name="inputMethodHints">
-       <set>Qt::ImhNone</set>
-      </property>
-      <property name="title">
-       <string/>
-      </property>
-      <widget class="QLabel" name="centroidCalcLabel_2">
-       <property name="geometry">
-        <rect>
-         <x>20</x>
-         <y>10</y>
-         <width>321</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-         <weight>75</weight>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Convert Coordinates</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignCenter</set>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="convCoordClear">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>10</x>
-         <y>470</y>
-         <width>113</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Clear</string>
-       </property>
-      </widget>
-      <widget class="QPushButton" name="convCoordCalc">
-       <property name="enabled">
-        <bool>true</bool>
-       </property>
-       <property name="geometry">
-        <rect>
-         <x>240</x>
-         <y>470</y>
-         <width>113</width>
-         <height>32</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="text">
-        <string>Calculate</string>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="converterOutput">
-       <property name="geometry">
-        <rect>
-         <x>22</x>
-         <y>376</y>
-         <width>321</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-      <widget class="QLineEdit" name="converCoordsEntry">
-       <property name="geometry">
-        <rect>
-         <x>120</x>
-         <y>108</y>
-         <width>126</width>
-         <height>29</height>
-        </rect>
-       </property>
-       <property name="font">
-        <font>
-         <family>Arial</family>
-        </font>
-       </property>
-       <property name="inputMask">
-        <string/>
-       </property>
-       <property name="maxLength">
-        <number>32767</number>
-       </property>
-       <property name="placeholderText">
-        <string>Input Coordinates</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="dmsToDD">
-       <property name="geometry">
-        <rect>
-         <x>76</x>
-         <y>56</y>
-         <width>100</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>DMS to DD</string>
-       </property>
-      </widget>
-      <widget class="QRadioButton" name="DDToDMS">
-       <property name="geometry">
-        <rect>
-         <x>192</x>
-         <y>56</y>
-         <width>100</width>
-         <height>20</height>
-        </rect>
-       </property>
-       <property name="text">
-        <string>DD to DMS</string>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QLabel" name="coordinatesResultsLabel">
-      <property name="geometry">
-       <rect>
-        <x>430</x>
-        <y>368</y>
-        <width>321</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Converted Coordinates</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
-      </property>
-     </widget>
-     <zorder>originGroup</zorder>
-     <zorder>centroidGroup</zorder>
-     <zorder>coordinatesResultsLabel</zorder>
-    </widget>
-    <widget class="QWidget" name="catalogTiff">
-     <attribute name="title">
-      <string>Catalog Tiffs</string>
-     </attribute>
-     <widget class="QLabel" name="label_2">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>30</y>
-        <width>121</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="text">
-       <string>Geotiff Directory: </string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="catalogTiffBrowseButton">
-      <property name="geometry">
-       <rect>
-        <x>652</x>
-        <y>26</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
       </property>
       <property name="font">
        <font>
         <family>Helvetica</family>
        </font>
       </property>
-      <property name="text">
-       <string>Browse</string>
+      <property name="acceptDrops">
+       <bool>false</bool>
       </property>
-     </widget>
-     <widget class="QLabel" name="tiffCatalogOutputLabel">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>78</y>
-        <width>105</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Output Directory: </string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="catalogTiffBOutputrowseButton">
-      <property name="geometry">
-       <rect>
-        <x>652</x>
-        <y>72</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Browse</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="FanOutByRes">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>124</y>
-        <width>153</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Fan out by resolution</string>
-      </property>
-     </widget>
-     <widget class="QProgressBar" name="progressBar_2">
-      <property name="geometry">
-       <rect>
-        <x>16</x>
-        <y>158</y>
-        <width>745</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-       </font>
-      </property>
-      <property name="value">
+      <property name="currentIndex">
        <number>0</number>
       </property>
+      <widget class="QWidget" name="gisCalc">
+       <attribute name="title">
+        <string>GIS Calculator</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QGroupBox" name="centroidGroup">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+           </font>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_7">
+           <item row="8" column="1">
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Coordinate System</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="2">
+            <widget class="QLineEdit" name="eastXEntry">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="maxLength">
+              <number>32767</number>
+             </property>
+             <property name="placeholderText">
+              <string>West X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="13" column="1">
+            <widget class="QFrame" name="frame">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_6">
+              <item row="0" column="0">
+               <widget class="QRadioButton" name="llButtonCalcOrigin_4">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Lat/Lon</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QRadioButton" name="ddButtonCalcOrigin_2">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Decimal Degrees</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="northYEntry">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="accessibleName">
+              <string/>
+             </property>
+             <property name="autoFillBackground">
+              <bool>false</bool>
+             </property>
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="maxLength">
+              <number>32767</number>
+             </property>
+             <property name="cursorPosition">
+              <number>0</number>
+             </property>
+             <property name="placeholderText">
+              <string>North Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <widget class="QLabel" name="label_6">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>South Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="3">
+            <widget class="QLabel" name="centroidCalcLabel">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Calculate Origin</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="17" column="0">
+            <widget class="QPushButton" name="originClearButton">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Clear</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QLineEdit" name="southYEntry">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="maxLength">
+              <number>32767</number>
+             </property>
+             <property name="placeholderText">
+              <string>South Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="17" column="2">
+            <widget class="QPushButton" name="originCalculateButton">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Calculate</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLabel" name="label_5">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>North Y</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="0">
+            <widget class="QLineEdit" name="westXEntry">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="maxLength">
+              <number>32767</number>
+             </property>
+             <property name="placeholderText">
+              <string>East X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <spacer name="verticalSpacer">
+             <property name="orientation">
+              <enum>Qt::Vertical</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>40</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>West X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="2">
+            <widget class="QLabel" name="label_4">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>East X</string>
+             </property>
+            </widget>
+           </item>
+           <item row="14" column="0" colspan="3">
+            <widget class="QFrame" name="frame_3">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_9">
+              <item row="0" column="0">
+               <widget class="QLabel" name="originResultsLabel">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Origin</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLineEdit" name="originOutputBox">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="originGroup">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Minimum" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="font">
+           <font>
+            <family>Arial</family>
+           </font>
+          </property>
+          <property name="inputMethodHints">
+           <set>Qt::ImhNone</set>
+          </property>
+          <property name="title">
+           <string/>
+          </property>
+          <layout class="QGridLayout" name="gridLayout_5">
+           <item row="1" column="1">
+            <widget class="QRadioButton" name="DDToDMS">
+             <property name="text">
+              <string>DD to DMS</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0" colspan="2">
+            <widget class="QLineEdit" name="converCoordsEntry">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="inputMask">
+              <string/>
+             </property>
+             <property name="maxLength">
+              <number>32767</number>
+             </property>
+             <property name="placeholderText">
+              <string>Input Coordinates</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0" colspan="2">
+            <widget class="QLabel" name="centroidCalcLabel_2">
+             <property name="font">
+              <font>
+               <family>Arial</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>Convert Coordinates</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="0">
+            <widget class="QPushButton" name="convCoordClear">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Clear</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QRadioButton" name="dmsToDD">
+             <property name="text">
+              <string>DMS to DD</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="0" colspan="2">
+            <widget class="QFrame" name="frame_2">
+             <property name="frameShape">
+              <enum>QFrame::StyledPanel</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_8">
+              <item row="2" column="0">
+               <widget class="QLineEdit" name="converterOutput">
+                <property name="readOnly">
+                 <bool>true</bool>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QLabel" name="coordinatesResultsLabel">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <weight>75</weight>
+                  <bold>true</bold>
+                 </font>
+                </property>
+                <property name="text">
+                 <string>Converted Coordinates</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignCenter</set>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <spacer name="verticalSpacer_2">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <widget class="QPushButton" name="convCoordCalc">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="font">
+              <font>
+               <family>Arial</family>
+              </font>
+             </property>
+             <property name="text">
+              <string>Calculate</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="catalogTiff">
+       <attribute name="title">
+        <string>Catalog Tiffs</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+            <weight>50</weight>
+            <bold>false</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>Geotiff Directory: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="geoTiffDir1">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="catalogTiffBrowseButton">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="tiffCatalogOutputLabel">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Output Directory: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="TiffCatalogOutputEdit">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="catalogTiffBOutputrowseButton">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0" colspan="2">
+         <widget class="QCheckBox" name="FanOutByRes">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Fan out by resolution</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="catalogTiffProcess">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Process</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0" colspan="3">
+         <widget class="QProgressBar" name="progressBar_2">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="3">
+         <widget class="QTableWidget" name="catalogTiffOutputWindow"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="copyTiffs">
+       <attribute name="title">
+        <string>Copy Tiffs</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="TiffDirectory"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_10">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Intersecting Shapefile: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="BrowseForGeoTiffOutputDir">
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="BrowseForTifDir">
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0" colspan="3">
+         <widget class="QTableWidget" name="copyTiffOutputWindow"/>
+        </item>
+        <item row="3" column="0">
+         <widget class="QCheckBox" name="CopyFanoutByResolution">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Fan out by resolution</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0" colspan="3">
+         <widget class="QProgressBar" name="progressBar">
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLineEdit" name="intersectingShapefileEdit"/>
+        </item>
+        <item row="3" column="2">
+         <widget class="QPushButton" name="CopyTiffProcess">
+          <property name="text">
+           <string>Process</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="2">
+         <widget class="QPushButton" name="BrowseForIntShape">
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_9">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Tif Directory</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_11">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Geotiff Output Directory: </string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="QLineEdit" name="geoTiffOutputDirEdit"/>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="qkShp">
+       <attribute name="title">
+        <string>Shapefile QuickView</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_13">
+          <property name="font">
+           <font>
+            <family>Arial</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Shapefile: </string>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLineEdit" name="shapefileViewPath"/>
+        </item>
+        <item row="0" column="2">
+         <widget class="QPushButton" name="shapefileViewBrowseButton">
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0" colspan="3">
+         <widget class="QGraphicsView" name="shapeViewWindow"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QPushButton" name="shapefileViewClear">
+          <property name="text">
+           <string>Clear</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QPushButton" name="shapefileViewGo">
+          <property name="text">
+           <string>Open Shape</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
      </widget>
-     <widget class="QLineEdit" name="geoTiffDir1">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>28</y>
-        <width>481</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-       </font>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="TiffCatalogOutputEdit">
-      <property name="geometry">
-       <rect>
-        <x>140</x>
-        <y>76</y>
-        <width>481</width>
-        <height>21</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-       </font>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="catalogTiffProcess">
-      <property name="geometry">
-       <rect>
-        <x>652</x>
-        <y>118</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Helvetica</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Process</string>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="catalogTiffOutputWindow">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>190</y>
-        <width>761</width>
-        <height>341</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="copyTiffs">
-     <attribute name="title">
-      <string>Copy Tiffs</string>
-     </attribute>
-     <widget class="QLabel" name="label_9">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>32</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Tif Directory</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_10">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>64</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Intersecting Shapefile: </string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_11">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>96</y>
-        <width>161</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Geotiff Output Directory: </string>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="TiffDirectory">
-      <property name="geometry">
-       <rect>
-        <x>188</x>
-        <y>32</y>
-        <width>433</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="intersectingShapefileEdit">
-      <property name="geometry">
-       <rect>
-        <x>188</x>
-        <y>64</y>
-        <width>433</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="geoTiffOutputDirEdit">
-      <property name="geometry">
-       <rect>
-        <x>188</x>
-        <y>96</y>
-        <width>433</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="BrowseForTifDir">
-      <property name="geometry">
-       <rect>
-        <x>642</x>
-        <y>28</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Browse</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="BrowseForIntShape">
-      <property name="geometry">
-       <rect>
-        <x>642</x>
-        <y>60</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Browse</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="BrowseForGeoTiffOutputDir">
-      <property name="geometry">
-       <rect>
-        <x>642</x>
-        <y>92</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Browse</string>
-      </property>
-     </widget>
-     <widget class="QCheckBox" name="CopyFanoutByResolution">
-      <property name="geometry">
-       <rect>
-        <x>12</x>
-        <y>124</y>
-        <width>153</width>
-        <height>20</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Fan out by resolution</string>
-      </property>
-     </widget>
-     <widget class="QProgressBar" name="progressBar">
-      <property name="geometry">
-       <rect>
-        <x>16</x>
-        <y>158</y>
-        <width>745</width>
-        <height>23</height>
-       </rect>
-      </property>
-      <property name="value">
-       <number>0</number>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="CopyTiffProcess">
-      <property name="geometry">
-       <rect>
-        <x>642</x>
-        <y>124</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Process</string>
-      </property>
-     </widget>
-     <widget class="QTableWidget" name="copyTiffOutputWindow">
-      <property name="geometry">
-       <rect>
-        <x>10</x>
-        <y>190</y>
-        <width>761</width>
-        <height>341</height>
-       </rect>
-      </property>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="qkShp">
-     <attribute name="title">
-      <string>Shapefile QuickView</string>
-     </attribute>
-     <widget class="QGraphicsView" name="shapeViewWindow">
-      <property name="geometry">
-       <rect>
-        <x>6</x>
-        <y>54</y>
-        <width>763</width>
-        <height>433</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_13">
-      <property name="geometry">
-       <rect>
-        <x>22</x>
-        <y>20</y>
-        <width>73</width>
-        <height>16</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>Arial</family>
-       </font>
-      </property>
-      <property name="text">
-       <string>Shapefile: </string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-     <widget class="QLineEdit" name="shapefileViewPath">
-      <property name="geometry">
-       <rect>
-        <x>188</x>
-        <y>18</y>
-        <width>433</width>
-        <height>21</height>
-       </rect>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="shapefileViewBrowseButton">
-      <property name="geometry">
-       <rect>
-        <x>642</x>
-        <y>14</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Browse</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="shapefileViewClear">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>490</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Clear</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="shapefileViewGo">
-      <property name="geometry">
-       <rect>
-        <x>640</x>
-        <y>490</y>
-        <width>113</width>
-        <height>32</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Open Shape</string>
-      </property>
-     </widget>
-    </widget>
-   </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>847</width>
      <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <tabstops>
-  <tabstop>northYEntry</tabstop>
-  <tabstop>westXEntry</tabstop>
-  <tabstop>eastXEntry</tabstop>
-  <tabstop>southYEntry</tabstop>
-  <tabstop>ddButtonCalcOrigin_2</tabstop>
-  <tabstop>llButtonCalcOrigin_4</tabstop>
-  <tabstop>originOutputBox</tabstop>
-  <tabstop>dmsToDD</tabstop>
-  <tabstop>DDToDMS</tabstop>
-  <tabstop>converCoordsEntry</tabstop>
-  <tabstop>converterOutput</tabstop>
-  <tabstop>originClearButton</tabstop>
-  <tabstop>originCalculateButton</tabstop>
-  <tabstop>convCoordClear</tabstop>
-  <tabstop>convCoordCalc</tabstop>
-  <tabstop>tabContainer</tabstop>
-  <tabstop>catalogTiffBrowseButton</tabstop>
-  <tabstop>catalogTiffBOutputrowseButton</tabstop>
-  <tabstop>FanOutByRes</tabstop>
-  <tabstop>geoTiffDir1</tabstop>
-  <tabstop>TiffCatalogOutputEdit</tabstop>
-  <tabstop>catalogTiffProcess</tabstop>
-  <tabstop>catalogTiffOutputWindow</tabstop>
-  <tabstop>TiffDirectory</tabstop>
-  <tabstop>intersectingShapefileEdit</tabstop>
-  <tabstop>geoTiffOutputDirEdit</tabstop>
-  <tabstop>BrowseForTifDir</tabstop>
-  <tabstop>BrowseForIntShape</tabstop>
-  <tabstop>BrowseForGeoTiffOutputDir</tabstop>
-  <tabstop>CopyFanoutByResolution</tabstop>
-  <tabstop>CopyTiffProcess</tabstop>
-  <tabstop>copyTiffOutputWindow</tabstop>
-  <tabstop>shapeViewWindow</tabstop>
-  <tabstop>shapefileViewPath</tabstop>
-  <tabstop>shapefileViewBrowseButton</tabstop>
-  <tabstop>shapefileViewClear</tabstop>
-  <tabstop>shapefileViewGo</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>
