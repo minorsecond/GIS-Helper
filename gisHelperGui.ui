@@ -47,7 +47,7 @@
      <bool>false</bool>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="gisCalc">
      <attribute name="title">
@@ -1038,12 +1038,51 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <tabstops>
+  <tabstop>northYEntry</tabstop>
+  <tabstop>westXEntry</tabstop>
+  <tabstop>eastXEntry</tabstop>
+  <tabstop>southYEntry</tabstop>
+  <tabstop>ddButtonCalcOrigin_2</tabstop>
+  <tabstop>llButtonCalcOrigin_4</tabstop>
+  <tabstop>originOutputBox</tabstop>
+  <tabstop>dmsToDD</tabstop>
+  <tabstop>DDToDMS</tabstop>
+  <tabstop>converCoordsEntry</tabstop>
+  <tabstop>converterOutput</tabstop>
+  <tabstop>originClearButton</tabstop>
+  <tabstop>originCalculateButton</tabstop>
+  <tabstop>convCoordClear</tabstop>
+  <tabstop>convCoordCalc</tabstop>
+  <tabstop>tabContainer</tabstop>
+  <tabstop>catalogTiffBrowseButton</tabstop>
+  <tabstop>catalogTiffBOutputrowseButton</tabstop>
+  <tabstop>FanOutByRes</tabstop>
+  <tabstop>geoTiffDir1</tabstop>
+  <tabstop>TiffCatalogOutputEdit</tabstop>
+  <tabstop>catalogTiffProcess</tabstop>
+  <tabstop>catalogTiffOutputWindow</tabstop>
+  <tabstop>TiffDirectory</tabstop>
+  <tabstop>intersectingShapefileEdit</tabstop>
+  <tabstop>geoTiffOutputDirEdit</tabstop>
+  <tabstop>BrowseForTifDir</tabstop>
+  <tabstop>BrowseForIntShape</tabstop>
+  <tabstop>BrowseForGeoTiffOutputDir</tabstop>
+  <tabstop>CopyFanoutByResolution</tabstop>
+  <tabstop>CopyTiffProcess</tabstop>
+  <tabstop>copyTiffOutputWindow</tabstop>
+  <tabstop>shapeViewWindow</tabstop>
+  <tabstop>shapefileViewPath</tabstop>
+  <tabstop>shapefileViewBrowseButton</tabstop>
+  <tabstop>shapefileViewClear</tabstop>
+  <tabstop>shapefileViewGo</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
