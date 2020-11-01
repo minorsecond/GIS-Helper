@@ -525,6 +525,18 @@
         <string>Catalog Tiffs</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_3">
+        <item row="1" column="2">
+         <widget class="QLineEdit" name="TiffCatalogOutputEdit">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="0" colspan="4">
+         <widget class="QTableWidget" name="catalogTiffOutputWindow"/>
+        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_2">
           <property name="font">
@@ -539,7 +551,31 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
+        <item row="1" column="3">
+         <widget class="QPushButton" name="catalogTiffBOutputrowseButton">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Browse</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3">
+         <widget class="QPushButton" name="catalogTiffProcess">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+          <property name="text">
+           <string>Process</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
          <widget class="QLineEdit" name="geoTiffDir1">
           <property name="font">
            <font>
@@ -548,7 +584,19 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="2">
+        <item row="7" column="0" colspan="4">
+         <widget class="QProgressBar" name="progressBar_2">
+          <property name="font">
+           <font>
+            <family>Helvetica</family>
+           </font>
+          </property>
+          <property name="value">
+           <number>0</number>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
          <widget class="QPushButton" name="catalogTiffBrowseButton">
           <property name="font">
            <font>
@@ -572,28 +620,7 @@
           </property>
          </widget>
         </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="TiffCatalogOutputEdit">
-          <property name="font">
-           <font>
-            <family>Helvetica</family>
-           </font>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="2">
-         <widget class="QPushButton" name="catalogTiffBOutputrowseButton">
-          <property name="font">
-           <font>
-            <family>Helvetica</family>
-           </font>
-          </property>
-          <property name="text">
-           <string>Browse</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0" colspan="2">
+        <item row="3" column="0">
          <widget class="QCheckBox" name="FanOutByRes">
           <property name="font">
            <font>
@@ -605,32 +632,12 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="2">
-         <widget class="QPushButton" name="catalogTiffProcess">
-          <property name="font">
-           <font>
-            <family>Helvetica</family>
-           </font>
-          </property>
+        <item row="3" column="2">
+         <widget class="QCheckBox" name="ignoreNullValuesCheckbox">
           <property name="text">
-           <string>Process</string>
+           <string>Ignore Null Values</string>
           </property>
          </widget>
-        </item>
-        <item row="3" column="0" colspan="3">
-         <widget class="QProgressBar" name="progressBar_2">
-          <property name="font">
-           <font>
-            <family>Helvetica</family>
-           </font>
-          </property>
-          <property name="value">
-           <number>0</number>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0" colspan="3">
-         <widget class="QTableWidget" name="catalogTiffOutputWindow"/>
         </item>
        </layout>
       </widget>
